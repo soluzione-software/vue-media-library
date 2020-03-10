@@ -14,7 +14,7 @@
         />
 
         <template v-if="!readonly">
-            <file-picker class="my-2 mx-1" :accept="accept" @selected="onSelected"/>
+            <file-picker v-if="viewMode !== 'single' || items.length === 0" class="my-2 mx-1" :accept="accept" @selected="onSelected"/>
 
             <modal ref="addModal" :use-portal="usePortal" :portal-target="portalTarget">
                 <div class="p-4 bg-white rounded-lg shadow-2xl">
@@ -57,11 +57,12 @@
     import Modal from "./Modal.vue";
     import ImageCropper from "./ImageCropper.vue";
     import Grid from "./Views/Grid.vue";
+    import Single from "./Views/Single.vue";
     import Media from "../Media.js";
 
     export default {
         name: "MediaLibrary",
-        components: {ImageCropper, Modal, FilePicker, Grid},
+        components: {ImageCropper, Modal, FilePicker, Grid, Single},
         props: {
             media: {
                 type: Array,
@@ -79,6 +80,7 @@
                 validator(value) {
                     return [
                         'grid',
+                        'single',
                         // 'list' todo:
                     ].indexOf(value) !== -1
                 }
