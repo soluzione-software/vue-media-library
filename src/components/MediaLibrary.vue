@@ -144,6 +144,13 @@
                 deletedItems: [],
             }
         },
+        watch: {
+            media(new_){
+                this.items = new_.map(item => {
+                    return Media.fromObject(item);
+                });
+            }
+        },
         mounted(){
             this.items = this.media.map(item => {
                 return Media.fromObject(item);
