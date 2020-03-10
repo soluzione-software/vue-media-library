@@ -14,7 +14,12 @@
         />
 
         <template v-if="!readonly">
-            <file-picker v-if="viewMode !== 'single' || items.length === 0" class="my-2 mx-1" :accept="accept" @selected="onSelected"/>
+            <file-picker
+                    v-if="viewMode !== 'single' || items.length === 0"
+                    class="my-2 mx-1"
+                    :mode="filePickerMode"
+                    :accept="accept"
+                    @selected="onSelected"/>
 
             <modal ref="addModal" :use-portal="usePortal" :portal-target="portalTarget">
                 <div class="p-4 bg-white rounded-lg shadow-2xl">
@@ -53,7 +58,7 @@
     import "tailwindcss/dist/components.css";
     import "tailwindcss/dist/utilities.css";
 
-    import FilePicker from "./FilePicker.vue";
+    import FilePicker from "./FilePicker/index.vue";
     import Modal from "./Modal.vue";
     import ImageCropper from "./ImageCropper.vue";
     import Grid from "./Views/Grid.vue";
@@ -82,6 +87,16 @@
                         'grid',
                         'single',
                         // 'list' todo:
+                    ].indexOf(value) !== -1
+                }
+            },
+            filePickerMode: {
+                type: String,
+                default: 'button',
+                validator(value) {
+                    return [
+                        'button',
+                        'drag' // fixme: make it more graceful
                     ].indexOf(value) !== -1
                 }
             },

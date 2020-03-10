@@ -1,22 +1,30 @@
 <template>
-    <div>
-        <p @click="$refs.input.click()">Drag your files here or click in this area.</p>
-        <input ref="input" type="file" :accept="acceptFiles" @change="onChange">
-    </div>
+    <component
+            :is="`${mode}-file-picker`"
+            :accept="acceptFiles"
+            @change="onChange"/>
 </template>
 
 <script>
+    import ButtonFilePicker from "./ButtonFilePicker.vue";
+    import DragFilePicker from "./DragFilePicker.vue";
+
     export default {
         name: "FilePicker",
+        components: {ButtonFilePicker, DragFilePicker},
         props: {
             accept: {
                 type: Array,
                 required: true,
-            }
+            },
+            mode: {
+                type: String,
+                default: 'button',
+            },
         },
         methods: {
-            onChange(){
-                let file = this.filter(this.$refs.input.files[0]);
+            onChange(files){
+                let file = files[0];
                 if (!file){
                     console.error('File type not accepted', file);
                     return;
@@ -42,21 +50,5 @@
 </script>
 
 <style scoped>
-    p{
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        font-size: 2em;
-        line-height: 170px;
-        background-color: #cecece;
-        border: 3px dashed gray;
-        color: #4a4a4a;
-        cursor: pointer;
-    }
-    p:hover{
-        color: #242424;
-    }
-    input{
-        display: none;
-    }
+
 </style>
