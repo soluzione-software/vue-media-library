@@ -57,12 +57,11 @@
     import Modal from "./Modal.vue";
     import ImageCropper from "./ImageCropper.vue";
     import Grid from "./Views/Grid.vue";
-    import Dialog from "./Dialog.vue";
     import Media from "../Media.js";
 
     export default {
         name: "MediaLibrary",
-        components: {Dialog, ImageCropper, Modal, FilePicker, Grid},
+        components: {ImageCropper, Modal, FilePicker, Grid},
         props: {
             media: {
                 type: Array,
