@@ -1,6 +1,6 @@
 <template>
     <component :is="usePortal ? 'portal' : 'div'" :to="portalTarget">
-        <div v-if="visible" class="fixed inset-0 flex items-center justify-center">
+        <div v-if="visible" class="fixed inset-0 flex items-center justify-center z-50">
             <transition
                     @before-leave="backdropLeaving = true"
                     @after-leave="backdropLeaving = false"
