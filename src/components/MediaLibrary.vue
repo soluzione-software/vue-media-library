@@ -18,7 +18,7 @@
 
             <modal ref="addModal" :use-portal="usePortal" :portal-target="portalTarget">
                 <div class="p-4 bg-white rounded-lg shadow-2xl">
-                    <image-cropper v-if="addItem" ref="cropper" :image="addItem.url"/>
+                    <image-cropper v-if="addItem" ref="cropper" :aspect-ratio="cropperAspectRatio" :image="addItem.url"/>
                     <div class="mt-4 text-center">
                         <button class="rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150"
                                 @click="() => { $refs.addModal.hide() }">Cancel</button>
@@ -104,6 +104,9 @@
             downloadable: {
                 type: Boolean,
                 default: false
+            },
+            cropperAspectRatio: {
+                type: Number
             },
             usePortal: {
                 type: Boolean,
