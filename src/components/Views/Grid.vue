@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-wrap">
         <column
-                class="sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5"
+                :class="columnClasses"
                 v-for="(column, i) in columns"
                 :key="i"
                 :items="column"
@@ -21,6 +21,14 @@
     import Column from "./Column.vue";
     import {isDownloadable, isEditable, isViewable} from "../../mixins";
 
+    const defaultColumns = {
+        'xs': 1,
+        'sm': 2,
+        'md': 3,
+        'lg': 4,
+        'xl': 5
+    };
+
     export default {
         name: "GridView",
         components: {Column},
@@ -35,6 +43,12 @@
             readonly: {
                 type: Boolean,
                 default: false
+            },
+            columnsCount: {
+                type: Object,
+                default(){
+                    return defaultColumns;
+                }
             },
         },
         data(){
@@ -81,19 +95,20 @@
             handleResize() {
                 this.window.width = window.innerWidth;
                 this.window.height = window.innerHeight;
-            }
+            },
+            getColumnsCount(breakpoint){
+                return this.columnsCount[breakpoint] || defaultColumns[breakpoint];
+            },
+            getColumnClass(breakpoint){
+                let count = this.getColumnsCount(breakpoint);
+                let prefix = breakpoint !== 'xs' ? `${breakpoint}:` : '';
+                let w = count === 1 ? 'full' : `1/${count}`;
+                return `${prefix}w-${w}`;
+            },
         },
         computed: {
             columns(){
-                let columns = {
-                    'xs': 1,
-                    'sm': 2,
-                    'md': 3,
-                    'lg': 4,
-                    'xl': 5,
-                };
-
-                let chunks = columns[this.currentBreakpoint];
+                let chunks = this.getColumnsCount(this.currentBreakpoint);
 
                 return this.chunk(this.items, chunks);
             },
@@ -111,7 +126,16 @@
                 });
 
                 return breakpoint;
-            }
+            },
+            columnClasses(){
+                return [
+                    this.getColumnClass('xs'),
+                    this.getColumnClass('sm'),
+                    this.getColumnClass('md'),
+                    this.getColumnClass('lg'),
+                    this.getColumnClass('xl')
+                ]
+            },
         }
     }
 </script>

@@ -7,6 +7,7 @@
                 :viewable="viewable"
                 :editable="editable"
                 :downloadable="downloadable"
+                :columns-count="gridColumns"
                 @view="onView"
                 @download="onDownload"
                 @edit="onEdit"
@@ -151,6 +152,9 @@
             },
             cropperMaxHeight: {
                 type: Number
+            },
+            gridColumns: {
+                type: Object,
             },
         },
         data(){
