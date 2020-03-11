@@ -7,9 +7,9 @@ class Media {
     constructor(id, collectionName, fileName, mimeType, file, url, thumbnail) {
         this.v_id = Math.random().toString(36).substring(3);
         this.id = id;
-        this.collectionName = collectionName;
-        this.fileName = fileName;
-        this.mimeType = mimeType;
+        this.collection_name = collectionName;
+        this.file_name = fileName;
+        this.mime_type = mimeType;
         this.file = file;
         this.url = url;
         this.thumbnail = thumbnail;
