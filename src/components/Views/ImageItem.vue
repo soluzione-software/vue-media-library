@@ -34,9 +34,11 @@
 
 <script>
     import Icon from "../Icon.vue";
+    import {isDownloadable, isEditable, isViewable} from "../../mixins";
     export default {
         name: "ImageItem",
         components: {Icon},
+        mixins: [isDownloadable, isEditable, isViewable],
         props: {
             item: {
                 type: Object,
@@ -45,18 +47,6 @@
             readonly: {
                 type: Boolean,
                 default: false,
-            },
-            viewable: {
-                type: Boolean,
-                default: false
-            },
-            editable: {
-                type: Boolean,
-                default: false
-            },
-            downloadable: {
-                type: Boolean,
-                default: false
             },
         },
     }

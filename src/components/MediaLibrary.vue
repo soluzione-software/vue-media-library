@@ -87,10 +87,12 @@
     import Grid from "./Views/Grid.vue";
     import Single from "./Views/Single.vue";
     import Media from "../Media.js";
+    import {isDownloadable, isEditable, isViewable, usesPortal} from "../mixins";
 
     export default {
         name: "MediaLibrary",
         components: {ImageCropper, Modal, FilePicker, Grid, Single},
+        mixins: [isDownloadable, isEditable, isViewable, usesPortal],
         props: {
             media: {
                 type: Array,
@@ -131,18 +133,6 @@
                 type: Boolean,
                 default: false,
             },
-            viewable: {
-                type: Boolean,
-                default: false
-            },
-            editable: {
-                type: Boolean,
-                default: false
-            },
-            downloadable: {
-                type: Boolean,
-                default: false
-            },
             cropperAspectRatio: {
                 type: Number
             },
@@ -157,14 +147,6 @@
             },
             cropperMaxHeight: {
                 type: Number
-            },
-            usePortal: {
-                type: Boolean,
-                default: false,
-            },
-            portalTarget: {
-                type: String,
-                default: 'modals',
             },
         },
         data(){

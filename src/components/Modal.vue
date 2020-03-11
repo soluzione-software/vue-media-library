@@ -43,8 +43,11 @@
 </template>
 
 <script>
+    import {usesPortal} from "../mixins";
+
     export default {
         name: "Modal",
+        mixins: [usesPortal],
         props: {
             noBackdropClosing: {
                 type: Boolean,
@@ -53,14 +56,6 @@
             widthContent: {
                 type: Boolean,
                 default: false,
-            },
-            usePortal: {
-                type: Boolean,
-                default: false,
-            },
-            portalTarget: {
-                type: String,
-                default: 'modals',
             },
         },
         data() {

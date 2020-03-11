@@ -16,10 +16,12 @@
 
 <script>
     import ImageItem from "./ImageItem.vue";
+    import {isDownloadable, isEditable, isViewable} from "../../mixins";
 
     export default {
         name: "SingleView",
         components: {ImageItem},
+        mixins: [isDownloadable, isEditable, isViewable],
         props: {
             items: {
                 type: Array,
@@ -28,18 +30,6 @@
                 },
             },
             readonly: {
-                type: Boolean,
-                default: false
-            },
-            viewable: {
-                type: Boolean,
-                default: false
-            },
-            editable: {
-                type: Boolean,
-                default: false
-            },
-            downloadable: {
                 type: Boolean,
                 default: false
             },
