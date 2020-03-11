@@ -23,7 +23,16 @@
 
             <modal ref="addModal" :use-portal="usePortal" :portal-target="portalTarget">
                 <div class="p-4 bg-white rounded-lg shadow-2xl">
-                    <image-cropper v-if="addItem" ref="addCropper" :aspect-ratio="cropperAspectRatio" :image="addItem.url"/>
+                    <image-cropper
+                            ref="addCropper"
+                            v-if="addItem"
+                            :image="addItem.url"
+                            :aspect-ratio="cropperAspectRatio"
+                            :min-width="cropperMinWidth"
+                            :max-width="cropperMaxWidth"
+                            :min-height="cropperMinHeight"
+                            :max-height="cropperMaxHeight"
+                    />
                     <div class="mt-4 text-center">
                         <button class="rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150"
                                 @click="() => { $refs.addModal.hide() }">Cancel</button>
@@ -34,7 +43,16 @@
 
             <modal ref="editModal" :use-portal="usePortal" :portal-target="portalTarget">
                 <div class="p-4 bg-white rounded-lg shadow-2xl">
-                    <image-cropper v-if="editItem" ref="editCropper" :aspect-ratio="cropperAspectRatio" :image="editItem.url"/>
+                    <image-cropper
+                            ref="editCropper"
+                            v-if="editItem"
+                            :image="editItem.url"
+                            :aspect-ratio="cropperAspectRatio"
+                            :min-width="cropperMinWidth"
+                            :max-width="cropperMaxWidth"
+                            :min-height="cropperMinHeight"
+                            :max-height="cropperMaxHeight"
+                    />
                     <div class="mt-4 text-center">
                         <button class="rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150"
                                 @click="() => { $refs.editModal.hide() }">Cancel</button>
@@ -121,6 +139,18 @@
                 default: false
             },
             cropperAspectRatio: {
+                type: Number
+            },
+            cropperMinWidth: {
+                type: Number
+            },
+            cropperMaxWidth: {
+                type: Number
+            },
+            cropperMinHeight: {
+                type: Number
+            },
+            cropperMaxHeight: {
                 type: Number
             },
             usePortal: {

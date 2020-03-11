@@ -4,6 +4,7 @@
             classname="v-cropper"
             :src="image"
             :stencil-props="stencilProps"
+            :restrictions="restrictions"
     />
 </template>
 
@@ -20,7 +21,19 @@
             },
             aspectRatio: {
                 type: Number
-            }
+            },
+            minWidth: {
+                type: Number
+            },
+            maxWidth: {
+                type: Number
+            },
+            minHeight: {
+                type: Number
+            },
+            maxHeight: {
+                type: Number
+            },
         },
         data(){
             return {
@@ -36,7 +49,17 @@
                 return {
                     aspectRatio: this.aspectRatio,
                 }
-            }
+            },
+            restrictions(){
+                return () => {
+                    return {
+                        minWidth: this.minWidth,
+                        minHeight: this.minHeight,
+                        maxWidth: this.maxWidth,
+                        maxHeight: this.maxHeight,
+                    }
+                }
+            },
         }
     }
 </script>
