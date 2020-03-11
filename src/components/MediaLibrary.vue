@@ -187,15 +187,11 @@
         },
         watch: {
             media(new_){
-                this.items = new_.map(item => {
-                    return Media.fromObject(item);
-                });
+                this.items = this.filterMedia(this.mapObjectsToMedia(new_));
             }
         },
         mounted(){
-            this.items = this.media.map(item => {
-                return Media.fromObject(item);
-            });
+            this.items = this.filterMedia(this.mapObjectsToMedia(this.media));
         },
         methods: {
             onSelected(file){
@@ -317,6 +313,23 @@
                 }
 
                 this.$emit('deleted', item)
+            },
+
+            /**
+             * @param {Object[]} items
+             * @return {Media[]}
+             */
+            mapObjectsToMedia(items){
+                return items.map(item => Media.fromObject(item))
+            },
+
+            /**
+             * Filters "mediaItems" param based on collectionName
+             * @param {Media[]} mediaItems
+             * @return {Media[]}
+             */
+            filterMedia(mediaItems){
+                return mediaItems.filter(item => item.collection_name === this.collectionName)
             },
 
             /**
