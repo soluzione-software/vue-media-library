@@ -11,39 +11,18 @@
     //
     //
     //
+    //
+    //
+    //
 
     var script = {
-        name: "FilePicker",
+        name: "ButtonFilePicker",
         props: {
             accept: {
-                type: Array,
+                type: String,
                 required: true,
             }
         },
-        methods: {
-            onChange: function onChange(){
-                var file = this.filter(this.$refs.input.files[0]);
-                if (!file){
-                    console.error('File type not accepted', file);
-                    return;
-                }
-
-                this.$emit('selected', file);
-            },
-            /**
-             *
-             * @param {File} file
-             * @returns {File|null}
-             */
-            filter: function filter(file){
-                return this.accept.indexOf(file.type) >= 0 || this.accept.indexOf('*') >= 0 ? file : null;
-            }
-        },
-        computed: {
-            acceptFiles: function acceptFiles(){
-                return this.accept.join(',');
-            }
-        }
     };
 
     function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
@@ -184,21 +163,28 @@
       var _c = _vm._self._c || _h;
       return _c("div", [
         _c(
-          "p",
+          "button",
           {
+            staticClass:
+              "bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 py-2 rounded",
             on: {
               click: function($event) {
+                $event.preventDefault();
                 return _vm.$refs.input.click()
               }
             }
           },
-          [_vm._v("Drag your files here or click in this area.")]
+          [_vm._v("Select a file")]
         ),
         _vm._v(" "),
         _c("input", {
           ref: "input",
-          attrs: { type: "file", accept: _vm.acceptFiles },
-          on: { change: _vm.onChange }
+          attrs: { type: "file", accept: _vm.accept },
+          on: {
+            change: function() {
+              _vm.$emit("change", _vm.$refs.input.files);
+            }
+          }
         })
       ])
     };
@@ -208,11 +194,11 @@
       /* style */
       var __vue_inject_styles__ = function (inject) {
         if (!inject) { return }
-        inject("data-v-30b468f3_0", { source: "\np[data-v-30b468f3]{\n    width: 100%;\n    height: 100%;\n    text-align: center;\n    font-size: 2em;\n    line-height: 170px;\n    background-color: #cecece;\n    border: 3px dashed gray;\n    color: #4a4a4a;\n    cursor: pointer;\n}\np[data-v-30b468f3]:hover{\n    color: #242424;\n}\ninput[data-v-30b468f3]{\n    display: none;\n}\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/FilePicker.vue"],"names":[],"mappings":";AA4CA;IACA,WAAA;IACA,YAAA;IACA,kBAAA;IACA,cAAA;IACA,kBAAA;IACA,yBAAA;IACA,uBAAA;IACA,cAAA;IACA,eAAA;AACA;AACA;IACA,cAAA;AACA;AACA;IACA,aAAA;AACA","file":"FilePicker.vue","sourcesContent":["<template>\n    <div>\n        <p @click=\"$refs.input.click()\">Drag your files here or click in this area.</p>\n        <input ref=\"input\" type=\"file\" :accept=\"acceptFiles\" @change=\"onChange\">\n    </div>\n</template>\n\n<script>\n    export default {\n        name: \"FilePicker\",\n        props: {\n            accept: {\n                type: Array,\n                required: true,\n            }\n        },\n        methods: {\n            onChange(){\n                let file = this.filter(this.$refs.input.files[0]);\n                if (!file){\n                    console.error('File type not accepted', file);\n                    return;\n                }\n\n                this.$emit('selected', file);\n            },\n            /**\n             *\n             * @param {File} file\n             * @returns {File|null}\n             */\n            filter(file){\n                return this.accept.indexOf(file.type) >= 0 || this.accept.indexOf('*') >= 0 ? file : null;\n            }\n        },\n        computed: {\n            acceptFiles(){\n                return this.accept.join(',');\n            }\n        }\n    }\n</script>\n\n<style scoped>\n    p{\n        width: 100%;\n        height: 100%;\n        text-align: center;\n        font-size: 2em;\n        line-height: 170px;\n        background-color: #cecece;\n        border: 3px dashed gray;\n        color: #4a4a4a;\n        cursor: pointer;\n    }\n    p:hover{\n        color: #242424;\n    }\n    input{\n        display: none;\n    }\n</style>\n"]}, media: undefined });
+        inject("data-v-4e4f3f36_0", { source: "\ninput[data-v-4e4f3f36]{\n    display: none;\n}\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/FilePicker/ButtonFilePicker.vue"],"names":[],"mappings":";AAuBA;IACA,aAAA;AACA","file":"ButtonFilePicker.vue","sourcesContent":["<template>\n    <div>\n        <button\n                class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 py-2 rounded\"\n                @click.prevent=\"$refs.input.click()\"\n        >Select a file</button>\n        <input ref=\"input\" type=\"file\" :accept=\"accept\" @change=\"() => {$emit('change', $refs.input.files)}\"/>\n    </div>\n</template>\n\n<script>\n    export default {\n        name: \"ButtonFilePicker\",\n        props: {\n            accept: {\n                type: String,\n                required: true,\n            }\n        },\n    }\n</script>\n\n<style scoped>\n    input{\n        display: none;\n    }\n</style>"]}, media: undefined });
 
       };
       /* scoped */
-      var __vue_scope_id__ = "data-v-30b468f3";
+      var __vue_scope_id__ = "data-v-4e4f3f36";
       /* module identifier */
       var __vue_module_identifier__ = undefined;
       /* functional template */
@@ -230,6 +216,187 @@
         __vue_scope_id__,
         __vue_is_functional_template__,
         __vue_module_identifier__,
+        false,
+        createInjector,
+        undefined,
+        undefined
+      );
+
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+
+    var script$1 = {
+        name: "DragFilePicker",
+        props: {
+            accept: {
+                type: String,
+                required: true,
+            }
+        },
+    };
+
+    /* script */
+    var __vue_script__$1 = script$1;
+
+    /* template */
+    var __vue_render__$1 = function() {
+      var _vm = this;
+      var _h = _vm.$createElement;
+      var _c = _vm._self._c || _h;
+      return _c("div", [
+        _c(
+          "p",
+          {
+            on: {
+              click: function($event) {
+                return _vm.$refs.input.click()
+              }
+            }
+          },
+          [_vm._v("Drag your files here or click in this area.")]
+        ),
+        _vm._v(" "),
+        _c("input", {
+          ref: "input",
+          attrs: { type: "file", accept: _vm.accept },
+          on: {
+            change: function() {
+              _vm.$emit("change", _vm.$refs.input.files);
+            }
+          }
+        })
+      ])
+    };
+    var __vue_staticRenderFns__$1 = [];
+    __vue_render__$1._withStripped = true;
+
+      /* style */
+      var __vue_inject_styles__$1 = function (inject) {
+        if (!inject) { return }
+        inject("data-v-bdeddc12_0", { source: "\np[data-v-bdeddc12]{\n    width: 100%;\n    height: 100%;\n    text-align: center;\n    font-size: 2em;\n    line-height: 170px;\n    background-color: #cecece;\n    border: 3px dashed gray;\n    color: #4a4a4a;\n    cursor: pointer;\n}\np[data-v-bdeddc12]:hover{\n    color: #242424;\n}\ninput[data-v-bdeddc12]{\n    display: none;\n}\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/FilePicker/DragFilePicker.vue"],"names":[],"mappings":";AAoBA;IACA,WAAA;IACA,YAAA;IACA,kBAAA;IACA,cAAA;IACA,kBAAA;IACA,yBAAA;IACA,uBAAA;IACA,cAAA;IACA,eAAA;AACA;AACA;IACA,cAAA;AACA;AACA;IACA,aAAA;AACA","file":"DragFilePicker.vue","sourcesContent":["<template>\n    <div>\n        <p @click=\"$refs.input.click()\">Drag your files here or click in this area.</p>\n        <input ref=\"input\" type=\"file\" :accept=\"accept\" @change=\"() => {$emit('change', $refs.input.files)}\">\n    </div>\n</template>\n\n<script>\n    export default {\n        name: \"DragFilePicker\",\n        props: {\n            accept: {\n                type: String,\n                required: true,\n            }\n        },\n    }\n</script>\n\n<style scoped>\n    p{\n        width: 100%;\n        height: 100%;\n        text-align: center;\n        font-size: 2em;\n        line-height: 170px;\n        background-color: #cecece;\n        border: 3px dashed gray;\n        color: #4a4a4a;\n        cursor: pointer;\n    }\n    p:hover{\n        color: #242424;\n    }\n    input{\n        display: none;\n    }\n</style>"]}, media: undefined });
+
+      };
+      /* scoped */
+      var __vue_scope_id__$1 = "data-v-bdeddc12";
+      /* module identifier */
+      var __vue_module_identifier__$1 = undefined;
+      /* functional template */
+      var __vue_is_functional_template__$1 = false;
+      /* style inject SSR */
+      
+      /* style inject shadow dom */
+      
+
+      
+      var __vue_component__$1 = normalizeComponent(
+        { render: __vue_render__$1, staticRenderFns: __vue_staticRenderFns__$1 },
+        __vue_inject_styles__$1,
+        __vue_script__$1,
+        __vue_scope_id__$1,
+        __vue_is_functional_template__$1,
+        __vue_module_identifier__$1,
+        false,
+        createInjector,
+        undefined,
+        undefined
+      );
+
+    //
+
+    var script$2 = {
+        name: "FilePicker",
+        components: {ButtonFilePicker: __vue_component__, DragFilePicker: __vue_component__$1},
+        props: {
+            accept: {
+                type: Array,
+                required: true,
+            },
+            mode: {
+                type: String,
+                default: 'button',
+            },
+        },
+        methods: {
+            onChange: function onChange(files){
+                var file = files[0];
+                if (!file){
+                    console.error('File type not accepted', file);
+                    return;
+                }
+
+                this.$emit('selected', file);
+            },
+            /**
+             *
+             * @param {File} file
+             * @returns {File|null}
+             */
+            filter: function filter(file){
+                return this.accept.indexOf(file.type) >= 0 || this.accept.indexOf('*') >= 0 ? file : null;
+            }
+        },
+        computed: {
+            acceptFiles: function acceptFiles(){
+                return this.accept.join(',');
+            }
+        }
+    };
+
+    /* script */
+    var __vue_script__$2 = script$2;
+
+    /* template */
+    var __vue_render__$2 = function() {
+      var _vm = this;
+      var _h = _vm.$createElement;
+      var _c = _vm._self._c || _h;
+      return _c(
+        "div",
+        [
+          _c(_vm.mode + "-file-picker", {
+            tag: "component",
+            attrs: { accept: _vm.acceptFiles },
+            on: { change: _vm.onChange }
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-1" }, [_vm._t("help")], 2)
+        ],
+        1
+      )
+    };
+    var __vue_staticRenderFns__$2 = [];
+    __vue_render__$2._withStripped = true;
+
+      /* style */
+      var __vue_inject_styles__$2 = function (inject) {
+        if (!inject) { return }
+        inject("data-v-17d6119c_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"index.vue"}, media: undefined });
+
+      };
+      /* scoped */
+      var __vue_scope_id__$2 = "data-v-17d6119c";
+      /* module identifier */
+      var __vue_module_identifier__$2 = undefined;
+      /* functional template */
+      var __vue_is_functional_template__$2 = false;
+      /* style inject SSR */
+      
+      /* style inject shadow dom */
+      
+
+      
+      var __vue_component__$2 = normalizeComponent(
+        { render: __vue_render__$2, staticRenderFns: __vue_staticRenderFns__$2 },
+        __vue_inject_styles__$2,
+        __vue_script__$2,
+        __vue_scope_id__$2,
+        __vue_is_functional_template__$2,
+        __vue_module_identifier__$2,
         false,
         createInjector,
         undefined,
@@ -275,7 +442,7 @@
     //
     //
 
-    var script$1 = {
+    var script$3 = {
         name: "Modal",
         props: {
             noBackdropClosing: {
@@ -313,10 +480,10 @@
     };
 
     /* script */
-    var __vue_script__$1 = script$1;
+    var __vue_script__$3 = script$3;
 
     /* template */
-    var __vue_render__$1 = function() {
+    var __vue_render__$3 = function() {
       var _vm = this;
       var _h = _vm.$createElement;
       var _c = _vm._self._c || _h;
@@ -327,7 +494,9 @@
           _vm.visible
             ? _c(
                 "div",
-                { staticClass: "fixed inset-0 flex items-center justify-center" },
+                {
+                  staticClass: "fixed inset-0 flex items-center justify-center z-50"
+                },
                 [
                   _c(
                     "transition",
@@ -396,172 +565,17 @@
         ]
       )
     };
-    var __vue_staticRenderFns__$1 = [];
-    __vue_render__$1._withStripped = true;
-
-      /* style */
-      var __vue_inject_styles__$1 = function (inject) {
-        if (!inject) { return }
-        inject("data-v-0e21f7e4_0", { source: "\n.w-max-content[data-v-0e21f7e4]{\n    width: max-content;\n}\n\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/Modal.vue"],"names":[],"mappings":";AA+EA;IACA,kBAAA;AACA","file":"Modal.vue","sourcesContent":["<template>\n    <component :is=\"usePortal ? 'portal' : 'div'\" :to=\"portalTarget\">\n        <div v-if=\"visible\" class=\"fixed inset-0 flex items-center justify-center\">\n            <transition\n                    @before-leave=\"backdropLeaving = true\"\n                    @after-leave=\"backdropLeaving = false\"\n                    enter-active-class=\"transition-all transition-fast ease-out-quad\"\n                    leave-active-class=\"transition-all transition-medium ease-in-quad\"\n                    enter-class=\"opacity-0\"\n                    enter-to-class=\"opacity-100\"\n                    leave-class=\"opacity-100\"\n                    leave-to-class=\"opacity-0\"\n                    appear\n            >\n                <div v-if=\"visible\">\n                    <div class=\"absolute inset-0 bg-black opacity-75\" @click=\"hide\"></div>\n                </div>\n            </transition>\n\n            <transition\n                    @before-leave=\"cardLeaving = true\"\n                    @after-leave=\"cardLeaving = false\"\n                    enter-active-class=\"transition-all transition-fast ease-out-quad\"\n                    leave-active-class=\"transition-all transition-medium ease-in-quad\"\n                    enter-class=\"opacity-0 scale-70\"\n                    enter-to-class=\"opacity-100 scale-100\"\n                    leave-class=\"opacity-100 scale-100\"\n                    leave-to-class=\"opacity-0 scale-70\"\n                    appear\n            >\n                <div class=\"relative\">\n                    <slot></slot>\n                </div>\n            </transition>\n        </div>\n    </component>\n</template>\n\n<script>\n    export default {\n        name: \"Modal\",\n        props: {\n            noBackdropClosing: {\n                type: Boolean,\n                default: false,\n            },\n            widthContent: {\n                type: Boolean,\n                default: false,\n            },\n            usePortal: {\n                type: Boolean,\n                default: false,\n            },\n            portalTarget: {\n                type: String,\n                default: 'modals',\n            },\n        },\n        data() {\n            return {\n                visible: false,\n                backdropLeaving: false,\n                cardLeaving: false,\n            }\n        },\n        methods: {\n            show(){\n                this.visible = true;\n            },\n            hide(){\n                this.visible = false;\n            },\n        }\n    }\n</script>\n\n<style scoped>\n\n    .w-max-content{\n        width: max-content;\n    }\n\n</style>\n"]}, media: undefined });
-
-      };
-      /* scoped */
-      var __vue_scope_id__$1 = "data-v-0e21f7e4";
-      /* module identifier */
-      var __vue_module_identifier__$1 = undefined;
-      /* functional template */
-      var __vue_is_functional_template__$1 = false;
-      /* style inject SSR */
-      
-      /* style inject shadow dom */
-      
-
-      
-      var __vue_component__$1 = normalizeComponent(
-        { render: __vue_render__$1, staticRenderFns: __vue_staticRenderFns__$1 },
-        __vue_inject_styles__$1,
-        __vue_script__$1,
-        __vue_scope_id__$1,
-        __vue_is_functional_template__$1,
-        __vue_module_identifier__$1,
-        false,
-        createInjector,
-        undefined,
-        undefined
-      );
-
-    //
-
-    var script$2 = {
-        name: "ImageCropper",
-        components: {Cropper: vueAdvancedCropper.Cropper},
-        props: {
-            image: {
-                type: String,
-                required: true,
-            },
-            aspectRatio: {
-                type: Number
-            }
-        },
-        data: function data(){
-            return {
-            }
-        },
-        methods: {
-            getResult: function getResult(){
-                return this.$refs.cropper.getResult().canvas.toDataURL();
-            },
-        },
-        computed: {
-            stencilProps: function stencilProps(){
-                return {
-                    aspectRatio: this.aspectRatio,
-                }
-            }
-        }
-    };
-
-    /* script */
-    var __vue_script__$2 = script$2;
-
-    /* template */
-    var __vue_render__$2 = function() {
-      var _vm = this;
-      var _h = _vm.$createElement;
-      var _c = _vm._self._c || _h;
-      return _c("cropper", {
-        ref: "cropper",
-        attrs: {
-          classname: "v-cropper",
-          src: _vm.image,
-          "stencil-props": _vm.stencilProps
-        }
-      })
-    };
-    var __vue_staticRenderFns__$2 = [];
-    __vue_render__$2._withStripped = true;
-
-      /* style */
-      var __vue_inject_styles__$2 = function (inject) {
-        if (!inject) { return }
-        inject("data-v-325e209a_0", { source: "\n.v-cropper[data-v-325e209a] {\n    max-height: 80vh;\n}\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/ImageCropper.vue"],"names":[],"mappings":";AA4CA;IACA,gBAAA;AACA","file":"ImageCropper.vue","sourcesContent":["<template>\n    <cropper\n            ref=\"cropper\"\n            classname=\"v-cropper\"\n            :src=\"image\"\n            :stencil-props=\"stencilProps\"\n    />\n</template>\n\n<script>\n    import { Cropper } from 'vue-advanced-cropper'\n\n    export default {\n        name: \"ImageCropper\",\n        components: {Cropper},\n        props: {\n            image: {\n                type: String,\n                required: true,\n            },\n            aspectRatio: {\n                type: Number\n            }\n        },\n        data(){\n            return {\n            }\n        },\n        methods: {\n            getResult(){\n                return this.$refs.cropper.getResult().canvas.toDataURL();\n            },\n        },\n        computed: {\n            stencilProps(){\n                return {\n                    aspectRatio: this.aspectRatio,\n                }\n            }\n        }\n    }\n</script>\n\n<style scoped>\n    .v-cropper {\n        max-height: 80vh;\n    }\n</style>\n"]}, media: undefined });
-
-      };
-      /* scoped */
-      var __vue_scope_id__$2 = "data-v-325e209a";
-      /* module identifier */
-      var __vue_module_identifier__$2 = undefined;
-      /* functional template */
-      var __vue_is_functional_template__$2 = false;
-      /* style inject SSR */
-      
-      /* style inject shadow dom */
-      
-
-      
-      var __vue_component__$2 = normalizeComponent(
-        { render: __vue_render__$2, staticRenderFns: __vue_staticRenderFns__$2 },
-        __vue_inject_styles__$2,
-        __vue_script__$2,
-        __vue_scope_id__$2,
-        __vue_is_functional_template__$2,
-        __vue_module_identifier__$2,
-        false,
-        createInjector,
-        undefined,
-        undefined
-      );
-
-    //
-    //
-    //
-    //
-    //
-    //
-
-    var script$3 = {
-        name: "Icon",
-        props: {
-            d: {
-                type: String,
-                required: true
-            }
-        }
-    };
-
-    /* script */
-    var __vue_script__$3 = script$3;
-
-    /* template */
-    var __vue_render__$3 = function() {
-      var _vm = this;
-      var _h = _vm.$createElement;
-      var _c = _vm._self._c || _h;
-      return _c(
-        "svg",
-        {
-          attrs: {
-            xmlns: "http://www.w3.org/2000/svg",
-            viewBox: "0 0 24 24",
-            width: "24",
-            height: "24"
-          }
-        },
-        [_c("path", { staticClass: "heroicon-ui", attrs: { d: _vm.d } })]
-      )
-    };
     var __vue_staticRenderFns__$3 = [];
     __vue_render__$3._withStripped = true;
 
       /* style */
       var __vue_inject_styles__$3 = function (inject) {
         if (!inject) { return }
-        inject("data-v-758ce62a_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Icon.vue"}, media: undefined });
+        inject("data-v-669abfe0_0", { source: "\n.w-max-content[data-v-669abfe0]{\n    width: max-content;\n}\n\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/Modal.vue"],"names":[],"mappings":";AA+EA;IACA,kBAAA;AACA","file":"Modal.vue","sourcesContent":["<template>\n    <component :is=\"usePortal ? 'portal' : 'div'\" :to=\"portalTarget\">\n        <div v-if=\"visible\" class=\"fixed inset-0 flex items-center justify-center z-50\">\n            <transition\n                    @before-leave=\"backdropLeaving = true\"\n                    @after-leave=\"backdropLeaving = false\"\n                    enter-active-class=\"transition-all transition-fast ease-out-quad\"\n                    leave-active-class=\"transition-all transition-medium ease-in-quad\"\n                    enter-class=\"opacity-0\"\n                    enter-to-class=\"opacity-100\"\n                    leave-class=\"opacity-100\"\n                    leave-to-class=\"opacity-0\"\n                    appear\n            >\n                <div v-if=\"visible\">\n                    <div class=\"absolute inset-0 bg-black opacity-75\" @click=\"hide\"></div>\n                </div>\n            </transition>\n\n            <transition\n                    @before-leave=\"cardLeaving = true\"\n                    @after-leave=\"cardLeaving = false\"\n                    enter-active-class=\"transition-all transition-fast ease-out-quad\"\n                    leave-active-class=\"transition-all transition-medium ease-in-quad\"\n                    enter-class=\"opacity-0 scale-70\"\n                    enter-to-class=\"opacity-100 scale-100\"\n                    leave-class=\"opacity-100 scale-100\"\n                    leave-to-class=\"opacity-0 scale-70\"\n                    appear\n            >\n                <div class=\"relative\">\n                    <slot></slot>\n                </div>\n            </transition>\n        </div>\n    </component>\n</template>\n\n<script>\n    export default {\n        name: \"Modal\",\n        props: {\n            noBackdropClosing: {\n                type: Boolean,\n                default: false,\n            },\n            widthContent: {\n                type: Boolean,\n                default: false,\n            },\n            usePortal: {\n                type: Boolean,\n                default: false,\n            },\n            portalTarget: {\n                type: String,\n                default: 'modals',\n            },\n        },\n        data() {\n            return {\n                visible: false,\n                backdropLeaving: false,\n                cardLeaving: false,\n            }\n        },\n        methods: {\n            show(){\n                this.visible = true;\n            },\n            hide(){\n                this.visible = false;\n            },\n        }\n    }\n</script>\n\n<style scoped>\n\n    .w-max-content{\n        width: max-content;\n    }\n\n</style>\n"]}, media: undefined });
 
       };
       /* scoped */
-      var __vue_scope_id__$3 = "data-v-758ce62a";
+      var __vue_scope_id__$3 = "data-v-669abfe0";
       /* module identifier */
       var __vue_module_identifier__$3 = undefined;
       /* functional template */
@@ -586,9 +600,192 @@
       );
 
     //
+
     var script$4 = {
+        name: "ImageCropper",
+        components: {Cropper: vueAdvancedCropper.Cropper},
+        props: {
+            image: {
+                type: String,
+                required: true,
+            },
+            aspectRatio: {
+                type: Number
+            },
+            minWidth: {
+                type: Number
+            },
+            maxWidth: {
+                type: Number
+            },
+            minHeight: {
+                type: Number
+            },
+            maxHeight: {
+                type: Number
+            },
+        },
+        data: function data(){
+            return {
+            }
+        },
+        methods: {
+            getResult: function getResult(){
+                return this.$refs.cropper.getResult().canvas.toDataURL();
+            },
+        },
+        computed: {
+            stencilProps: function stencilProps(){
+                return {
+                    aspectRatio: this.aspectRatio,
+                }
+            },
+            restrictions: function restrictions(){
+                var this$1 = this;
+
+                if (this.minWidth || this.minHeight || this.maxWidth || this.maxHeight){
+                    return function () {
+                        return {
+                            minWidth: this$1.minWidth,
+                            minHeight: this$1.minHeight,
+                            maxWidth: this$1.maxWidth,
+                            maxHeight: this$1.maxHeight,
+                        }
+                    }
+                }
+                return undefined;
+            },
+        }
+    };
+
+    /* script */
+    var __vue_script__$4 = script$4;
+
+    /* template */
+    var __vue_render__$4 = function() {
+      var _vm = this;
+      var _h = _vm.$createElement;
+      var _c = _vm._self._c || _h;
+      return _c("cropper", {
+        ref: "cropper",
+        attrs: {
+          classname: "v-cropper",
+          src: _vm.image,
+          "stencil-props": _vm.stencilProps,
+          restrictions: _vm.restrictions
+        }
+      })
+    };
+    var __vue_staticRenderFns__$4 = [];
+    __vue_render__$4._withStripped = true;
+
+      /* style */
+      var __vue_inject_styles__$4 = function (inject) {
+        if (!inject) { return }
+        inject("data-v-aba97622_0", { source: "\n.v-cropper[data-v-aba97622] {\n    max-height: 80vh;\n}\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/ImageCropper.vue"],"names":[],"mappings":";AAsEA;IACA,gBAAA;AACA","file":"ImageCropper.vue","sourcesContent":["<template>\n    <cropper\n            ref=\"cropper\"\n            classname=\"v-cropper\"\n            :src=\"image\"\n            :stencil-props=\"stencilProps\"\n            :restrictions=\"restrictions\"\n    />\n</template>\n\n<script>\n    import { Cropper } from 'vue-advanced-cropper'\n\n    export default {\n        name: \"ImageCropper\",\n        components: {Cropper},\n        props: {\n            image: {\n                type: String,\n                required: true,\n            },\n            aspectRatio: {\n                type: Number\n            },\n            minWidth: {\n                type: Number\n            },\n            maxWidth: {\n                type: Number\n            },\n            minHeight: {\n                type: Number\n            },\n            maxHeight: {\n                type: Number\n            },\n        },\n        data(){\n            return {\n            }\n        },\n        methods: {\n            getResult(){\n                return this.$refs.cropper.getResult().canvas.toDataURL();\n            },\n        },\n        computed: {\n            stencilProps(){\n                return {\n                    aspectRatio: this.aspectRatio,\n                }\n            },\n            restrictions(){\n                if (this.minWidth || this.minHeight || this.maxWidth || this.maxHeight){\n                    return () => {\n                        return {\n                            minWidth: this.minWidth,\n                            minHeight: this.minHeight,\n                            maxWidth: this.maxWidth,\n                            maxHeight: this.maxHeight,\n                        }\n                    }\n                }\n                return undefined;\n            },\n        }\n    }\n</script>\n\n<style scoped>\n    .v-cropper {\n        max-height: 80vh;\n    }\n</style>\n"]}, media: undefined });
+
+      };
+      /* scoped */
+      var __vue_scope_id__$4 = "data-v-aba97622";
+      /* module identifier */
+      var __vue_module_identifier__$4 = undefined;
+      /* functional template */
+      var __vue_is_functional_template__$4 = false;
+      /* style inject SSR */
+      
+      /* style inject shadow dom */
+      
+
+      
+      var __vue_component__$4 = normalizeComponent(
+        { render: __vue_render__$4, staticRenderFns: __vue_staticRenderFns__$4 },
+        __vue_inject_styles__$4,
+        __vue_script__$4,
+        __vue_scope_id__$4,
+        __vue_is_functional_template__$4,
+        __vue_module_identifier__$4,
+        false,
+        createInjector,
+        undefined,
+        undefined
+      );
+
+    //
+    //
+    //
+    //
+    //
+    //
+
+    var script$5 = {
+        name: "Icon",
+        props: {
+            d: {
+                type: String,
+                required: true
+            }
+        }
+    };
+
+    /* script */
+    var __vue_script__$5 = script$5;
+
+    /* template */
+    var __vue_render__$5 = function() {
+      var _vm = this;
+      var _h = _vm.$createElement;
+      var _c = _vm._self._c || _h;
+      return _c(
+        "svg",
+        {
+          attrs: {
+            xmlns: "http://www.w3.org/2000/svg",
+            viewBox: "0 0 24 24",
+            width: "24",
+            height: "24"
+          }
+        },
+        [_c("path", { staticClass: "heroicon-ui", attrs: { d: _vm.d } })]
+      )
+    };
+    var __vue_staticRenderFns__$5 = [];
+    __vue_render__$5._withStripped = true;
+
+      /* style */
+      var __vue_inject_styles__$5 = function (inject) {
+        if (!inject) { return }
+        inject("data-v-758ce62a_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Icon.vue"}, media: undefined });
+
+      };
+      /* scoped */
+      var __vue_scope_id__$5 = "data-v-758ce62a";
+      /* module identifier */
+      var __vue_module_identifier__$5 = undefined;
+      /* functional template */
+      var __vue_is_functional_template__$5 = false;
+      /* style inject SSR */
+      
+      /* style inject shadow dom */
+      
+
+      
+      var __vue_component__$5 = normalizeComponent(
+        { render: __vue_render__$5, staticRenderFns: __vue_staticRenderFns__$5 },
+        __vue_inject_styles__$5,
+        __vue_script__$5,
+        __vue_scope_id__$5,
+        __vue_is_functional_template__$5,
+        __vue_module_identifier__$5,
+        false,
+        createInjector,
+        undefined,
+        undefined
+      );
+
+    //
+    var script$6 = {
         name: "ImageItem",
-        components: {Icon: __vue_component__$3},
+        components: {Icon: __vue_component__$5},
         props: {
             item: {
                 type: Object,
@@ -614,10 +811,10 @@
     };
 
     /* script */
-    var __vue_script__$4 = script$4;
+    var __vue_script__$6 = script$6;
 
     /* template */
-    var __vue_render__$4 = function() {
+    var __vue_render__$6 = function() {
       var _vm = this;
       var _h = _vm.$createElement;
       var _c = _vm._self._c || _h;
@@ -737,34 +934,34 @@
         )
       ])
     };
-    var __vue_staticRenderFns__$4 = [];
-    __vue_render__$4._withStripped = true;
+    var __vue_staticRenderFns__$6 = [];
+    __vue_render__$6._withStripped = true;
 
       /* style */
-      var __vue_inject_styles__$4 = function (inject) {
+      var __vue_inject_styles__$6 = function (inject) {
         if (!inject) { return }
         inject("data-v-8e9787ec_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*\n    todo: use tailwind\n */\n.image[data-v-8e9787ec] {\n    vertical-align: middle;\n    width: 100%;\n    transition: .5s ease;\n    backface-visibility: hidden;\n}\n.overlay[data-v-8e9787ec] {\n    transition: .5s ease;\n    opacity: 0;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    -ms-transform: translate(-50%, -50%);\n    text-align: center;\n}\n.container:hover .image[data-v-8e9787ec] {\n    opacity: 0.3;\n}\n.container:hover .overlay[data-v-8e9787ec] {\n    opacity: 1;\n}\n.text[data-v-8e9787ec] {\n    background-color: #4CAF50;\n    color: white;\n    font-size: 16px;\n    padding: 16px 32px;\n}\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/Views/ImageItem.vue"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAiEA;;EAEA;AACA;IACA,sBAAA;IACA,WAAA;IACA,oBAAA;IACA,2BAAA;AACA;AAEA;IACA,oBAAA;IACA,UAAA;IACA,kBAAA;IACA,QAAA;IACA,SAAA;IACA,gCAAA;IACA,oCAAA;IACA,kBAAA;AACA;AAEA;IACA,YAAA;AACA;AAEA;IACA,UAAA;AACA;AAEA;IACA,yBAAA;IACA,YAAA;IACA,eAAA;IACA,kBAAA;AACA","file":"ImageItem.vue","sourcesContent":["<template>\n    <div class=\"relative container flex items-center\">\n        <img class=\"image\" :src=\"item.thumbnail\" alt=\"\">\n\n        <div class=\"overlay w-full text-center\">\n            <button\n                    type=\"button\"\n                    v-if=\"viewable\"\n                    class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded\"\n                    @click=\"$emit('view', item)\"\n            ><Icon d=\"M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z\"/></button>\n            <button\n                    type=\"button\"\n                    v-if=\"downloadable\"\n                    class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded\"\n                    @click=\"$emit('download', item)\"\n            ><Icon d=\"M11 14.59V3a1 1 0 0 1 2 0v11.59l3.3-3.3a1 1 0 0 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 0 1 1.4-1.42l3.3 3.3zM3 17a1 1 0 0 1 2 0v3h14v-3a1 1 0 0 1 2 0v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3z\"/></button>\n            <template v-if=\"!readonly\">\n                <button\n                        type=\"button\"\n                        v-if=\"editable\"\n                        class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded ml-1\"\n                        @click=\"$emit('edit', item)\"\n                ><Icon d=\"M6.3 12.3l10-10a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1 0 1.4l-10 10a1 1 0 0 1-.7.3H7a1 1 0 0 1-1-1v-4a1 1 0 0 1 .3-.7zM8 16h2.59l9-9L17 4.41l-9 9V16zm10-2a1 1 0 0 1 2 0v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h6a1 1 0 0 1 0 2H4v14h14v-6z\"/></button>\n                <button\n                        type=\"button\"\n                        class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded ml-1\"\n                        @click=\"$emit('delete', item)\"\n                ><Icon d=\"M8 6V4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8H3a1 1 0 1 1 0-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1z\"/></button>\n            </template>\n        </div>\n    </div>\n</template>\n\n<script>\n    import Icon from \"../Icon.vue\";\n    export default {\n        name: \"ImageItem\",\n        components: {Icon},\n        props: {\n            item: {\n                type: Object,\n                required: true\n            },\n            readonly: {\n                type: Boolean,\n                default: false,\n            },\n            viewable: {\n                type: Boolean,\n                default: false\n            },\n            editable: {\n                type: Boolean,\n                default: false\n            },\n            downloadable: {\n                type: Boolean,\n                default: false\n            },\n        },\n    }\n</script>\n\n<style scoped>\n    /*\n        todo: use tailwind\n     */\n    .image {\n        vertical-align: middle;\n        width: 100%;\n        transition: .5s ease;\n        backface-visibility: hidden;\n    }\n\n    .overlay {\n        transition: .5s ease;\n        opacity: 0;\n        position: absolute;\n        top: 50%;\n        left: 50%;\n        transform: translate(-50%, -50%);\n        -ms-transform: translate(-50%, -50%);\n        text-align: center;\n    }\n\n    .container:hover .image {\n        opacity: 0.3;\n    }\n\n    .container:hover .overlay {\n        opacity: 1;\n    }\n\n    .text {\n        background-color: #4CAF50;\n        color: white;\n        font-size: 16px;\n        padding: 16px 32px;\n    }\n</style>\n"]}, media: undefined });
 
       };
       /* scoped */
-      var __vue_scope_id__$4 = "data-v-8e9787ec";
+      var __vue_scope_id__$6 = "data-v-8e9787ec";
       /* module identifier */
-      var __vue_module_identifier__$4 = undefined;
+      var __vue_module_identifier__$6 = undefined;
       /* functional template */
-      var __vue_is_functional_template__$4 = false;
+      var __vue_is_functional_template__$6 = false;
       /* style inject SSR */
       
       /* style inject shadow dom */
       
 
       
-      var __vue_component__$4 = normalizeComponent(
-        { render: __vue_render__$4, staticRenderFns: __vue_staticRenderFns__$4 },
-        __vue_inject_styles__$4,
-        __vue_script__$4,
-        __vue_scope_id__$4,
-        __vue_is_functional_template__$4,
-        __vue_module_identifier__$4,
+      var __vue_component__$6 = normalizeComponent(
+        { render: __vue_render__$6, staticRenderFns: __vue_staticRenderFns__$6 },
+        __vue_inject_styles__$6,
+        __vue_script__$6,
+        __vue_scope_id__$6,
+        __vue_is_functional_template__$6,
+        __vue_module_identifier__$6,
         false,
         createInjector,
         undefined,
@@ -773,9 +970,9 @@
 
     //
 
-    var script$5 = {
+    var script$7 = {
         name: "Column",
-        components: {ImageItem: __vue_component__$4},
+        components: {ImageItem: __vue_component__$6},
         props: {
             items: {
                 type: Array,
@@ -803,10 +1000,10 @@
     };
 
     /* script */
-    var __vue_script__$5 = script$5;
+    var __vue_script__$7 = script$7;
 
     /* template */
-    var __vue_render__$5 = function() {
+    var __vue_render__$7 = function() {
       var _vm = this;
       var _h = _vm.$createElement;
       var _c = _vm._self._c || _h;
@@ -843,34 +1040,34 @@
         1
       )
     };
-    var __vue_staticRenderFns__$5 = [];
-    __vue_render__$5._withStripped = true;
+    var __vue_staticRenderFns__$7 = [];
+    __vue_render__$7._withStripped = true;
 
       /* style */
-      var __vue_inject_styles__$5 = function (inject) {
+      var __vue_inject_styles__$7 = function (inject) {
         if (!inject) { return }
         inject("data-v-79d8c1fd_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Column.vue"}, media: undefined });
 
       };
       /* scoped */
-      var __vue_scope_id__$5 = "data-v-79d8c1fd";
+      var __vue_scope_id__$7 = "data-v-79d8c1fd";
       /* module identifier */
-      var __vue_module_identifier__$5 = undefined;
+      var __vue_module_identifier__$7 = undefined;
       /* functional template */
-      var __vue_is_functional_template__$5 = false;
+      var __vue_is_functional_template__$7 = false;
       /* style inject SSR */
       
       /* style inject shadow dom */
       
 
       
-      var __vue_component__$5 = normalizeComponent(
-        { render: __vue_render__$5, staticRenderFns: __vue_staticRenderFns__$5 },
-        __vue_inject_styles__$5,
-        __vue_script__$5,
-        __vue_scope_id__$5,
-        __vue_is_functional_template__$5,
-        __vue_module_identifier__$5,
+      var __vue_component__$7 = normalizeComponent(
+        { render: __vue_render__$7, staticRenderFns: __vue_staticRenderFns__$7 },
+        __vue_inject_styles__$7,
+        __vue_script__$7,
+        __vue_scope_id__$7,
+        __vue_is_functional_template__$7,
+        __vue_module_identifier__$7,
         false,
         createInjector,
         undefined,
@@ -879,9 +1076,9 @@
 
     //
 
-    var script$6 = {
+    var script$8 = {
         name: "GridView",
-        components: {Column: __vue_component__$5},
+        components: {Column: __vue_component__$7},
         props: {
             items: {
                 type: Array,
@@ -987,10 +1184,10 @@
     };
 
     /* script */
-    var __vue_script__$6 = script$6;
+    var __vue_script__$8 = script$8;
 
     /* template */
-    var __vue_render__$6 = function() {
+    var __vue_render__$8 = function() {
       var _vm = this;
       var _h = _vm.$createElement;
       var _c = _vm._self._c || _h;
@@ -1027,34 +1224,34 @@
         1
       )
     };
-    var __vue_staticRenderFns__$6 = [];
-    __vue_render__$6._withStripped = true;
+    var __vue_staticRenderFns__$8 = [];
+    __vue_render__$8._withStripped = true;
 
       /* style */
-      var __vue_inject_styles__$6 = function (inject) {
+      var __vue_inject_styles__$8 = function (inject) {
         if (!inject) { return }
         inject("data-v-89189754_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Grid.vue"}, media: undefined });
 
       };
       /* scoped */
-      var __vue_scope_id__$6 = "data-v-89189754";
+      var __vue_scope_id__$8 = "data-v-89189754";
       /* module identifier */
-      var __vue_module_identifier__$6 = undefined;
+      var __vue_module_identifier__$8 = undefined;
       /* functional template */
-      var __vue_is_functional_template__$6 = false;
+      var __vue_is_functional_template__$8 = false;
       /* style inject SSR */
       
       /* style inject shadow dom */
       
 
       
-      var __vue_component__$6 = normalizeComponent(
-        { render: __vue_render__$6, staticRenderFns: __vue_staticRenderFns__$6 },
-        __vue_inject_styles__$6,
-        __vue_script__$6,
-        __vue_scope_id__$6,
-        __vue_is_functional_template__$6,
-        __vue_module_identifier__$6,
+      var __vue_component__$8 = normalizeComponent(
+        { render: __vue_render__$8, staticRenderFns: __vue_staticRenderFns__$8 },
+        __vue_inject_styles__$8,
+        __vue_script__$8,
+        __vue_scope_id__$8,
+        __vue_is_functional_template__$8,
+        __vue_module_identifier__$8,
         false,
         createInjector,
         undefined,
@@ -1063,9 +1260,9 @@
 
     //
 
-    var script$7 = {
+    var script$9 = {
         name: "SingleView",
-        components: {ImageItem: __vue_component__$4},
+        components: {ImageItem: __vue_component__$6},
         props: {
             items: {
                 type: Array,
@@ -1093,10 +1290,10 @@
     };
 
     /* script */
-    var __vue_script__$7 = script$7;
+    var __vue_script__$9 = script$9;
 
     /* template */
-    var __vue_render__$7 = function() {
+    var __vue_render__$9 = function() {
       var _vm = this;
       var _h = _vm.$createElement;
       var _c = _vm._self._c || _h;
@@ -1127,34 +1324,34 @@
           })
         : _vm._e()
     };
-    var __vue_staticRenderFns__$7 = [];
-    __vue_render__$7._withStripped = true;
+    var __vue_staticRenderFns__$9 = [];
+    __vue_render__$9._withStripped = true;
 
       /* style */
-      var __vue_inject_styles__$7 = function (inject) {
+      var __vue_inject_styles__$9 = function (inject) {
         if (!inject) { return }
         inject("data-v-3ac4417a_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Single.vue"}, media: undefined });
 
       };
       /* scoped */
-      var __vue_scope_id__$7 = "data-v-3ac4417a";
+      var __vue_scope_id__$9 = "data-v-3ac4417a";
       /* module identifier */
-      var __vue_module_identifier__$7 = undefined;
+      var __vue_module_identifier__$9 = undefined;
       /* functional template */
-      var __vue_is_functional_template__$7 = false;
+      var __vue_is_functional_template__$9 = false;
       /* style inject SSR */
       
       /* style inject shadow dom */
       
 
       
-      var __vue_component__$7 = normalizeComponent(
-        { render: __vue_render__$7, staticRenderFns: __vue_staticRenderFns__$7 },
-        __vue_inject_styles__$7,
-        __vue_script__$7,
-        __vue_scope_id__$7,
-        __vue_is_functional_template__$7,
-        __vue_module_identifier__$7,
+      var __vue_component__$9 = normalizeComponent(
+        { render: __vue_render__$9, staticRenderFns: __vue_staticRenderFns__$9 },
+        __vue_inject_styles__$9,
+        __vue_script__$9,
+        __vue_scope_id__$9,
+        __vue_is_functional_template__$9,
+        __vue_module_identifier__$9,
         false,
         createInjector,
         undefined,
@@ -1187,9 +1384,9 @@
 
     //
 
-    var script$8 = {
+    var script$a = {
         name: "MediaLibrary",
-        components: {ImageCropper: __vue_component__$2, Modal: __vue_component__$1, FilePicker: __vue_component__, Grid: __vue_component__$6, Single: __vue_component__$7},
+        components: {ImageCropper: __vue_component__$4, Modal: __vue_component__$3, FilePicker: __vue_component__$2, Grid: __vue_component__$8, Single: __vue_component__$9},
         props: {
             media: {
                 type: Array,
@@ -1208,6 +1405,16 @@
                     return [
                         'grid',
                         'single' ].indexOf(value) !== -1
+                }
+            },
+            filePickerMode: {
+                type: String,
+                default: 'button',
+                validator: function validator(value) {
+                    return [
+                        'button',
+                        'drag' // fixme: make it more graceful
+                    ].indexOf(value) !== -1
                 }
             },
             collectionName: {
@@ -1231,6 +1438,18 @@
                 default: false
             },
             cropperAspectRatio: {
+                type: Number
+            },
+            cropperMinWidth: {
+                type: Number
+            },
+            cropperMaxWidth: {
+                type: Number
+            },
+            cropperMinHeight: {
+                type: Number
+            },
+            cropperMaxHeight: {
                 type: Number
             },
             usePortal: {
@@ -1304,7 +1523,7 @@
 
                 this.$refs.addModal.hide();
 
-                var img = this.$refs.cropper.getResult();
+                var img = this.$refs.addCropper.getResult();
 
                 this.dataUrlToFile(img, this.addItem)
                     .then(function (file) {
@@ -1327,7 +1546,7 @@
 
                 this.$refs.editModal.hide();
 
-                var img = this.$refs.cropper.getResult();
+                var img = this.$refs.editCropper.getResult();
 
                 this.dataUrlToFile(img, this.editItem)
                     .then(function (file) {
@@ -1436,10 +1655,10 @@
     };
 
     /* script */
-    var __vue_script__$8 = script$8;
+    var __vue_script__$a = script$a;
 
     /* template */
-    var __vue_render__$8 = function() {
+    var __vue_render__$a = function() {
       var _vm = this;
       var _h = _vm.$createElement;
       var _c = _vm._self._c || _h;
@@ -1468,8 +1687,21 @@
                 _vm.viewMode !== "single" || _vm.items.length === 0
                   ? _c("file-picker", {
                       staticClass: "my-2 mx-1",
-                      attrs: { accept: _vm.accept },
-                      on: { selected: _vm.onSelected }
+                      attrs: { mode: _vm.filePickerMode, accept: _vm.accept },
+                      on: { selected: _vm.onSelected },
+                      scopedSlots: _vm._u(
+                        [
+                          {
+                            key: "help",
+                            fn: function() {
+                              return [_vm._t("help")]
+                            },
+                            proxy: true
+                          }
+                        ],
+                        null,
+                        true
+                      )
                     })
                   : _vm._e(),
                 _vm._v(" "),
@@ -1489,10 +1721,14 @@
                       [
                         _vm.addItem
                           ? _c("image-cropper", {
-                              ref: "cropper",
+                              ref: "addCropper",
                               attrs: {
+                                image: _vm.addItem.url,
                                 "aspect-ratio": _vm.cropperAspectRatio,
-                                image: _vm.addItem.url
+                                "min-width": _vm.cropperMinWidth,
+                                "max-width": _vm.cropperMaxWidth,
+                                "min-height": _vm.cropperMinHeight,
+                                "max-height": _vm.cropperMaxHeight
                               }
                             })
                           : _vm._e(),
@@ -1544,8 +1780,15 @@
                       [
                         _vm.editItem
                           ? _c("image-cropper", {
-                              ref: "cropper",
-                              attrs: { image: _vm.editItem.url }
+                              ref: "editCropper",
+                              attrs: {
+                                image: _vm.editItem.url,
+                                "aspect-ratio": _vm.cropperAspectRatio,
+                                "min-width": _vm.cropperMinWidth,
+                                "max-width": _vm.cropperMaxWidth,
+                                "min-height": _vm.cropperMinHeight,
+                                "max-height": _vm.cropperMaxHeight
+                              }
                             })
                           : _vm._e(),
                         _vm._v(" "),
@@ -1606,34 +1849,34 @@
         2
       )
     };
-    var __vue_staticRenderFns__$8 = [];
-    __vue_render__$8._withStripped = true;
+    var __vue_staticRenderFns__$a = [];
+    __vue_render__$a._withStripped = true;
 
       /* style */
-      var __vue_inject_styles__$8 = function (inject) {
+      var __vue_inject_styles__$a = function (inject) {
         if (!inject) { return }
-        inject("data-v-7fd940d6_0", { source: "\n.preview[data-v-7fd940d6]{\n    max-height: 100vh;\n}\n\n\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/MediaLibrary.vue"],"names":[],"mappings":";AAoTA;IACA,iBAAA;AACA","file":"MediaLibrary.vue","sourcesContent":["<template>\n    <div>\n        <component\n                :is=\"viewMode\"\n                :items=\"items\"\n                :readonly=\"readonly\"\n                :viewable=\"viewable\"\n                :editable=\"editable\"\n                :downloadable=\"downloadable\"\n                @view=\"onView\"\n                @download=\"onDownload\"\n                @edit=\"onEdit\"\n                @delete=\"onDelete\"\n        />\n\n        <template v-if=\"!readonly\">\n            <file-picker v-if=\"viewMode !== 'single' || items.length === 0\" class=\"my-2 mx-1\" :accept=\"accept\" @selected=\"onSelected\"/>\n\n            <modal ref=\"addModal\" :use-portal=\"usePortal\" :portal-target=\"portalTarget\">\n                <div class=\"p-4 bg-white rounded-lg shadow-2xl\">\n                    <image-cropper v-if=\"addItem\" ref=\"cropper\" :aspect-ratio=\"cropperAspectRatio\" :image=\"addItem.url\"/>\n                    <div class=\"mt-4 text-center\">\n                        <button class=\"rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150\"\n                                @click=\"() => { $refs.addModal.hide() }\">Cancel</button>\n                        <button class=\"ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded\" @click=\"onSaveCreate\">Save</button>\n                    </div>\n                </div>\n            </modal>\n\n            <modal ref=\"editModal\" :use-portal=\"usePortal\" :portal-target=\"portalTarget\">\n                <div class=\"p-4 bg-white rounded-lg shadow-2xl\">\n                    <image-cropper v-if=\"editItem\" ref=\"cropper\" :image=\"editItem.url\"/>\n                    <div class=\"mt-4 text-center\">\n                        <button class=\"rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150\"\n                                @click=\"() => { $refs.editModal.hide() }\">Cancel</button>\n                        <button class=\"ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded\" @click=\"onSaveEdit\">Save</button>\n                    </div>\n                </div>\n            </modal>\n        </template>\n\n        <modal ref=\"previewModal\" :use-portal=\"usePortal\" :portal-target=\"portalTarget\">\n            <div class=\"bg-white rounded-lg shadow-2xl\">\n                <img v-if=\"previewItem\" :src=\"previewItem.thumbnail\" class=\"preview\" alt=\"\"/>\n            </div>\n        </modal>\n\n    </div>\n</template>\n\n<script>\n    import \"tailwindcss/dist/base.css\";\n    import \"tailwindcss/dist/components.css\";\n    import \"tailwindcss/dist/utilities.css\";\n\n    import FilePicker from \"./FilePicker.vue\";\n    import Modal from \"./Modal.vue\";\n    import ImageCropper from \"./ImageCropper.vue\";\n    import Grid from \"./Views/Grid.vue\";\n    import Single from \"./Views/Single.vue\";\n    import Media from \"../Media.js\";\n\n    export default {\n        name: \"MediaLibrary\",\n        components: {ImageCropper, Modal, FilePicker, Grid, Single},\n        props: {\n            media: {\n                type: Array,\n                required: true,\n            },\n            accept: {\n                type: Array,\n                default(){\n                    return ['*']\n                }\n            },\n            viewMode: {\n                type: String,\n                default: 'grid',\n                validator(value) {\n                    return [\n                        'grid',\n                        'single',\n                        // 'list' todo:\n                    ].indexOf(value) !== -1\n                }\n            },\n            collectionName: {\n                type: String,\n                default: 'default',\n            },\n            readonly: {\n                type: Boolean,\n                default: false,\n            },\n            viewable: {\n                type: Boolean,\n                default: false\n            },\n            editable: {\n                type: Boolean,\n                default: false\n            },\n            downloadable: {\n                type: Boolean,\n                default: false\n            },\n            cropperAspectRatio: {\n                type: Number\n            },\n            usePortal: {\n                type: Boolean,\n                default: false,\n            },\n            portalTarget: {\n                type: String,\n                default: 'modals',\n            },\n        },\n        data(){\n            return {\n                /**\n                 * @var {Media|null} previewItem\n                 */\n                previewItem: null,\n                /**\n                 * @var {Media|null} addItem\n                 */\n                addItem: null,\n                /**\n                 * @var {Media|null} editItem\n                 */\n                editItem: null,\n                /**\n                 * @var {Media[]} items\n                 */\n                items: [],\n                /**\n                 * @var {Media[]} addedItems\n                 */\n                addedItems: [],\n                /**\n                 * @var {Media[]} updatedItems\n                 */\n                updatedItems: [],\n                /**\n                 * @var {Media[]} deletedItems\n                 */\n                deletedItems: [],\n            }\n        },\n        watch: {\n            media(new_){\n                this.items = new_.map(item => {\n                    return Media.fromObject(item);\n                });\n            }\n        },\n        mounted(){\n            this.items = this.media.map(item => {\n                return Media.fromObject(item);\n            });\n        },\n        methods: {\n            onSelected(file){\n                let img = URL.createObjectURL(file); // fixme: do only for images\n                this.addItem = new Media(null, this.collectionName, file.name, file.type, file, img, img);\n\n                if (this.editable){\n                    this.$refs.addModal.show();\n                }\n                else {\n                    this.items.push(this.addItem);\n                    this.$emit('added', this.addItem);\n                }\n            },\n            onSaveCreate(){\n                this.$refs.addModal.hide();\n\n                let img = this.$refs.cropper.getResult();\n\n                this.dataUrlToFile(img, this.addItem)\n                    .then(file => {\n                        let item = {...this.addItem};\n                        item.url = item.thumbnail = img;\n                        item.file = file;\n\n                        this.items.push(item);\n\n                        this.addedItems.push(item);\n\n                        this.$emit('added', item);\n                    })\n                    .catch(reason => {\n                        console.error(reason)\n                    });\n            },\n            onSaveEdit(){\n                this.$refs.editModal.hide();\n\n                let img = this.$refs.cropper.getResult();\n\n                this.dataUrlToFile(img, this.editItem)\n                    .then(file => {\n                        this.editItem.url = img;\n                        this.editItem.thumbnail = img;\n                        this.editItem.file = file;\n\n                        this.items = this.items.map(item => {\n                            if (item.v_id === this.editItem.v_id){\n                                item.url = img;\n                                item.thumbnail = img;\n                                item.file = this.editItem.file;\n                            }\n                            return item;\n                        });\n\n                        if (this.editItem.id){\n                            let previous = this.updatedItems.find(item => item.v_id === this.editItem.v_id);\n                            if (previous){\n                                this.updatedItems.map(item => {\n                                    return item.v_id === this.editItem.v_id ? this.editItem : item;\n                                })\n                            }\n                            else {\n                                this.updatedItems.push({...this.editItem});\n                            }\n                        }\n                        else {\n                            this.addedItems.map(item => {\n                                return item.v_id === this.editItem.v_id ? this.editItem : item;\n                            })\n                        }\n\n                        this.$emit('updated', this.editItem);\n                    })\n                    .catch(reason => {\n                        console.error(reason);\n                    });\n            },\n            async dataUrlToFile(data, item){\n                return new Promise((resolve, reject) => {\n                    fetch(data)\n                        .then(res => res.blob())\n                        .then(blob => {\n                            let file = new File([blob], item.fileName,{ type: item.mimeType });\n                            resolve(file);\n                        })\n                        .catch(reject);\n                })\n            },\n            onView(item){\n                this.previewItem = item;\n                this.$refs.previewModal.show();\n            },\n            onDownload(item){\n                console.log('onDownload', item);\n            },\n            onEdit(item){\n                this.editItem = item;\n                this.$refs.editModal.show()\n            },\n            onDelete(item){\n                if (confirm('Sure?')){ // fixme: use tailwind dialog\n                    this.delete(item);\n                }\n            },\n            delete(item){\n                this.items = this.items.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n                this.addedItems = this.addedItems.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n                this.updatedItems = this.updatedItems.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n\n                if (item.id){\n                    this.deletedItems.push({...item});\n                }\n\n                this.$emit('deleted', item)\n            },\n\n            /**\n             *\n             * @param {FormData} formData\n             */\n            fillFormData(formData){\n                this.addedItems.forEach(item => {\n                    formData.append(`media[store][${this.collectionName}][][file]`, item.file);\n                });\n\n                this.updatedItems.forEach(item => {\n                    formData.append('media[update][][id]', item.id);\n                    formData.append('media[update][][file]', item.file);\n                });\n\n                this.deletedItems.forEach(item => {\n                    formData.append('media[delete][]', item.id);\n                });\n            }\n        },\n    }\n</script>\n\n<style scoped>\n    .preview{\n        max-height: 100vh;\n    }\n\n\n</style>\n"]}, media: undefined });
+        inject("data-v-18d3e39c_0", { source: "\n.preview[data-v-18d3e39c]{\n    max-height: 100vh;\n}\n\n\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/MediaLibrary.vue"],"names":[],"mappings":";AAsWA;IACA,iBAAA;AACA","file":"MediaLibrary.vue","sourcesContent":["<template>\n    <div>\n        <component\n                :is=\"viewMode\"\n                :items=\"items\"\n                :readonly=\"readonly\"\n                :viewable=\"viewable\"\n                :editable=\"editable\"\n                :downloadable=\"downloadable\"\n                @view=\"onView\"\n                @download=\"onDownload\"\n                @edit=\"onEdit\"\n                @delete=\"onDelete\"\n        />\n\n        <template v-if=\"!readonly\">\n            <file-picker\n                    v-if=\"viewMode !== 'single' || items.length === 0\"\n                    class=\"my-2 mx-1\"\n                    :mode=\"filePickerMode\"\n                    :accept=\"accept\"\n                    @selected=\"onSelected\"\n            >\n                <template #help>\n                    <slot name=\"help\"/>\n                </template>\n            </file-picker>\n\n            <modal ref=\"addModal\" :use-portal=\"usePortal\" :portal-target=\"portalTarget\">\n                <div class=\"p-4 bg-white rounded-lg shadow-2xl\">\n                    <image-cropper\n                            ref=\"addCropper\"\n                            v-if=\"addItem\"\n                            :image=\"addItem.url\"\n                            :aspect-ratio=\"cropperAspectRatio\"\n                            :min-width=\"cropperMinWidth\"\n                            :max-width=\"cropperMaxWidth\"\n                            :min-height=\"cropperMinHeight\"\n                            :max-height=\"cropperMaxHeight\"\n                    />\n                    <div class=\"mt-4 text-center\">\n                        <button class=\"rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150\"\n                                @click=\"() => { $refs.addModal.hide() }\">Cancel</button>\n                        <button class=\"ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded\" @click=\"onSaveCreate\">Save</button>\n                    </div>\n                </div>\n            </modal>\n\n            <modal ref=\"editModal\" :use-portal=\"usePortal\" :portal-target=\"portalTarget\">\n                <div class=\"p-4 bg-white rounded-lg shadow-2xl\">\n                    <image-cropper\n                            ref=\"editCropper\"\n                            v-if=\"editItem\"\n                            :image=\"editItem.url\"\n                            :aspect-ratio=\"cropperAspectRatio\"\n                            :min-width=\"cropperMinWidth\"\n                            :max-width=\"cropperMaxWidth\"\n                            :min-height=\"cropperMinHeight\"\n                            :max-height=\"cropperMaxHeight\"\n                    />\n                    <div class=\"mt-4 text-center\">\n                        <button class=\"rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150\"\n                                @click=\"() => { $refs.editModal.hide() }\">Cancel</button>\n                        <button class=\"ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded\" @click=\"onSaveEdit\">Save</button>\n                    </div>\n                </div>\n            </modal>\n        </template>\n\n        <modal ref=\"previewModal\" :use-portal=\"usePortal\" :portal-target=\"portalTarget\">\n            <div class=\"bg-white rounded-lg shadow-2xl\">\n                <img v-if=\"previewItem\" :src=\"previewItem.thumbnail\" class=\"preview\" alt=\"\"/>\n            </div>\n        </modal>\n\n    </div>\n</template>\n\n<script>\n    import \"tailwindcss/dist/base.css\";\n    import \"tailwindcss/dist/components.css\";\n    import \"tailwindcss/dist/utilities.css\";\n\n    import FilePicker from \"./FilePicker/index.vue\";\n    import Modal from \"./Modal.vue\";\n    import ImageCropper from \"./ImageCropper.vue\";\n    import Grid from \"./Views/Grid.vue\";\n    import Single from \"./Views/Single.vue\";\n    import Media from \"../Media.js\";\n\n    export default {\n        name: \"MediaLibrary\",\n        components: {ImageCropper, Modal, FilePicker, Grid, Single},\n        props: {\n            media: {\n                type: Array,\n                required: true,\n            },\n            accept: {\n                type: Array,\n                default(){\n                    return ['*']\n                }\n            },\n            viewMode: {\n                type: String,\n                default: 'grid',\n                validator(value) {\n                    return [\n                        'grid',\n                        'single',\n                        // 'list' todo:\n                    ].indexOf(value) !== -1\n                }\n            },\n            filePickerMode: {\n                type: String,\n                default: 'button',\n                validator(value) {\n                    return [\n                        'button',\n                        'drag' // fixme: make it more graceful\n                    ].indexOf(value) !== -1\n                }\n            },\n            collectionName: {\n                type: String,\n                default: 'default',\n            },\n            readonly: {\n                type: Boolean,\n                default: false,\n            },\n            viewable: {\n                type: Boolean,\n                default: false\n            },\n            editable: {\n                type: Boolean,\n                default: false\n            },\n            downloadable: {\n                type: Boolean,\n                default: false\n            },\n            cropperAspectRatio: {\n                type: Number\n            },\n            cropperMinWidth: {\n                type: Number\n            },\n            cropperMaxWidth: {\n                type: Number\n            },\n            cropperMinHeight: {\n                type: Number\n            },\n            cropperMaxHeight: {\n                type: Number\n            },\n            usePortal: {\n                type: Boolean,\n                default: false,\n            },\n            portalTarget: {\n                type: String,\n                default: 'modals',\n            },\n        },\n        data(){\n            return {\n                /**\n                 * @var {Media|null} previewItem\n                 */\n                previewItem: null,\n                /**\n                 * @var {Media|null} addItem\n                 */\n                addItem: null,\n                /**\n                 * @var {Media|null} editItem\n                 */\n                editItem: null,\n                /**\n                 * @var {Media[]} items\n                 */\n                items: [],\n                /**\n                 * @var {Media[]} addedItems\n                 */\n                addedItems: [],\n                /**\n                 * @var {Media[]} updatedItems\n                 */\n                updatedItems: [],\n                /**\n                 * @var {Media[]} deletedItems\n                 */\n                deletedItems: [],\n            }\n        },\n        watch: {\n            media(new_){\n                this.items = new_.map(item => {\n                    return Media.fromObject(item);\n                });\n            }\n        },\n        mounted(){\n            this.items = this.media.map(item => {\n                return Media.fromObject(item);\n            });\n        },\n        methods: {\n            onSelected(file){\n                let img = URL.createObjectURL(file); // fixme: do only for images\n                this.addItem = new Media(null, this.collectionName, file.name, file.type, file, img, img);\n\n                if (this.editable){\n                    this.$refs.addModal.show();\n                }\n                else {\n                    this.items.push(this.addItem);\n                    this.$emit('added', this.addItem);\n                }\n            },\n            onSaveCreate(){\n                this.$refs.addModal.hide();\n\n                let img = this.$refs.addCropper.getResult();\n\n                this.dataUrlToFile(img, this.addItem)\n                    .then(file => {\n                        let item = {...this.addItem};\n                        item.url = item.thumbnail = img;\n                        item.file = file;\n\n                        this.items.push(item);\n\n                        this.addedItems.push(item);\n\n                        this.$emit('added', item);\n                    })\n                    .catch(reason => {\n                        console.error(reason)\n                    });\n            },\n            onSaveEdit(){\n                this.$refs.editModal.hide();\n\n                let img = this.$refs.editCropper.getResult();\n\n                this.dataUrlToFile(img, this.editItem)\n                    .then(file => {\n                        this.editItem.url = img;\n                        this.editItem.thumbnail = img;\n                        this.editItem.file = file;\n\n                        this.items = this.items.map(item => {\n                            if (item.v_id === this.editItem.v_id){\n                                item.url = img;\n                                item.thumbnail = img;\n                                item.file = this.editItem.file;\n                            }\n                            return item;\n                        });\n\n                        if (this.editItem.id){\n                            let previous = this.updatedItems.find(item => item.v_id === this.editItem.v_id);\n                            if (previous){\n                                this.updatedItems.map(item => {\n                                    return item.v_id === this.editItem.v_id ? this.editItem : item;\n                                })\n                            }\n                            else {\n                                this.updatedItems.push({...this.editItem});\n                            }\n                        }\n                        else {\n                            this.addedItems.map(item => {\n                                return item.v_id === this.editItem.v_id ? this.editItem : item;\n                            })\n                        }\n\n                        this.$emit('updated', this.editItem);\n                    })\n                    .catch(reason => {\n                        console.error(reason);\n                    });\n            },\n            async dataUrlToFile(data, item){\n                return new Promise((resolve, reject) => {\n                    fetch(data)\n                        .then(res => res.blob())\n                        .then(blob => {\n                            let file = new File([blob], item.fileName,{ type: item.mimeType });\n                            resolve(file);\n                        })\n                        .catch(reject);\n                })\n            },\n            onView(item){\n                this.previewItem = item;\n                this.$refs.previewModal.show();\n            },\n            onDownload(item){\n                console.log('onDownload', item);\n            },\n            onEdit(item){\n                this.editItem = item;\n                this.$refs.editModal.show()\n            },\n            onDelete(item){\n                if (confirm('Sure?')){ // fixme: use tailwind dialog\n                    this.delete(item);\n                }\n            },\n            delete(item){\n                this.items = this.items.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n                this.addedItems = this.addedItems.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n                this.updatedItems = this.updatedItems.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n\n                if (item.id){\n                    this.deletedItems.push({...item});\n                }\n\n                this.$emit('deleted', item)\n            },\n\n            /**\n             *\n             * @param {FormData} formData\n             */\n            fillFormData(formData){\n                this.addedItems.forEach(item => {\n                    formData.append(`media[store][${this.collectionName}][][file]`, item.file);\n                });\n\n                this.updatedItems.forEach(item => {\n                    formData.append('media[update][][id]', item.id);\n                    formData.append('media[update][][file]', item.file);\n                });\n\n                this.deletedItems.forEach(item => {\n                    formData.append('media[delete][]', item.id);\n                });\n            }\n        },\n    }\n</script>\n\n<style scoped>\n    .preview{\n        max-height: 100vh;\n    }\n\n\n</style>\n"]}, media: undefined });
 
       };
       /* scoped */
-      var __vue_scope_id__$8 = "data-v-7fd940d6";
+      var __vue_scope_id__$a = "data-v-18d3e39c";
       /* module identifier */
-      var __vue_module_identifier__$8 = undefined;
+      var __vue_module_identifier__$a = undefined;
       /* functional template */
-      var __vue_is_functional_template__$8 = false;
+      var __vue_is_functional_template__$a = false;
       /* style inject SSR */
       
       /* style inject shadow dom */
       
 
       
-      var __vue_component__$8 = normalizeComponent(
-        { render: __vue_render__$8, staticRenderFns: __vue_staticRenderFns__$8 },
-        __vue_inject_styles__$8,
-        __vue_script__$8,
-        __vue_scope_id__$8,
-        __vue_is_functional_template__$8,
-        __vue_module_identifier__$8,
+      var __vue_component__$a = normalizeComponent(
+        { render: __vue_render__$a, staticRenderFns: __vue_staticRenderFns__$a },
+        __vue_inject_styles__$a,
+        __vue_script__$a,
+        __vue_scope_id__$a,
+        __vue_is_functional_template__$a,
+        __vue_module_identifier__$a,
         false,
         createInjector,
         undefined,
@@ -1646,7 +1889,7 @@
     function install(Vue) {
         if (install.installed) { return; }
         install.installed = true;
-        Vue.component('media-library', __vue_component__$8);
+        Vue.component('media-library', __vue_component__$a);
     }
 
     // Create module definition for Vue.use()
@@ -1665,7 +1908,7 @@
         GlobalVue.use(plugin);
     }
 
-    exports.default = __vue_component__$8;
+    exports.default = __vue_component__$a;
     exports.install = install;
 
     Object.defineProperty(exports, '__esModule', { value: true });
