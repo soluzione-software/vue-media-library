@@ -19,7 +19,12 @@
                     class="my-2 mx-1"
                     :mode="filePickerMode"
                     :accept="accept"
-                    @selected="onSelected"/>
+                    @selected="onSelected"
+            >
+                <template #help>
+                    <slot name="help"/>
+                </template>
+            </file-picker>
 
             <modal ref="addModal" :use-portal="usePortal" :portal-target="portalTarget">
                 <div class="p-4 bg-white rounded-lg shadow-2xl">

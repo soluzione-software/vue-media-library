@@ -1,8 +1,13 @@
 <template>
-    <component
-            :is="`${mode}-file-picker`"
-            :accept="acceptFiles"
-            @change="onChange"/>
+    <div>
+        <component
+                :is="`${mode}-file-picker`"
+                :accept="acceptFiles"
+                @change="onChange"/>
+        <div class="mt-1">
+            <slot name="help"/>
+        </div>
+    </div>
 </template>
 
 <script>
