@@ -406,53 +406,51 @@ __vue_render__$2._withStripped = true;
     undefined
   );
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var isDownloadable = {
+    props: {
+        downloadable: {
+            type: Boolean,
+            default: false
+        },
+    }
+};
+
+var isEditable = {
+    props: {
+        editable: {
+            type: Boolean,
+            default: false
+        },
+    }
+};
+
+var isViewable = {
+    props: {
+        viewable: {
+            type: Boolean,
+            default: false
+        },
+    }
+};
+
+var usesPortal = {
+    props: {
+        usePortal: {
+            type: Boolean,
+            default: false,
+        },
+        portalTarget: {
+            type: String,
+            default: 'modals',
+        },
+    }
+};
+
 //
 
 var script$3 = {
     name: "Modal",
+    mixins: [usesPortal],
     props: {
         noBackdropClosing: {
             type: Boolean,
@@ -461,14 +459,6 @@ var script$3 = {
         widthContent: {
             type: Boolean,
             default: false,
-        },
-        usePortal: {
-            type: Boolean,
-            default: false,
-        },
-        portalTarget: {
-            type: String,
-            default: 'modals',
         },
     },
     data: function data() {
@@ -624,11 +614,11 @@ __vue_render__$3._withStripped = true;
   /* style */
   var __vue_inject_styles__$3 = function (inject) {
     if (!inject) { return }
-    inject("data-v-df84e27a_0", { source: "\n.w-max-content[data-v-df84e27a]{\n    width: max-content;\n}\n\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/Modal.vue"],"names":[],"mappings":";AAiGA;IACA,kBAAA;AACA","file":"Modal.vue","sourcesContent":["<template>\n    <component :is=\"usePortal ? 'portal' : 'div'\" :to=\"portalTarget\">\n        <div v-if=\"visible\" class=\"fixed inset-0 flex items-center justify-center z-50\">\n            <div class=\"absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white z-50 bg-black opacity-75\" @click=\"hide\" title=\"(Esc)\">\n                <svg class=\"fill-current text-white\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 18 18\">\n                    <path d=\"M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z\"></path>\n                </svg>\n            </div>\n\n            <transition\n                    @before-leave=\"backdropLeaving = true\"\n                    @after-leave=\"backdropLeaving = false\"\n                    enter-active-class=\"transition-all transition-fast ease-out-quad\"\n                    leave-active-class=\"transition-all transition-medium ease-in-quad\"\n                    enter-class=\"opacity-0\"\n                    enter-to-class=\"opacity-100\"\n                    leave-class=\"opacity-100\"\n                    leave-to-class=\"opacity-0\"\n                    appear\n            >\n                <div v-if=\"visible\">\n                    <div class=\"absolute inset-0 bg-black opacity-75\" @click=\"hide\"></div>\n                </div>\n            </transition>\n\n            <transition\n                    @before-leave=\"cardLeaving = true\"\n                    @after-leave=\"cardLeaving = false\"\n                    enter-active-class=\"transition-all transition-fast ease-out-quad\"\n                    leave-active-class=\"transition-all transition-medium ease-in-quad\"\n                    enter-class=\"opacity-0 scale-70\"\n                    enter-to-class=\"opacity-100 scale-100\"\n                    leave-class=\"opacity-100 scale-100\"\n                    leave-to-class=\"opacity-0 scale-70\"\n                    appear\n            >\n                <div class=\"relative\">\n                    <slot></slot>\n                </div>\n            </transition>\n        </div>\n    </component>\n</template>\n\n<script>\n    export default {\n        name: \"Modal\",\n        props: {\n            noBackdropClosing: {\n                type: Boolean,\n                default: false,\n            },\n            widthContent: {\n                type: Boolean,\n                default: false,\n            },\n            usePortal: {\n                type: Boolean,\n                default: false,\n            },\n            portalTarget: {\n                type: String,\n                default: 'modals',\n            },\n        },\n        data() {\n            return {\n                visible: false,\n                backdropLeaving: false,\n                cardLeaving: false,\n            }\n        },\n        mounted() {\n            document.addEventListener(\"keydown\", this.keydownListener);\n        },\n        destroyed() {\n            document.removeEventListener(\"keydown\", this.keydownListener);\n        },\n        methods: {\n            show(){\n                this.visible = true;\n            },\n            hide(){\n                this.visible = false;\n            },\n            keydownListener(e){\n                // Close modal with 'esc' key\n                if ((\"key\" in e && (e.key === \"Escape\" || e.key === \"Esc\")) || e.keyCode === 27) {\n                    this.hide();\n                }\n            }\n        }\n    }\n</script>\n\n<style scoped>\n\n    .w-max-content{\n        width: max-content;\n    }\n\n</style>\n"]}, media: undefined });
+    inject("data-v-7ff7a762_0", { source: "\n.w-max-content[data-v-7ff7a762]{\n    width: max-content;\n}\n\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/Modal.vue"],"names":[],"mappings":";AA4FA;IACA,kBAAA;AACA","file":"Modal.vue","sourcesContent":["<template>\n    <component :is=\"usePortal ? 'portal' : 'div'\" :to=\"portalTarget\">\n        <div v-if=\"visible\" class=\"fixed inset-0 flex items-center justify-center z-50\">\n            <div class=\"absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white z-50 bg-black opacity-75\" @click=\"hide\" title=\"(Esc)\">\n                <svg class=\"fill-current text-white\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 18 18\">\n                    <path d=\"M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z\"></path>\n                </svg>\n            </div>\n\n            <transition\n                    @before-leave=\"backdropLeaving = true\"\n                    @after-leave=\"backdropLeaving = false\"\n                    enter-active-class=\"transition-all transition-fast ease-out-quad\"\n                    leave-active-class=\"transition-all transition-medium ease-in-quad\"\n                    enter-class=\"opacity-0\"\n                    enter-to-class=\"opacity-100\"\n                    leave-class=\"opacity-100\"\n                    leave-to-class=\"opacity-0\"\n                    appear\n            >\n                <div v-if=\"visible\">\n                    <div class=\"absolute inset-0 bg-black opacity-75\" @click=\"hide\"></div>\n                </div>\n            </transition>\n\n            <transition\n                    @before-leave=\"cardLeaving = true\"\n                    @after-leave=\"cardLeaving = false\"\n                    enter-active-class=\"transition-all transition-fast ease-out-quad\"\n                    leave-active-class=\"transition-all transition-medium ease-in-quad\"\n                    enter-class=\"opacity-0 scale-70\"\n                    enter-to-class=\"opacity-100 scale-100\"\n                    leave-class=\"opacity-100 scale-100\"\n                    leave-to-class=\"opacity-0 scale-70\"\n                    appear\n            >\n                <div class=\"relative\">\n                    <slot></slot>\n                </div>\n            </transition>\n        </div>\n    </component>\n</template>\n\n<script>\n    import {usesPortal} from \"../mixins\";\n\n    export default {\n        name: \"Modal\",\n        mixins: [usesPortal],\n        props: {\n            noBackdropClosing: {\n                type: Boolean,\n                default: false,\n            },\n            widthContent: {\n                type: Boolean,\n                default: false,\n            },\n        },\n        data() {\n            return {\n                visible: false,\n                backdropLeaving: false,\n                cardLeaving: false,\n            }\n        },\n        mounted() {\n            document.addEventListener(\"keydown\", this.keydownListener);\n        },\n        destroyed() {\n            document.removeEventListener(\"keydown\", this.keydownListener);\n        },\n        methods: {\n            show(){\n                this.visible = true;\n            },\n            hide(){\n                this.visible = false;\n            },\n            keydownListener(e){\n                // Close modal with 'esc' key\n                if ((\"key\" in e && (e.key === \"Escape\" || e.key === \"Esc\")) || e.keyCode === 27) {\n                    this.hide();\n                }\n            }\n        }\n    }\n</script>\n\n<style scoped>\n\n    .w-max-content{\n        width: max-content;\n    }\n\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__$3 = "data-v-df84e27a";
+  var __vue_scope_id__$3 = "data-v-7ff7a762";
   /* module identifier */
   var __vue_module_identifier__$3 = undefined;
   /* functional template */
@@ -839,6 +829,7 @@ __vue_render__$5._withStripped = true;
 var script$6 = {
     name: "ImageItem",
     components: {Icon: __vue_component__$5},
+    mixins: [isDownloadable, isEditable, isViewable],
     props: {
         item: {
             type: Object,
@@ -847,18 +838,6 @@ var script$6 = {
         readonly: {
             type: Boolean,
             default: false,
-        },
-        viewable: {
-            type: Boolean,
-            default: false
-        },
-        editable: {
-            type: Boolean,
-            default: false
-        },
-        downloadable: {
-            type: Boolean,
-            default: false
         },
     },
 };
@@ -993,11 +972,11 @@ __vue_render__$6._withStripped = true;
   /* style */
   var __vue_inject_styles__$6 = function (inject) {
     if (!inject) { return }
-    inject("data-v-8e9787ec_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*\n    todo: use tailwind\n */\n.image[data-v-8e9787ec] {\n    vertical-align: middle;\n    width: 100%;\n    transition: .5s ease;\n    backface-visibility: hidden;\n}\n.overlay[data-v-8e9787ec] {\n    transition: .5s ease;\n    opacity: 0;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    -ms-transform: translate(-50%, -50%);\n    text-align: center;\n}\n.container:hover .image[data-v-8e9787ec] {\n    opacity: 0.3;\n}\n.container:hover .overlay[data-v-8e9787ec] {\n    opacity: 1;\n}\n.text[data-v-8e9787ec] {\n    background-color: #4CAF50;\n    color: white;\n    font-size: 16px;\n    padding: 16px 32px;\n}\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/Views/ImageItem.vue"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAiEA;;EAEA;AACA;IACA,sBAAA;IACA,WAAA;IACA,oBAAA;IACA,2BAAA;AACA;AAEA;IACA,oBAAA;IACA,UAAA;IACA,kBAAA;IACA,QAAA;IACA,SAAA;IACA,gCAAA;IACA,oCAAA;IACA,kBAAA;AACA;AAEA;IACA,YAAA;AACA;AAEA;IACA,UAAA;AACA;AAEA;IACA,yBAAA;IACA,YAAA;IACA,eAAA;IACA,kBAAA;AACA","file":"ImageItem.vue","sourcesContent":["<template>\n    <div class=\"relative container flex items-center\">\n        <img class=\"image\" :src=\"item.thumbnail\" alt=\"\">\n\n        <div class=\"overlay w-full text-center\">\n            <button\n                    type=\"button\"\n                    v-if=\"viewable\"\n                    class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded\"\n                    @click=\"$emit('view', item)\"\n            ><Icon d=\"M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z\"/></button>\n            <button\n                    type=\"button\"\n                    v-if=\"downloadable\"\n                    class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded\"\n                    @click=\"$emit('download', item)\"\n            ><Icon d=\"M11 14.59V3a1 1 0 0 1 2 0v11.59l3.3-3.3a1 1 0 0 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 0 1 1.4-1.42l3.3 3.3zM3 17a1 1 0 0 1 2 0v3h14v-3a1 1 0 0 1 2 0v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3z\"/></button>\n            <template v-if=\"!readonly\">\n                <button\n                        type=\"button\"\n                        v-if=\"editable\"\n                        class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded ml-1\"\n                        @click=\"$emit('edit', item)\"\n                ><Icon d=\"M6.3 12.3l10-10a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1 0 1.4l-10 10a1 1 0 0 1-.7.3H7a1 1 0 0 1-1-1v-4a1 1 0 0 1 .3-.7zM8 16h2.59l9-9L17 4.41l-9 9V16zm10-2a1 1 0 0 1 2 0v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h6a1 1 0 0 1 0 2H4v14h14v-6z\"/></button>\n                <button\n                        type=\"button\"\n                        class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded ml-1\"\n                        @click=\"$emit('delete', item)\"\n                ><Icon d=\"M8 6V4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8H3a1 1 0 1 1 0-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1z\"/></button>\n            </template>\n        </div>\n    </div>\n</template>\n\n<script>\n    import Icon from \"../Icon.vue\";\n    export default {\n        name: \"ImageItem\",\n        components: {Icon},\n        props: {\n            item: {\n                type: Object,\n                required: true\n            },\n            readonly: {\n                type: Boolean,\n                default: false,\n            },\n            viewable: {\n                type: Boolean,\n                default: false\n            },\n            editable: {\n                type: Boolean,\n                default: false\n            },\n            downloadable: {\n                type: Boolean,\n                default: false\n            },\n        },\n    }\n</script>\n\n<style scoped>\n    /*\n        todo: use tailwind\n     */\n    .image {\n        vertical-align: middle;\n        width: 100%;\n        transition: .5s ease;\n        backface-visibility: hidden;\n    }\n\n    .overlay {\n        transition: .5s ease;\n        opacity: 0;\n        position: absolute;\n        top: 50%;\n        left: 50%;\n        transform: translate(-50%, -50%);\n        -ms-transform: translate(-50%, -50%);\n        text-align: center;\n    }\n\n    .container:hover .image {\n        opacity: 0.3;\n    }\n\n    .container:hover .overlay {\n        opacity: 1;\n    }\n\n    .text {\n        background-color: #4CAF50;\n        color: white;\n        font-size: 16px;\n        padding: 16px 32px;\n    }\n</style>\n"]}, media: undefined });
+    inject("data-v-32e87bd5_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*\n    todo: use tailwind\n */\n.image[data-v-32e87bd5] {\n    vertical-align: middle;\n    width: 100%;\n    transition: .5s ease;\n    backface-visibility: hidden;\n}\n.overlay[data-v-32e87bd5] {\n    transition: .5s ease;\n    opacity: 0;\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    -ms-transform: translate(-50%, -50%);\n    text-align: center;\n}\n.container:hover .image[data-v-32e87bd5] {\n    opacity: 0.3;\n}\n.container:hover .overlay[data-v-32e87bd5] {\n    opacity: 1;\n}\n.text[data-v-32e87bd5] {\n    background-color: #4CAF50;\n    color: white;\n    font-size: 16px;\n    padding: 16px 32px;\n}\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/Views/ImageItem.vue"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAuDA;;EAEA;AACA;IACA,sBAAA;IACA,WAAA;IACA,oBAAA;IACA,2BAAA;AACA;AAEA;IACA,oBAAA;IACA,UAAA;IACA,kBAAA;IACA,QAAA;IACA,SAAA;IACA,gCAAA;IACA,oCAAA;IACA,kBAAA;AACA;AAEA;IACA,YAAA;AACA;AAEA;IACA,UAAA;AACA;AAEA;IACA,yBAAA;IACA,YAAA;IACA,eAAA;IACA,kBAAA;AACA","file":"ImageItem.vue","sourcesContent":["<template>\n    <div class=\"relative container flex items-center\">\n        <img class=\"image\" :src=\"item.thumbnail\" alt=\"\">\n\n        <div class=\"overlay w-full text-center\">\n            <button\n                    type=\"button\"\n                    v-if=\"viewable\"\n                    class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded\"\n                    @click=\"$emit('view', item)\"\n            ><Icon d=\"M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z\"/></button>\n            <button\n                    type=\"button\"\n                    v-if=\"downloadable\"\n                    class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded\"\n                    @click=\"$emit('download', item)\"\n            ><Icon d=\"M11 14.59V3a1 1 0 0 1 2 0v11.59l3.3-3.3a1 1 0 0 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 0 1 1.4-1.42l3.3 3.3zM3 17a1 1 0 0 1 2 0v3h14v-3a1 1 0 0 1 2 0v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3z\"/></button>\n            <template v-if=\"!readonly\">\n                <button\n                        type=\"button\"\n                        v-if=\"editable\"\n                        class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded ml-1\"\n                        @click=\"$emit('edit', item)\"\n                ><Icon d=\"M6.3 12.3l10-10a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1 0 1.4l-10 10a1 1 0 0 1-.7.3H7a1 1 0 0 1-1-1v-4a1 1 0 0 1 .3-.7zM8 16h2.59l9-9L17 4.41l-9 9V16zm10-2a1 1 0 0 1 2 0v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h6a1 1 0 0 1 0 2H4v14h14v-6z\"/></button>\n                <button\n                        type=\"button\"\n                        class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded ml-1\"\n                        @click=\"$emit('delete', item)\"\n                ><Icon d=\"M8 6V4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8H3a1 1 0 1 1 0-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1z\"/></button>\n            </template>\n        </div>\n    </div>\n</template>\n\n<script>\n    import Icon from \"../Icon.vue\";\n    import {isDownloadable, isEditable, isViewable} from \"../../mixins\";\n    export default {\n        name: \"ImageItem\",\n        components: {Icon},\n        mixins: [isDownloadable, isEditable, isViewable],\n        props: {\n            item: {\n                type: Object,\n                required: true\n            },\n            readonly: {\n                type: Boolean,\n                default: false,\n            },\n        },\n    }\n</script>\n\n<style scoped>\n    /*\n        todo: use tailwind\n     */\n    .image {\n        vertical-align: middle;\n        width: 100%;\n        transition: .5s ease;\n        backface-visibility: hidden;\n    }\n\n    .overlay {\n        transition: .5s ease;\n        opacity: 0;\n        position: absolute;\n        top: 50%;\n        left: 50%;\n        transform: translate(-50%, -50%);\n        -ms-transform: translate(-50%, -50%);\n        text-align: center;\n    }\n\n    .container:hover .image {\n        opacity: 0.3;\n    }\n\n    .container:hover .overlay {\n        opacity: 1;\n    }\n\n    .text {\n        background-color: #4CAF50;\n        color: white;\n        font-size: 16px;\n        padding: 16px 32px;\n    }\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__$6 = "data-v-8e9787ec";
+  var __vue_scope_id__$6 = "data-v-32e87bd5";
   /* module identifier */
   var __vue_module_identifier__$6 = undefined;
   /* functional template */
@@ -1026,6 +1005,7 @@ __vue_render__$6._withStripped = true;
 var script$7 = {
     name: "Column",
     components: {ImageItem: __vue_component__$6},
+    mixins: [isDownloadable, isEditable, isViewable],
     props: {
         items: {
             type: Array,
@@ -1034,18 +1014,6 @@ var script$7 = {
             }
         },
         readonly: {
-            type: Boolean,
-            default: false
-        },
-        viewable: {
-            type: Boolean,
-            default: false
-        },
-        editable: {
-            type: Boolean,
-            default: false
-        },
-        downloadable: {
             type: Boolean,
             default: false
         },
@@ -1099,11 +1067,11 @@ __vue_render__$7._withStripped = true;
   /* style */
   var __vue_inject_styles__$7 = function (inject) {
     if (!inject) { return }
-    inject("data-v-79d8c1fd_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Column.vue"}, media: undefined });
+    inject("data-v-0fa9b4ac_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Column.vue"}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__$7 = "data-v-79d8c1fd";
+  var __vue_scope_id__$7 = "data-v-0fa9b4ac";
   /* module identifier */
   var __vue_module_identifier__$7 = undefined;
   /* functional template */
@@ -1132,6 +1100,7 @@ __vue_render__$7._withStripped = true;
 var script$8 = {
     name: "GridView",
     components: {Column: __vue_component__$7},
+    mixins: [isDownloadable, isEditable, isViewable],
     props: {
         items: {
             type: Array,
@@ -1140,18 +1109,6 @@ var script$8 = {
             },
         },
         readonly: {
-            type: Boolean,
-            default: false
-        },
-        viewable: {
-            type: Boolean,
-            default: false
-        },
-        editable: {
-            type: Boolean,
-            default: false
-        },
-        downloadable: {
             type: Boolean,
             default: false
         },
@@ -1283,11 +1240,11 @@ __vue_render__$8._withStripped = true;
   /* style */
   var __vue_inject_styles__$8 = function (inject) {
     if (!inject) { return }
-    inject("data-v-89189754_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Grid.vue"}, media: undefined });
+    inject("data-v-3caf3a03_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Grid.vue"}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__$8 = "data-v-89189754";
+  var __vue_scope_id__$8 = "data-v-3caf3a03";
   /* module identifier */
   var __vue_module_identifier__$8 = undefined;
   /* functional template */
@@ -1316,6 +1273,7 @@ __vue_render__$8._withStripped = true;
 var script$9 = {
     name: "SingleView",
     components: {ImageItem: __vue_component__$6},
+    mixins: [isDownloadable, isEditable, isViewable],
     props: {
         items: {
             type: Array,
@@ -1324,18 +1282,6 @@ var script$9 = {
             },
         },
         readonly: {
-            type: Boolean,
-            default: false
-        },
-        viewable: {
-            type: Boolean,
-            default: false
-        },
-        editable: {
-            type: Boolean,
-            default: false
-        },
-        downloadable: {
             type: Boolean,
             default: false
         },
@@ -1383,11 +1329,11 @@ __vue_render__$9._withStripped = true;
   /* style */
   var __vue_inject_styles__$9 = function (inject) {
     if (!inject) { return }
-    inject("data-v-3ac4417a_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Single.vue"}, media: undefined });
+    inject("data-v-361eb0d1_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Single.vue"}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__$9 = "data-v-3ac4417a";
+  var __vue_scope_id__$9 = "data-v-361eb0d1";
   /* module identifier */
   var __vue_module_identifier__$9 = undefined;
   /* functional template */
@@ -1440,6 +1386,7 @@ Media.fromObject = function fromObject (obj){
 var script$a = {
     name: "MediaLibrary",
     components: {ImageCropper: __vue_component__$4, Modal: __vue_component__$3, FilePicker: __vue_component__$2, Grid: __vue_component__$8, Single: __vue_component__$9},
+    mixins: [isDownloadable, isEditable, isViewable, usesPortal],
     props: {
         media: {
             type: Array,
@@ -1450,6 +1397,10 @@ var script$a = {
             default: function default$1(){
                 return ['*']
             }
+        },
+        limit: {
+            type: Number,
+            default: -1,
         },
         viewMode: {
             type: String,
@@ -1478,18 +1429,6 @@ var script$a = {
             type: Boolean,
             default: false,
         },
-        viewable: {
-            type: Boolean,
-            default: false
-        },
-        editable: {
-            type: Boolean,
-            default: false
-        },
-        downloadable: {
-            type: Boolean,
-            default: false
-        },
         cropperAspectRatio: {
             type: Number
         },
@@ -1504,14 +1443,6 @@ var script$a = {
         },
         cropperMaxHeight: {
             type: Number
-        },
-        usePortal: {
-            type: Boolean,
-            default: false,
-        },
-        portalTarget: {
-            type: String,
-            default: 'modals',
         },
     },
     data: function data(){
@@ -1737,7 +1668,9 @@ var __vue_render__$a = function() {
       _vm._v(" "),
       !_vm.readonly
         ? [
-            _vm.viewMode !== "single" || _vm.items.length === 0
+            (_vm.viewMode === "single" && _vm.items.length === 0) ||
+            (_vm.viewMode !== "single" &&
+              (_vm.limit === -1 || _vm.items.length < _vm.limit))
               ? _c("file-picker", {
                   staticClass: "my-2 mx-1",
                   attrs: { mode: _vm.filePickerMode, accept: _vm.accept },
@@ -1908,11 +1841,11 @@ __vue_render__$a._withStripped = true;
   /* style */
   var __vue_inject_styles__$a = function (inject) {
     if (!inject) { return }
-    inject("data-v-18d3e39c_0", { source: "\n.preview[data-v-18d3e39c]{\n    max-height: 100vh;\n}\n\n\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/MediaLibrary.vue"],"names":[],"mappings":";AAsWA;IACA,iBAAA;AACA","file":"MediaLibrary.vue","sourcesContent":["<template>\n    <div>\n        <component\n                :is=\"viewMode\"\n                :items=\"items\"\n                :readonly=\"readonly\"\n                :viewable=\"viewable\"\n                :editable=\"editable\"\n                :downloadable=\"downloadable\"\n                @view=\"onView\"\n                @download=\"onDownload\"\n                @edit=\"onEdit\"\n                @delete=\"onDelete\"\n        />\n\n        <template v-if=\"!readonly\">\n            <file-picker\n                    v-if=\"viewMode !== 'single' || items.length === 0\"\n                    class=\"my-2 mx-1\"\n                    :mode=\"filePickerMode\"\n                    :accept=\"accept\"\n                    @selected=\"onSelected\"\n            >\n                <template #help>\n                    <slot name=\"help\"/>\n                </template>\n            </file-picker>\n\n            <modal ref=\"addModal\" :use-portal=\"usePortal\" :portal-target=\"portalTarget\">\n                <div class=\"p-4 bg-white rounded-lg shadow-2xl\">\n                    <image-cropper\n                            ref=\"addCropper\"\n                            v-if=\"addItem\"\n                            :image=\"addItem.url\"\n                            :aspect-ratio=\"cropperAspectRatio\"\n                            :min-width=\"cropperMinWidth\"\n                            :max-width=\"cropperMaxWidth\"\n                            :min-height=\"cropperMinHeight\"\n                            :max-height=\"cropperMaxHeight\"\n                    />\n                    <div class=\"mt-4 text-center\">\n                        <button class=\"rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150\"\n                                @click=\"() => { $refs.addModal.hide() }\">Cancel</button>\n                        <button class=\"ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded\" @click=\"onSaveCreate\">Save</button>\n                    </div>\n                </div>\n            </modal>\n\n            <modal ref=\"editModal\" :use-portal=\"usePortal\" :portal-target=\"portalTarget\">\n                <div class=\"p-4 bg-white rounded-lg shadow-2xl\">\n                    <image-cropper\n                            ref=\"editCropper\"\n                            v-if=\"editItem\"\n                            :image=\"editItem.url\"\n                            :aspect-ratio=\"cropperAspectRatio\"\n                            :min-width=\"cropperMinWidth\"\n                            :max-width=\"cropperMaxWidth\"\n                            :min-height=\"cropperMinHeight\"\n                            :max-height=\"cropperMaxHeight\"\n                    />\n                    <div class=\"mt-4 text-center\">\n                        <button class=\"rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150\"\n                                @click=\"() => { $refs.editModal.hide() }\">Cancel</button>\n                        <button class=\"ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded\" @click=\"onSaveEdit\">Save</button>\n                    </div>\n                </div>\n            </modal>\n        </template>\n\n        <modal ref=\"previewModal\" :use-portal=\"usePortal\" :portal-target=\"portalTarget\">\n            <div class=\"bg-white rounded-lg shadow-2xl\">\n                <img v-if=\"previewItem\" :src=\"previewItem.thumbnail\" class=\"preview\" alt=\"\"/>\n            </div>\n        </modal>\n\n    </div>\n</template>\n\n<script>\n    import \"tailwindcss/dist/base.css\";\n    import \"tailwindcss/dist/components.css\";\n    import \"tailwindcss/dist/utilities.css\";\n\n    import FilePicker from \"./FilePicker/index.vue\";\n    import Modal from \"./Modal.vue\";\n    import ImageCropper from \"./ImageCropper.vue\";\n    import Grid from \"./Views/Grid.vue\";\n    import Single from \"./Views/Single.vue\";\n    import Media from \"../Media.js\";\n\n    export default {\n        name: \"MediaLibrary\",\n        components: {ImageCropper, Modal, FilePicker, Grid, Single},\n        props: {\n            media: {\n                type: Array,\n                required: true,\n            },\n            accept: {\n                type: Array,\n                default(){\n                    return ['*']\n                }\n            },\n            viewMode: {\n                type: String,\n                default: 'grid',\n                validator(value) {\n                    return [\n                        'grid',\n                        'single',\n                        // 'list' todo:\n                    ].indexOf(value) !== -1\n                }\n            },\n            filePickerMode: {\n                type: String,\n                default: 'button',\n                validator(value) {\n                    return [\n                        'button',\n                        'drag' // fixme: make it more graceful\n                    ].indexOf(value) !== -1\n                }\n            },\n            collectionName: {\n                type: String,\n                default: 'default',\n            },\n            readonly: {\n                type: Boolean,\n                default: false,\n            },\n            viewable: {\n                type: Boolean,\n                default: false\n            },\n            editable: {\n                type: Boolean,\n                default: false\n            },\n            downloadable: {\n                type: Boolean,\n                default: false\n            },\n            cropperAspectRatio: {\n                type: Number\n            },\n            cropperMinWidth: {\n                type: Number\n            },\n            cropperMaxWidth: {\n                type: Number\n            },\n            cropperMinHeight: {\n                type: Number\n            },\n            cropperMaxHeight: {\n                type: Number\n            },\n            usePortal: {\n                type: Boolean,\n                default: false,\n            },\n            portalTarget: {\n                type: String,\n                default: 'modals',\n            },\n        },\n        data(){\n            return {\n                /**\n                 * @var {Media|null} previewItem\n                 */\n                previewItem: null,\n                /**\n                 * @var {Media|null} addItem\n                 */\n                addItem: null,\n                /**\n                 * @var {Media|null} editItem\n                 */\n                editItem: null,\n                /**\n                 * @var {Media[]} items\n                 */\n                items: [],\n                /**\n                 * @var {Media[]} addedItems\n                 */\n                addedItems: [],\n                /**\n                 * @var {Media[]} updatedItems\n                 */\n                updatedItems: [],\n                /**\n                 * @var {Media[]} deletedItems\n                 */\n                deletedItems: [],\n            }\n        },\n        watch: {\n            media(new_){\n                this.items = new_.map(item => {\n                    return Media.fromObject(item);\n                });\n            }\n        },\n        mounted(){\n            this.items = this.media.map(item => {\n                return Media.fromObject(item);\n            });\n        },\n        methods: {\n            onSelected(file){\n                let img = URL.createObjectURL(file); // fixme: do only for images\n                this.addItem = new Media(null, this.collectionName, file.name, file.type, file, img, img);\n\n                if (this.editable){\n                    this.$refs.addModal.show();\n                }\n                else {\n                    this.items.push(this.addItem);\n                    this.$emit('added', this.addItem);\n                }\n            },\n            onSaveCreate(){\n                this.$refs.addModal.hide();\n\n                let img = this.$refs.addCropper.getResult();\n\n                this.dataUrlToFile(img, this.addItem)\n                    .then(file => {\n                        let item = {...this.addItem};\n                        item.url = item.thumbnail = img;\n                        item.file = file;\n\n                        this.items.push(item);\n\n                        this.addedItems.push(item);\n\n                        this.$emit('added', item);\n                    })\n                    .catch(reason => {\n                        console.error(reason)\n                    });\n            },\n            onSaveEdit(){\n                this.$refs.editModal.hide();\n\n                let img = this.$refs.editCropper.getResult();\n\n                this.dataUrlToFile(img, this.editItem)\n                    .then(file => {\n                        this.editItem.url = img;\n                        this.editItem.thumbnail = img;\n                        this.editItem.file = file;\n\n                        this.items = this.items.map(item => {\n                            if (item.v_id === this.editItem.v_id){\n                                item.url = img;\n                                item.thumbnail = img;\n                                item.file = this.editItem.file;\n                            }\n                            return item;\n                        });\n\n                        if (this.editItem.id){\n                            let previous = this.updatedItems.find(item => item.v_id === this.editItem.v_id);\n                            if (previous){\n                                this.updatedItems.map(item => {\n                                    return item.v_id === this.editItem.v_id ? this.editItem : item;\n                                })\n                            }\n                            else {\n                                this.updatedItems.push({...this.editItem});\n                            }\n                        }\n                        else {\n                            this.addedItems.map(item => {\n                                return item.v_id === this.editItem.v_id ? this.editItem : item;\n                            })\n                        }\n\n                        this.$emit('updated', this.editItem);\n                    })\n                    .catch(reason => {\n                        console.error(reason);\n                    });\n            },\n            async dataUrlToFile(data, item){\n                return new Promise((resolve, reject) => {\n                    fetch(data)\n                        .then(res => res.blob())\n                        .then(blob => {\n                            let file = new File([blob], item.fileName,{ type: item.mimeType });\n                            resolve(file);\n                        })\n                        .catch(reject);\n                })\n            },\n            onView(item){\n                this.previewItem = item;\n                this.$refs.previewModal.show();\n            },\n            onDownload(item){\n                console.log('onDownload', item);\n            },\n            onEdit(item){\n                this.editItem = item;\n                this.$refs.editModal.show()\n            },\n            onDelete(item){\n                if (confirm('Sure?')){ // fixme: use tailwind dialog\n                    this.delete(item);\n                }\n            },\n            delete(item){\n                this.items = this.items.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n                this.addedItems = this.addedItems.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n                this.updatedItems = this.updatedItems.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n\n                if (item.id){\n                    this.deletedItems.push({...item});\n                }\n\n                this.$emit('deleted', item)\n            },\n\n            /**\n             *\n             * @param {FormData} formData\n             */\n            fillFormData(formData){\n                this.addedItems.forEach(item => {\n                    formData.append(`media[store][${this.collectionName}][][file]`, item.file);\n                });\n\n                this.updatedItems.forEach(item => {\n                    formData.append('media[update][][id]', item.id);\n                    formData.append('media[update][][file]', item.file);\n                });\n\n                this.deletedItems.forEach(item => {\n                    formData.append('media[delete][]', item.id);\n                });\n            }\n        },\n    }\n</script>\n\n<style scoped>\n    .preview{\n        max-height: 100vh;\n    }\n\n\n</style>\n"]}, media: undefined });
+    inject("data-v-2cffe1c0_0", { source: "\n.preview[data-v-2cffe1c0]{\n    max-height: 100vh;\n}\n\n\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/MediaLibrary.vue"],"names":[],"mappings":";AAwVA;IACA,iBAAA;AACA","file":"MediaLibrary.vue","sourcesContent":["<template>\n    <div>\n        <component\n                :is=\"viewMode\"\n                :items=\"items\"\n                :readonly=\"readonly\"\n                :viewable=\"viewable\"\n                :editable=\"editable\"\n                :downloadable=\"downloadable\"\n                @view=\"onView\"\n                @download=\"onDownload\"\n                @edit=\"onEdit\"\n                @delete=\"onDelete\"\n        />\n\n        <template v-if=\"!readonly\">\n            <file-picker\n                    v-if=\"(viewMode === 'single' && items.length === 0) || (viewMode !== 'single' && (limit === -1 || items.length < limit))\"\n                    class=\"my-2 mx-1\"\n                    :mode=\"filePickerMode\"\n                    :accept=\"accept\"\n                    @selected=\"onSelected\"\n            >\n                <template #help>\n                    <slot name=\"help\"/>\n                </template>\n            </file-picker>\n\n            <modal ref=\"addModal\" :use-portal=\"usePortal\" :portal-target=\"portalTarget\">\n                <div class=\"p-4 bg-white rounded-lg shadow-2xl\">\n                    <image-cropper\n                            ref=\"addCropper\"\n                            v-if=\"addItem\"\n                            :image=\"addItem.url\"\n                            :aspect-ratio=\"cropperAspectRatio\"\n                            :min-width=\"cropperMinWidth\"\n                            :max-width=\"cropperMaxWidth\"\n                            :min-height=\"cropperMinHeight\"\n                            :max-height=\"cropperMaxHeight\"\n                    />\n                    <div class=\"mt-4 text-center\">\n                        <button class=\"rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150\"\n                                @click=\"() => { $refs.addModal.hide() }\">Cancel</button>\n                        <button class=\"ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded\" @click=\"onSaveCreate\">Save</button>\n                    </div>\n                </div>\n            </modal>\n\n            <modal ref=\"editModal\" :use-portal=\"usePortal\" :portal-target=\"portalTarget\">\n                <div class=\"p-4 bg-white rounded-lg shadow-2xl\">\n                    <image-cropper\n                            ref=\"editCropper\"\n                            v-if=\"editItem\"\n                            :image=\"editItem.url\"\n                            :aspect-ratio=\"cropperAspectRatio\"\n                            :min-width=\"cropperMinWidth\"\n                            :max-width=\"cropperMaxWidth\"\n                            :min-height=\"cropperMinHeight\"\n                            :max-height=\"cropperMaxHeight\"\n                    />\n                    <div class=\"mt-4 text-center\">\n                        <button class=\"rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150\"\n                                @click=\"() => { $refs.editModal.hide() }\">Cancel</button>\n                        <button class=\"ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded\" @click=\"onSaveEdit\">Save</button>\n                    </div>\n                </div>\n            </modal>\n        </template>\n\n        <modal ref=\"previewModal\" :use-portal=\"usePortal\" :portal-target=\"portalTarget\">\n            <div class=\"bg-white rounded-lg shadow-2xl\">\n                <img v-if=\"previewItem\" :src=\"previewItem.thumbnail\" class=\"preview\" alt=\"\"/>\n            </div>\n        </modal>\n\n    </div>\n</template>\n\n<script>\n    import \"tailwindcss/dist/base.css\";\n    import \"tailwindcss/dist/components.css\";\n    import \"tailwindcss/dist/utilities.css\";\n\n    import FilePicker from \"./FilePicker/index.vue\";\n    import Modal from \"./Modal.vue\";\n    import ImageCropper from \"./ImageCropper.vue\";\n    import Grid from \"./Views/Grid.vue\";\n    import Single from \"./Views/Single.vue\";\n    import Media from \"../Media.js\";\n    import {isDownloadable, isEditable, isViewable, usesPortal} from \"../mixins\";\n\n    export default {\n        name: \"MediaLibrary\",\n        components: {ImageCropper, Modal, FilePicker, Grid, Single},\n        mixins: [isDownloadable, isEditable, isViewable, usesPortal],\n        props: {\n            media: {\n                type: Array,\n                required: true,\n            },\n            accept: {\n                type: Array,\n                default(){\n                    return ['*']\n                }\n            },\n            limit: {\n                type: Number,\n                default: -1,\n            },\n            viewMode: {\n                type: String,\n                default: 'grid',\n                validator(value) {\n                    return [\n                        'grid',\n                        'single',\n                        // 'list' todo:\n                    ].indexOf(value) !== -1\n                }\n            },\n            filePickerMode: {\n                type: String,\n                default: 'button',\n                validator(value) {\n                    return [\n                        'button',\n                        'drag' // fixme: make it more graceful\n                    ].indexOf(value) !== -1\n                }\n            },\n            collectionName: {\n                type: String,\n                default: 'default',\n            },\n            readonly: {\n                type: Boolean,\n                default: false,\n            },\n            cropperAspectRatio: {\n                type: Number\n            },\n            cropperMinWidth: {\n                type: Number\n            },\n            cropperMaxWidth: {\n                type: Number\n            },\n            cropperMinHeight: {\n                type: Number\n            },\n            cropperMaxHeight: {\n                type: Number\n            },\n        },\n        data(){\n            return {\n                /**\n                 * @var {Media|null} previewItem\n                 */\n                previewItem: null,\n                /**\n                 * @var {Media|null} addItem\n                 */\n                addItem: null,\n                /**\n                 * @var {Media|null} editItem\n                 */\n                editItem: null,\n                /**\n                 * @var {Media[]} items\n                 */\n                items: [],\n                /**\n                 * @var {Media[]} addedItems\n                 */\n                addedItems: [],\n                /**\n                 * @var {Media[]} updatedItems\n                 */\n                updatedItems: [],\n                /**\n                 * @var {Media[]} deletedItems\n                 */\n                deletedItems: [],\n            }\n        },\n        watch: {\n            media(new_){\n                this.items = new_.map(item => {\n                    return Media.fromObject(item);\n                });\n            }\n        },\n        mounted(){\n            this.items = this.media.map(item => {\n                return Media.fromObject(item);\n            });\n        },\n        methods: {\n            onSelected(file){\n                let img = URL.createObjectURL(file); // fixme: do only for images\n                this.addItem = new Media(null, this.collectionName, file.name, file.type, file, img, img);\n\n                if (this.editable){\n                    this.$refs.addModal.show();\n                }\n                else {\n                    this.items.push(this.addItem);\n                    this.$emit('added', this.addItem);\n                }\n            },\n            onSaveCreate(){\n                this.$refs.addModal.hide();\n\n                let img = this.$refs.addCropper.getResult();\n\n                this.dataUrlToFile(img, this.addItem)\n                    .then(file => {\n                        let item = {...this.addItem};\n                        item.url = item.thumbnail = img;\n                        item.file = file;\n\n                        this.items.push(item);\n\n                        this.addedItems.push(item);\n\n                        this.$emit('added', item);\n                    })\n                    .catch(reason => {\n                        console.error(reason)\n                    });\n            },\n            onSaveEdit(){\n                this.$refs.editModal.hide();\n\n                let img = this.$refs.editCropper.getResult();\n\n                this.dataUrlToFile(img, this.editItem)\n                    .then(file => {\n                        this.editItem.url = img;\n                        this.editItem.thumbnail = img;\n                        this.editItem.file = file;\n\n                        this.items = this.items.map(item => {\n                            if (item.v_id === this.editItem.v_id){\n                                item.url = img;\n                                item.thumbnail = img;\n                                item.file = this.editItem.file;\n                            }\n                            return item;\n                        });\n\n                        if (this.editItem.id){\n                            let previous = this.updatedItems.find(item => item.v_id === this.editItem.v_id);\n                            if (previous){\n                                this.updatedItems.map(item => {\n                                    return item.v_id === this.editItem.v_id ? this.editItem : item;\n                                })\n                            }\n                            else {\n                                this.updatedItems.push({...this.editItem});\n                            }\n                        }\n                        else {\n                            this.addedItems.map(item => {\n                                return item.v_id === this.editItem.v_id ? this.editItem : item;\n                            })\n                        }\n\n                        this.$emit('updated', this.editItem);\n                    })\n                    .catch(reason => {\n                        console.error(reason);\n                    });\n            },\n            async dataUrlToFile(data, item){\n                return new Promise((resolve, reject) => {\n                    fetch(data)\n                        .then(res => res.blob())\n                        .then(blob => {\n                            let file = new File([blob], item.fileName,{ type: item.mimeType });\n                            resolve(file);\n                        })\n                        .catch(reject);\n                })\n            },\n            onView(item){\n                this.previewItem = item;\n                this.$refs.previewModal.show();\n            },\n            onDownload(item){\n                console.log('onDownload', item);\n            },\n            onEdit(item){\n                this.editItem = item;\n                this.$refs.editModal.show()\n            },\n            onDelete(item){\n                if (confirm('Sure?')){ // fixme: use tailwind dialog\n                    this.delete(item);\n                }\n            },\n            delete(item){\n                this.items = this.items.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n                this.addedItems = this.addedItems.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n                this.updatedItems = this.updatedItems.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n\n                if (item.id){\n                    this.deletedItems.push({...item});\n                }\n\n                this.$emit('deleted', item)\n            },\n\n            /**\n             *\n             * @param {FormData} formData\n             */\n            fillFormData(formData){\n                this.addedItems.forEach(item => {\n                    formData.append(`media[store][${this.collectionName}][][file]`, item.file);\n                });\n\n                this.updatedItems.forEach(item => {\n                    formData.append('media[update][][id]', item.id);\n                    formData.append('media[update][][file]', item.file);\n                });\n\n                this.deletedItems.forEach(item => {\n                    formData.append('media[delete][]', item.id);\n                });\n            }\n        },\n    }\n</script>\n\n<style scoped>\n    .preview{\n        max-height: 100vh;\n    }\n\n\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__$a = "data-v-18d3e39c";
+  var __vue_scope_id__$a = "data-v-2cffe1c0";
   /* module identifier */
   var __vue_module_identifier__$a = undefined;
   /* functional template */
