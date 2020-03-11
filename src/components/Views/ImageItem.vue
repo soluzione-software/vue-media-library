@@ -1,5 +1,5 @@
 <template>
-    <div class="relative container flex items-center">
+    <div class="relative image-container flex items-center">
         <img class="image" :src="item.thumbnail" alt="">
 
         <div class="overlay w-full text-center">
@@ -74,11 +74,11 @@
         text-align: center;
     }
 
-    .container:hover .image {
+    .image-container:hover .image {
         opacity: 0.3;
     }
 
-    .container:hover .overlay {
+    .image-container:hover .overlay {
         opacity: 1;
     }
 
