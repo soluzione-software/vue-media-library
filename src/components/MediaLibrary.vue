@@ -15,7 +15,7 @@
 
         <template v-if="!readonly">
             <file-picker
-                    v-if="viewMode !== 'single' || items.length === 0"
+                    v-if="(viewMode === 'single' && items.length === 0) || (viewMode !== 'single' && (limit === -1 || items.length < limit))"
                     class="my-2 mx-1"
                     :mode="filePickerMode"
                     :accept="accept"
@@ -103,6 +103,10 @@
                 default(){
                     return ['*']
                 }
+            },
+            limit: {
+                type: Number,
+                default: -1,
             },
             viewMode: {
                 type: String,
