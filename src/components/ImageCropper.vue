@@ -51,14 +51,17 @@
                 }
             },
             restrictions(){
-                return () => {
-                    return {
-                        minWidth: this.minWidth,
-                        minHeight: this.minHeight,
-                        maxWidth: this.maxWidth,
-                        maxHeight: this.maxHeight,
+                if (this.minWidth || this.minHeight || this.maxWidth || this.maxHeight){
+                    return () => {
+                        return {
+                            minWidth: this.minWidth,
+                            minHeight: this.minHeight,
+                            maxWidth: this.maxWidth,
+                            maxHeight: this.maxHeight,
+                        }
                     }
                 }
+                return undefined;
             },
         }
     }
