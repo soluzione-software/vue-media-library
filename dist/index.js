@@ -444,6 +444,12 @@ __vue_render__$2._withStripped = true;
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 var script$3 = {
     name: "Modal",
@@ -472,6 +478,12 @@ var script$3 = {
             cardLeaving: false,
         }
     },
+    mounted: function mounted() {
+        document.addEventListener("keydown", this.keydownListener);
+    },
+    destroyed: function destroyed() {
+        document.removeEventListener("keydown", this.keydownListener);
+    },
     methods: {
         show: function show(){
             this.visible = true;
@@ -479,6 +491,12 @@ var script$3 = {
         hide: function hide(){
             this.visible = false;
         },
+        keydownListener: function keydownListener(e){
+            // Close modal with 'esc' key
+            if (("key" in e && (e.key === "Escape" || e.key === "Esc")) || e.keyCode === 27) {
+                this.hide();
+            }
+        }
     }
 };
 
@@ -501,6 +519,38 @@ var __vue_render__$3 = function() {
               staticClass: "fixed inset-0 flex items-center justify-center z-50"
             },
             [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white z-50 bg-black opacity-75",
+                  attrs: { title: "(Esc)" },
+                  on: { click: _vm.hide }
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "fill-current text-white",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        width: "18",
+                        height: "18",
+                        viewBox: "0 0 18 18"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        attrs: {
+                          d:
+                            "M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"
+                        }
+                      })
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
               _c(
                 "transition",
                 {
@@ -574,11 +624,11 @@ __vue_render__$3._withStripped = true;
   /* style */
   var __vue_inject_styles__$3 = function (inject) {
     if (!inject) { return }
-    inject("data-v-669abfe0_0", { source: "\n.w-max-content[data-v-669abfe0]{\n    width: max-content;\n}\n\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/Modal.vue"],"names":[],"mappings":";AA+EA;IACA,kBAAA;AACA","file":"Modal.vue","sourcesContent":["<template>\n    <component :is=\"usePortal ? 'portal' : 'div'\" :to=\"portalTarget\">\n        <div v-if=\"visible\" class=\"fixed inset-0 flex items-center justify-center z-50\">\n            <transition\n                    @before-leave=\"backdropLeaving = true\"\n                    @after-leave=\"backdropLeaving = false\"\n                    enter-active-class=\"transition-all transition-fast ease-out-quad\"\n                    leave-active-class=\"transition-all transition-medium ease-in-quad\"\n                    enter-class=\"opacity-0\"\n                    enter-to-class=\"opacity-100\"\n                    leave-class=\"opacity-100\"\n                    leave-to-class=\"opacity-0\"\n                    appear\n            >\n                <div v-if=\"visible\">\n                    <div class=\"absolute inset-0 bg-black opacity-75\" @click=\"hide\"></div>\n                </div>\n            </transition>\n\n            <transition\n                    @before-leave=\"cardLeaving = true\"\n                    @after-leave=\"cardLeaving = false\"\n                    enter-active-class=\"transition-all transition-fast ease-out-quad\"\n                    leave-active-class=\"transition-all transition-medium ease-in-quad\"\n                    enter-class=\"opacity-0 scale-70\"\n                    enter-to-class=\"opacity-100 scale-100\"\n                    leave-class=\"opacity-100 scale-100\"\n                    leave-to-class=\"opacity-0 scale-70\"\n                    appear\n            >\n                <div class=\"relative\">\n                    <slot></slot>\n                </div>\n            </transition>\n        </div>\n    </component>\n</template>\n\n<script>\n    export default {\n        name: \"Modal\",\n        props: {\n            noBackdropClosing: {\n                type: Boolean,\n                default: false,\n            },\n            widthContent: {\n                type: Boolean,\n                default: false,\n            },\n            usePortal: {\n                type: Boolean,\n                default: false,\n            },\n            portalTarget: {\n                type: String,\n                default: 'modals',\n            },\n        },\n        data() {\n            return {\n                visible: false,\n                backdropLeaving: false,\n                cardLeaving: false,\n            }\n        },\n        methods: {\n            show(){\n                this.visible = true;\n            },\n            hide(){\n                this.visible = false;\n            },\n        }\n    }\n</script>\n\n<style scoped>\n\n    .w-max-content{\n        width: max-content;\n    }\n\n</style>\n"]}, media: undefined });
+    inject("data-v-df84e27a_0", { source: "\n.w-max-content[data-v-df84e27a]{\n    width: max-content;\n}\n\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/Modal.vue"],"names":[],"mappings":";AAiGA;IACA,kBAAA;AACA","file":"Modal.vue","sourcesContent":["<template>\n    <component :is=\"usePortal ? 'portal' : 'div'\" :to=\"portalTarget\">\n        <div v-if=\"visible\" class=\"fixed inset-0 flex items-center justify-center z-50\">\n            <div class=\"absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white z-50 bg-black opacity-75\" @click=\"hide\" title=\"(Esc)\">\n                <svg class=\"fill-current text-white\" xmlns=\"http://www.w3.org/2000/svg\" width=\"18\" height=\"18\" viewBox=\"0 0 18 18\">\n                    <path d=\"M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z\"></path>\n                </svg>\n            </div>\n\n            <transition\n                    @before-leave=\"backdropLeaving = true\"\n                    @after-leave=\"backdropLeaving = false\"\n                    enter-active-class=\"transition-all transition-fast ease-out-quad\"\n                    leave-active-class=\"transition-all transition-medium ease-in-quad\"\n                    enter-class=\"opacity-0\"\n                    enter-to-class=\"opacity-100\"\n                    leave-class=\"opacity-100\"\n                    leave-to-class=\"opacity-0\"\n                    appear\n            >\n                <div v-if=\"visible\">\n                    <div class=\"absolute inset-0 bg-black opacity-75\" @click=\"hide\"></div>\n                </div>\n            </transition>\n\n            <transition\n                    @before-leave=\"cardLeaving = true\"\n                    @after-leave=\"cardLeaving = false\"\n                    enter-active-class=\"transition-all transition-fast ease-out-quad\"\n                    leave-active-class=\"transition-all transition-medium ease-in-quad\"\n                    enter-class=\"opacity-0 scale-70\"\n                    enter-to-class=\"opacity-100 scale-100\"\n                    leave-class=\"opacity-100 scale-100\"\n                    leave-to-class=\"opacity-0 scale-70\"\n                    appear\n            >\n                <div class=\"relative\">\n                    <slot></slot>\n                </div>\n            </transition>\n        </div>\n    </component>\n</template>\n\n<script>\n    export default {\n        name: \"Modal\",\n        props: {\n            noBackdropClosing: {\n                type: Boolean,\n                default: false,\n            },\n            widthContent: {\n                type: Boolean,\n                default: false,\n            },\n            usePortal: {\n                type: Boolean,\n                default: false,\n            },\n            portalTarget: {\n                type: String,\n                default: 'modals',\n            },\n        },\n        data() {\n            return {\n                visible: false,\n                backdropLeaving: false,\n                cardLeaving: false,\n            }\n        },\n        mounted() {\n            document.addEventListener(\"keydown\", this.keydownListener);\n        },\n        destroyed() {\n            document.removeEventListener(\"keydown\", this.keydownListener);\n        },\n        methods: {\n            show(){\n                this.visible = true;\n            },\n            hide(){\n                this.visible = false;\n            },\n            keydownListener(e){\n                // Close modal with 'esc' key\n                if ((\"key\" in e && (e.key === \"Escape\" || e.key === \"Esc\")) || e.keyCode === 27) {\n                    this.hide();\n                }\n            }\n        }\n    }\n</script>\n\n<style scoped>\n\n    .w-max-content{\n        width: max-content;\n    }\n\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__$3 = "data-v-669abfe0";
+  var __vue_scope_id__$3 = "data-v-df84e27a";
   /* module identifier */
   var __vue_module_identifier__$3 = undefined;
   /* functional template */
