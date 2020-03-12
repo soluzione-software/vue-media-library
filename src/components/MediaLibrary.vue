@@ -8,6 +8,7 @@
                 :editable="editable"
                 :downloadable="downloadable"
                 :columns-count="gridColumns"
+                :squared-items="gridSquaredItems"
                 @view="onView"
                 @download="onDownload"
                 @edit="onEdit"
@@ -155,6 +156,10 @@
             },
             gridColumns: {
                 type: Object,
+            },
+            gridSquaredItems: {
+                type: Boolean,
+                default: false,
             },
         },
         data(){

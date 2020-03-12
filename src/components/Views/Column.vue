@@ -9,6 +9,7 @@
                 :viewable="viewable"
                 :editable="editable"
                 :downloadable="downloadable"
+                :squared="squaredItems"
                 @view="(args) => {$emit('view', args)}"
                 @download="(args) => {$emit('download', args)}"
                 @edit="(args) => {$emit('edit', args)}"
@@ -35,6 +36,10 @@
             readonly: {
                 type: Boolean,
                 default: false
+            },
+            squaredItems: {
+                type: Boolean,
+                default: false,
             },
         }
     }

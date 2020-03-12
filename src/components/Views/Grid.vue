@@ -9,6 +9,7 @@
                 :viewable="viewable"
                 :editable="editable"
                 :downloadable="downloadable"
+                :squared-items="squaredItems"
                 @view="(args) => {$emit('view', args)}"
                 @download="(args) => {$emit('download', args)}"
                 @edit="(args) => {$emit('edit', args)}"
@@ -49,6 +50,10 @@
                 default(){
                     return defaultColumns;
                 }
+            },
+            squaredItems: {
+                type: Boolean,
+                default: false,
             },
         },
         data(){

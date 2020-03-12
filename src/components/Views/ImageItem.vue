@@ -1,6 +1,12 @@
 <template>
     <div class="relative image-container flex items-center">
-        <img class="image" :src="item.thumbnail" alt="">
+        <div v-if="squared" class="spacer"></div>
+        <img
+                class="image"
+                :class="{'h-full': squared, 'absolute': squared, 't-0': squared, 'object-cover': squared}"
+                :src="item.thumbnail"
+                alt=""
+        />
 
         <div class="overlay w-full text-center">
             <button
@@ -48,6 +54,10 @@
                 type: Boolean,
                 default: false,
             },
+            squared: {
+                type: Boolean,
+                default: false,
+            },
         },
     }
 </script>
@@ -82,10 +92,7 @@
         opacity: 1;
     }
 
-    .text {
-        background-color: #4CAF50;
-        color: white;
-        font-size: 16px;
-        padding: 16px 32px;
+    .spacer{
+        padding-top: 100%;
     }
 </style>
