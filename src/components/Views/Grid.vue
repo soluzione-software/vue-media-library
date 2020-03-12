@@ -1,39 +1,51 @@
 <template>
-    <div class="flex flex-wrap">
-        <column
-                :class="columnClasses"
-                v-for="(column, i) in columns"
-                :key="i"
-                :items="column"
+    <div>
+        <columns
+                :items="visibleItems"
                 :readonly="readonly"
                 :viewable="viewable"
                 :editable="editable"
                 :downloadable="downloadable"
+                :columns-count="columnsCount"
                 :squared-items="squaredItems"
+                :more-count="moreCount"
+                :more-item="visibleItems[visibleItems.length - 1]"
                 @view="(args) => {$emit('view', args)}"
                 @download="(args) => {$emit('download', args)}"
                 @edit="(args) => {$emit('edit', args)}"
                 @delete="(args) => {$emit('delete', args)}"
+                @more="onMore"
         />
+
+        <modal v-if="" ref="moreModal" class="w-2/3" :use-portal="usePortal" :portal-target="portalTarget">
+            <div class="p-4 bg-white rounded-lg shadow-2xl w-full relative container">
+                <columns
+                        :items="items"
+                        :readonly="readonly"
+                        :viewable="viewable"
+                        :editable="editable"
+                        :downloadable="downloadable"
+                        :columns-count="columnsCount"
+                        :squared-items="squaredItems"
+                        @view="(args) => {$emit('view', args)}"
+                        @download="(args) => {$emit('download', args)}"
+                        @edit="(args) => {$emit('edit', args)}"
+                        @delete="(args) => {$emit('delete', args)}"
+                />
+            </div>
+        </modal>
     </div>
 </template>
 
 <script>
-    import Column from "./Column.vue";
-    import {isDownloadable, isEditable, isViewable} from "../../mixins";
-
-    const defaultColumns = {
-        'xs': 1,
-        'sm': 2,
-        'md': 3,
-        'lg': 4,
-        'xl': 5
-    };
+    import Columns from "./Columns.vue";
+    import {isDownloadable, isEditable, isViewable, usesPortal} from "../../mixins";
+    import Modal from "../Modal.vue";
 
     export default {
         name: "GridView",
-        components: {Column},
-        mixins: [isDownloadable, isEditable, isViewable],
+        components: {Columns, Modal},
+        mixins: [isDownloadable, isEditable, isViewable, usesPortal],
         props: {
             items: {
                 type: Array,
@@ -47,100 +59,36 @@
             },
             columnsCount: {
                 type: Object,
-                default(){
-                    return defaultColumns;
-                }
             },
             squaredItems: {
                 type: Boolean,
                 default: false,
             },
+            displayLimit: {
+                type: Number,
+                default: -1
+            },
         },
         data(){
             return {
-                window: {
-                    width: 0,
-                    height: 0
-                },
-                breakpoints: {
-                    // https://tailwindcss.com/docs/responsive-design/
-                    'sm': 640,
-                    'md': 768,
-                    'lg': 1024,
-                    'xl': 1280,
-                }
             }
         },
-        mounted() {
-
-        },
-        created() {
-            this.handleResize();
-            window.addEventListener('resize', this.handleResize);
-        },
-        destroyed() {
-            window.removeEventListener('resize', this.handleResize);
-        },
         methods: {
-            chunk(array, chunks){
-                let res = [];
-
-                for (let i = 0; i < chunks; i++){
-                    res.push([]);
-                }
-
-                let current = 0;
-                array.forEach(item => {
-                    res[current].push(item);
-                    current = current + 1 < chunks ? current + 1 : 0;
-                });
-
-                return res;
-            },
-            handleResize() {
-                this.window.width = window.innerWidth;
-                this.window.height = window.innerHeight;
-            },
-            getColumnsCount(breakpoint){
-                return this.columnsCount[breakpoint] || defaultColumns[breakpoint];
-            },
-            getColumnClass(breakpoint){
-                let count = this.getColumnsCount(breakpoint);
-                let prefix = breakpoint !== 'xs' ? `${breakpoint}:` : '';
-                let w = count === 1 ? 'full' : `1/${count}`;
-                return `${prefix}w-${w}`;
-            },
+            onMore(item){
+                this.$refs.moreModal.show();
+            }
         },
         computed: {
-            columns(){
-                let chunks = this.getColumnsCount(this.currentBreakpoint);
-
-                return this.chunk(this.items, chunks);
+            visibleCount(){
+                return this.displayLimit > 0 ? Math.min(this.displayLimit, this.items.length) : this.items.length;
             },
-            currentBreakpoint(){
-                let breakpoint = 'xs';
-
-                Object.entries(this.breakpoints).reverse().every(entry => {
-                    let br = entry[0];
-                    let size = entry[1];
-                    if (this.window.width >= size){
-                        breakpoint = br;
-                        return false;
-                    }
-                    return true;
-                });
-
-                return breakpoint;
+            moreCount(){
+                let count = this.items.length - this.visibleCount;
+                return count > 0 ? count + 1 : undefined;
             },
-            columnClasses(){
-                return [
-                    this.getColumnClass('xs'),
-                    this.getColumnClass('sm'),
-                    this.getColumnClass('md'),
-                    this.getColumnClass('lg'),
-                    this.getColumnClass('xl')
-                ]
-            },
+            visibleItems(){
+                return this.items.slice(0, this.visibleCount);
+            }
         }
     }
 </script>

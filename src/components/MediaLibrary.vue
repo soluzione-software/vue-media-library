@@ -9,6 +9,7 @@
                 :downloadable="downloadable"
                 :columns-count="gridColumns"
                 :squared-items="gridSquaredItems"
+                :display-limit="gridDisplayLimit"
                 @view="onView"
                 @download="onDownload"
                 @edit="onEdit"
@@ -29,7 +30,7 @@
             </file-picker>
 
             <modal ref="addModal" :use-portal="usePortal" :portal-target="portalTarget">
-                <div class="p-4 bg-white rounded-lg shadow-2xl">
+                <div class="p-4 bg-white rounded-lg shadow-2xl relative">
                     <image-cropper
                             ref="addCropper"
                             v-if="addItem"
@@ -49,7 +50,7 @@
             </modal>
 
             <modal ref="editModal" :use-portal="usePortal" :portal-target="portalTarget">
-                <div class="p-4 bg-white rounded-lg shadow-2xl">
+                <div class="p-4 bg-white rounded-lg shadow-2xl relative">
                     <image-cropper
                             ref="editCropper"
                             v-if="editItem"
@@ -70,7 +71,7 @@
         </template>
 
         <modal ref="previewModal" :use-portal="usePortal" :portal-target="portalTarget">
-            <div class="bg-white rounded-lg shadow-2xl">
+            <div class="bg-white rounded-lg shadow-2xl relative">
                 <img v-if="previewItem" :src="previewItem.thumbnail" class="preview" alt=""/>
             </div>
         </modal>
@@ -160,6 +161,10 @@
             gridSquaredItems: {
                 type: Boolean,
                 default: false,
+            },
+            gridDisplayLimit: {
+                type: Number,
+                default: -1
             },
         },
         data(){

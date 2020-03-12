@@ -10,10 +10,13 @@
                 :editable="editable"
                 :downloadable="downloadable"
                 :squared="squaredItems"
+                :more-count="moreCount"
+                :more-item="moreItem"
                 @view="(args) => {$emit('view', args)}"
                 @download="(args) => {$emit('download', args)}"
                 @edit="(args) => {$emit('edit', args)}"
                 @delete="(args) => {$emit('delete', args)}"
+                @more="(args) => {$emit('more', args)}"
         />
     </div>
 </template>
@@ -21,6 +24,7 @@
 <script>
     import ImageItem from "./ImageItem.vue";
     import {isDownloadable, isEditable, isViewable} from "../../mixins";
+    import Media from "../../Media";
 
     export default {
         name: "Column",
@@ -40,6 +44,12 @@
             squaredItems: {
                 type: Boolean,
                 default: false,
+            },
+            moreCount: {
+                type: Number
+            },
+            moreItem: {
+                type: Media,
             },
         }
     }

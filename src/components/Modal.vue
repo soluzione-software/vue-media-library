@@ -34,9 +34,7 @@
                     leave-to-class="opacity-0 scale-70"
                     appear
             >
-                <div class="relative">
-                    <slot></slot>
-                </div>
+                <slot></slot>
             </transition>
         </div>
     </component>
