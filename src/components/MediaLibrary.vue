@@ -30,50 +30,44 @@
             </file-picker>
 
             <modal ref="addModal" :use-portal="usePortal" :portal-target="portalTarget">
-                <div class="p-4 bg-white rounded-lg shadow-2xl relative">
-                    <image-cropper
-                            ref="addCropper"
-                            v-if="addItem"
-                            :image="addItem.url"
-                            :aspect-ratio="cropperAspectRatio"
-                            :min-width="cropperMinWidth"
-                            :max-width="cropperMaxWidth"
-                            :min-height="cropperMinHeight"
-                            :max-height="cropperMaxHeight"
-                    />
-                    <div class="mt-4 text-center">
-                        <button class="rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150"
-                                @click="() => { $refs.addModal.hide() }">Cancel</button>
-                        <button class="ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="onSaveCreate">Save</button>
-                    </div>
+                <image-cropper
+                        ref="addCropper"
+                        v-if="addItem"
+                        :image="addItem.url"
+                        :aspect-ratio="cropperAspectRatio"
+                        :min-width="cropperMinWidth"
+                        :max-width="cropperMaxWidth"
+                        :min-height="cropperMinHeight"
+                        :max-height="cropperMaxHeight"
+                />
+                <div class="mt-4 text-center">
+                    <button class="rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150"
+                            @click="() => { $refs.addModal.hide() }">Cancel</button>
+                    <button class="ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="onSaveCreate">Save</button>
                 </div>
             </modal>
 
             <modal ref="editModal" :use-portal="usePortal" :portal-target="portalTarget">
-                <div class="p-4 bg-white rounded-lg shadow-2xl relative">
-                    <image-cropper
-                            ref="editCropper"
-                            v-if="editItem"
-                            :image="editItem.url"
-                            :aspect-ratio="cropperAspectRatio"
-                            :min-width="cropperMinWidth"
-                            :max-width="cropperMaxWidth"
-                            :min-height="cropperMinHeight"
-                            :max-height="cropperMaxHeight"
-                    />
-                    <div class="mt-4 text-center">
-                        <button class="rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150"
-                                @click="() => { $refs.editModal.hide() }">Cancel</button>
-                        <button class="ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="onSaveEdit">Save</button>
-                    </div>
+                <image-cropper
+                        ref="editCropper"
+                        v-if="editItem"
+                        :image="editItem.url"
+                        :aspect-ratio="cropperAspectRatio"
+                        :min-width="cropperMinWidth"
+                        :max-width="cropperMaxWidth"
+                        :min-height="cropperMinHeight"
+                        :max-height="cropperMaxHeight"
+                />
+                <div class="mt-4 text-center">
+                    <button class="rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150"
+                            @click="() => { $refs.editModal.hide() }">Cancel</button>
+                    <button class="ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="onSaveEdit">Save</button>
                 </div>
             </modal>
         </template>
 
-        <modal ref="previewModal" :use-portal="usePortal" :portal-target="portalTarget">
-            <div class="bg-white rounded-lg shadow-2xl relative">
-                <img v-if="previewItem" :src="previewItem.thumbnail" class="preview" alt=""/>
-            </div>
+        <modal ref="previewModal" content-width :use-portal="usePortal" :portal-target="portalTarget">
+            <img v-if="previewItem" :src="previewItem.thumbnail" class="preview" alt=""/>
         </modal>
 
     </div>
