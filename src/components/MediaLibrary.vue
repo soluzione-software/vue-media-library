@@ -10,6 +10,8 @@
                 :columns-count="gridColumns"
                 :squared-items="gridSquaredItems"
                 :display-limit="gridDisplayLimit"
+                :use-portal="usePortal"
+                :portal-target="portalTarget"
                 @view="onView"
                 @download="onDownload"
                 @edit="onEdit"
@@ -28,56 +30,49 @@
                     <slot name="help"/>
                 </template>
             </file-picker>
-
-            <modal ref="addModal" :use-portal="usePortal" :portal-target="portalTarget">
-                <image-cropper
-                        ref="addCropper"
-                        v-if="addItem"
-                        :image="addItem.url"
-                        :aspect-ratio="cropperAspectRatio"
-                        :min-width="cropperMinWidth"
-                        :max-width="cropperMaxWidth"
-                        :min-height="cropperMinHeight"
-                        :max-height="cropperMaxHeight"
-                />
-                <div class="mt-4 text-center">
-                    <button class="rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150"
-                            @click="() => { $refs.addModal.hide() }">Cancel</button>
-                    <button class="ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="onSaveCreate">Save</button>
-                </div>
-            </modal>
-
-            <modal ref="editModal" :use-portal="usePortal" :portal-target="portalTarget">
-                <image-cropper
-                        ref="editCropper"
-                        v-if="editItem"
-                        :image="editItem.url"
-                        :aspect-ratio="cropperAspectRatio"
-                        :min-width="cropperMinWidth"
-                        :max-width="cropperMaxWidth"
-                        :min-height="cropperMinHeight"
-                        :max-height="cropperMaxHeight"
-                />
-                <div class="mt-4 text-center">
-                    <button class="rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150"
-                            @click="() => { $refs.editModal.hide() }">Cancel</button>
-                    <button class="ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" @click="onSaveEdit">Save</button>
-                </div>
-            </modal>
         </template>
 
-        <modal ref="previewModal" content-width :use-portal="usePortal" :portal-target="portalTarget">
-            <img v-if="previewItem" :src="previewItem.thumbnail" class="preview" alt=""/>
-        </modal>
+        <component :is="usePortal ? 'portal' : 'template'" :to="portalTarget">
+            <template v-if="!readonly">
+                <modal ref="addModal" size="xl" @ok="onSaveCreate" ok-title="Save">
+                    <image-cropper
+                            ref="addCropper"
+                            v-if="addItem"
+                            :image="addItem.url"
+                            :aspect-ratio="cropperAspectRatio"
+                            :min-width="cropperMinWidth"
+                            :max-width="cropperMaxWidth"
+                            :min-height="cropperMinHeight"
+                            :max-height="cropperMaxHeight"
+                    />
+                </modal>
 
+                <modal ref="editModal" size="xl" @ok="onSaveEdit" ok-title="Save">
+                    <image-cropper
+                            ref="editCropper"
+                            v-if="editItem"
+                            :image="editItem.url"
+                            :aspect-ratio="cropperAspectRatio"
+                            :min-width="cropperMinWidth"
+                            :max-width="cropperMaxWidth"
+                            :min-height="cropperMinHeight"
+                            :max-height="cropperMaxHeight"
+                    />
+                </modal>
+            </template>
+        </component>
+
+        <light-box
+                v-if="viewable"
+                ref="lightBox"
+                :media="lightBoxMedia"
+                :show-light-box="false"
+                :show-thumbs="false"
+        />
     </div>
 </template>
 
 <script>
-    import "tailwindcss/dist/base.css";
-    import "tailwindcss/dist/components.css";
-    import "tailwindcss/dist/utilities.css";
-
     import FilePicker from "./FilePicker/index.vue";
     import Modal from "./Modal.vue";
     import ImageCropper from "./ImageCropper.vue";
@@ -85,10 +80,11 @@
     import Single from "./Views/Single.vue";
     import Media from "../Media.js";
     import {isDownloadable, isEditable, isViewable, usesPortal} from "../mixins";
+    import LightBox from 'vue-image-lightbox';
 
     export default {
         name: "MediaLibrary",
-        components: {ImageCropper, Modal, FilePicker, Grid, Single},
+        components: {ImageCropper, Modal, FilePicker, Grid, Single, LightBox},
         mixins: [isDownloadable, isEditable, isViewable, usesPortal],
         props: {
             media: {
@@ -164,10 +160,6 @@
         data(){
             return {
                 /**
-                 * @var {Media|null} previewItem
-                 */
-                previewItem: null,
-                /**
                  * @var {Media|null} addItem
                  */
                 addItem: null,
@@ -207,7 +199,11 @@
                 this.addItem = new Media(null, this.collectionName, file.name, file.type, file, img, img);
 
                 if (this.editable){
-                    this.$refs.addModal.show();
+                    this.$nextTick(() => {
+                        this.$nextTick(() => {
+                            this.$refs.addModal.show()
+                        })
+                    })
                 }
                 else {
                     this.items.push(this.addItem);
@@ -289,9 +285,13 @@
                         .catch(reject);
                 })
             },
+
+            /**
+             * @param {Media} item
+             */
             onView(item){
-                this.previewItem = item;
-                this.$refs.previewModal.show();
+                let i = this.items.map(v => v.v_id).indexOf(item.v_id);
+                this.$refs.lightBox.showImage(i);
             },
             onDownload(item){
                 console.log('onDownload', item);
@@ -359,13 +359,21 @@
                 });
             }
         },
+        computed: {
+            lightBoxMedia(){
+                /**
+                 * @param {Media} item
+                 */
+                return this.items.map((item) => {
+                    return {thumb: item.url, src: item.url}
+                })
+            }
+        }
     }
 </script>
 
 <style scoped>
-    .preview{
-        max-height: 100vh;
+    >>> .vue-lb-footer-count{
+        display: none;
     }
-
-
 </style>

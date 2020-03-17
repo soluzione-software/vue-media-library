@@ -17,21 +17,23 @@
                 @more="onMore"
         />
 
-        <modal v-if="" ref="moreModal" size="6xl" :use-portal="usePortal" :portal-target="portalTarget">
-            <columns
-                    :items="items"
-                    :readonly="readonly"
-                    :viewable="viewable"
-                    :editable="editable"
-                    :downloadable="downloadable"
-                    :columns-count="columnsCount"
-                    :squared-items="squaredItems"
-                    @view="(args) => {$emit('view', args)}"
-                    @download="(args) => {$emit('download', args)}"
-                    @edit="(args) => {$emit('edit', args)}"
-                    @delete="(args) => {$emit('delete', args)}"
-            />
-        </modal>
+        <component :is="usePortal ? 'portal' : 'template'" :to="portalTarget">
+            <modal v-if="" ref="moreModal" size="xl">
+                <columns
+                        :items="items"
+                        :readonly="readonly"
+                        :viewable="viewable"
+                        :editable="editable"
+                        :downloadable="downloadable"
+                        :columns-count="columnsCount"
+                        :squared-items="squaredItems"
+                        @view="(args) => {$emit('view', args)}"
+                        @download="(args) => {$emit('download', args)}"
+                        @edit="(args) => {$emit('edit', args)}"
+                        @delete="(args) => {$emit('delete', args)}"
+                />
+            </modal>
+        </component>
     </div>
 </template>
 

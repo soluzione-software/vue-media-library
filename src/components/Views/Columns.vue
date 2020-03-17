@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-wrap">
+    <div class="d-flex flex-wrap">
         <column
                 :class="columnClasses"
                 v-for="(column, i) in columns"
@@ -73,11 +73,11 @@
                     height: 0
                 },
                 breakpoints: {
-                    // https://tailwindcss.com/docs/responsive-design/
-                    'sm': 640,
+                    // https://getbootstrap.com/docs/4.0/layout/overview/#responsive-breakpoints
+                    'sm': 576,
                     'md': 768,
-                    'lg': 1024,
-                    'xl': 1280,
+                    'lg': 992,
+                    'xl': 1200,
                 }
             }
         },
@@ -114,12 +114,6 @@
             getColumnsCount(breakpoint){
                 return this.columnsCount[breakpoint] || defaultColumns[breakpoint];
             },
-            getColumnClass(breakpoint){
-                let count = this.getColumnsCount(breakpoint);
-                let prefix = breakpoint !== 'xs' ? `${breakpoint}:` : '';
-                let w = count === 1 ? 'full' : `1/${count}`;
-                return `${prefix}w-${w}`;
-            },
         },
         computed: {
             columns(){
@@ -143,17 +137,32 @@
                 return breakpoint;
             },
             columnClasses(){
-                return [
-                    this.getColumnClass('xs'),
-                    this.getColumnClass('sm'),
-                    this.getColumnClass('md'),
-                    this.getColumnClass('lg'),
-                    this.getColumnClass('xl')
-                ]
+                let count = this.getColumnsCount(this.currentBreakpoint);
+                let w = count === 1 ? 'full' : `1/${count}`;
+                return `w-${w}`;
             },
         }
     }
 </script>
 
 <style scoped>
+    .w-full {
+        width: 100%;
+    }
+
+    .w-1\/2 {
+        width: 50%;
+    }
+
+    .w-1\/3 {
+        width: 33.33%;
+    }
+
+    .w-1\/4 {
+        width: 25%;
+    }
+
+    .w-1\/5 {
+        width: 20%;
+    }
 </style>
