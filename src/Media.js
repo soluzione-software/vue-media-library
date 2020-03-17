@@ -22,6 +22,13 @@ class Media {
     static fromObject(obj){
         return new Media(obj.id, obj.collection_name, obj.file_name, obj.mime_type, null, obj.url, obj.thumbnail)
     }
+
+    /**
+     * @returns {Media}
+     */
+    clone(){
+        return new Media(this.id, this.collection_name, this.file_name, this.mime_type, this.file, this.url, this.thumbnail)
+    }
 }
 
 export default Media

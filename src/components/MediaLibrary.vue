@@ -221,7 +221,7 @@
 
                 this.dataUrlToFile(img, this.addItem)
                     .then(file => {
-                        let item = {...this.addItem};
+                        let item = this.addItem.clone();
                         item.url = item.thumbnail = img;
                         item.file = file;
 
