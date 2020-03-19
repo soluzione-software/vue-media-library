@@ -1553,6 +1553,24 @@ var script$a = {
             type: Boolean,
             default: false
         },
+        uploadingMedia: {
+            type: Array,
+            default: function default$2() {
+                return [];
+            }
+        },
+    },
+    computed: {
+        mediaItem: function mediaItem(){
+            return this.items[0];
+        },
+        progress: function progress(){
+            var this$1 = this;
+
+            var uploadingMedia = this.uploadingMedia.find(function (item) { return item.media.v_id === this$1.mediaItem.v_id; });
+
+            return uploadingMedia !== undefined ? uploadingMedia.progress : undefined;
+        }
     },
 };
 
@@ -1568,11 +1586,13 @@ var __vue_render__$a = function() {
     ? _c("ImageItem", {
         staticClass: "mt-2",
         attrs: {
-          item: _vm.items[0],
+          item: _vm.mediaItem,
           readonly: _vm.readonly,
           viewable: _vm.viewable,
           editable: _vm.editable,
-          downloadable: _vm.downloadable
+          downloadable: _vm.downloadable,
+          "show-progress": _vm.progress !== undefined,
+          "progress-value": _vm.progress
         },
         on: {
           view: function(args) {
@@ -1597,11 +1617,11 @@ __vue_render__$a._withStripped = true;
   /* style */
   var __vue_inject_styles__$a = function (inject) {
     if (!inject) { return }
-    inject("data-v-361eb0d1_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Single.vue"}, media: undefined });
+    inject("data-v-8edbb324_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Single.vue"}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__$a = "data-v-361eb0d1";
+  var __vue_scope_id__$a = "data-v-8edbb324";
   /* module identifier */
   var __vue_module_identifier__$a = undefined;
   /* functional template */
