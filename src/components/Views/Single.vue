@@ -2,11 +2,13 @@
     <ImageItem
             v-if="items.length > 0"
             class="mt-2"
-            :item="items[0]"
+            :item="mediaItem"
             :readonly="readonly"
             :viewable="viewable"
             :editable="editable"
             :downloadable="downloadable"
+            :show-progress="progress !== undefined"
+            :progress-value="progress"
             @view="(args) => {$emit('view', args)}"
             @download="(args) => {$emit('download', args)}"
             @edit="(args) => {$emit('edit', args)}"
@@ -33,6 +35,22 @@
                 type: Boolean,
                 default: false
             },
+            uploadingMedia: {
+                type: Array,
+                default() {
+                    return [];
+                }
+            },
+        },
+        computed: {
+            mediaItem(){
+                return this.items[0];
+            },
+            progress(){
+                let uploadingMedia = this.uploadingMedia.find(item => item.media.v_id === this.mediaItem.v_id);
+
+                return uploadingMedia !== undefined ? uploadingMedia.progress : undefined;
+            }
         },
     }
 </script>
