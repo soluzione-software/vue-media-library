@@ -18,7 +18,7 @@
                 @more="onMore"
         />
 
-        <component :is="usePortal ? 'portal' : 'template'" :to="portalTarget">
+        <component :is="usePortal ? 'portal' : 'div'" :to="portalTarget">
             <modal v-if="" ref="moreModal" size="xl">
                 <columns
                         :items="items"
@@ -82,8 +82,12 @@
             }
         },
         methods: {
-            onMore(item){
-                this.$refs.moreModal.show();
+            onMore(){
+                this.$nextTick(() => {
+                    this.$nextTick(() => {
+                        this.$refs.moreModal.show();
+                    })
+                });
             }
         },
         computed: {

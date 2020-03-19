@@ -8,15 +8,15 @@
                 alt=""
         />
 
-        <div v-if="showProgress" class="progress-overlay d-flex flex-column justify-content-center align-items-center">
+        <div v-if="showProgress" class="visible-overlay d-flex flex-column justify-content-center align-items-center">
             <div class="w-100 px-3">
                 <b-progress :value="progressValue" variant="info" striped animated/>
             </div>
         </div>
 
-        <div v-else class="overlay d-flex flex-column justify-content-center align-items-center">
+        <div v-else class="d-flex flex-column justify-content-center align-items-center" :class="isMoreItem ? 'visible-overlay' : 'overlay'">
             <div>
-                <b-button v-if="isMoreItem" @click.prevent="$emit('more', item)">+{{ moreCount }}</b-button>
+                <b-link v-if="isMoreItem" class="more-link text-white display-4" @click.prevent="$emit('more', item)">+{{ moreCount }}</b-link>
                 <template v-else>
                     <b-button v-if="viewable" variant="outline-light" class="mx-1" @click="$emit('view', item)">
                         <Icon class="fill-current" d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/>
@@ -119,7 +119,7 @@
      }
 
     .overlay,
-    .progress-overlay {
+    .visible-overlay {
         width:100%;
         height:100%;
         position:absolute;
@@ -149,6 +149,10 @@
     .image-container:hover .overlay {
         opacity:1;
         filter:alpha(opacity=100);
+    }
+
+    .more-link{
+        text-decoration: none;
     }
 
 </style>
