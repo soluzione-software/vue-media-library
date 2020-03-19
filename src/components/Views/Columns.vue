@@ -12,6 +12,7 @@
                 :squared-items="squaredItems"
                 :more-count="moreCount"
                 :more-item="moreItem"
+                :uploading-media="uploadingMedia"
                 @view="(args) => {$emit('view', args)}"
                 @download="(args) => {$emit('download', args)}"
                 @edit="(args) => {$emit('edit', args)}"
@@ -64,6 +65,12 @@
             },
             moreItem: {
                 type: Media,
+            },
+            uploadingMedia: {
+                type: Array,
+                default() {
+                    return [];
+                }
             },
         },
         data(){

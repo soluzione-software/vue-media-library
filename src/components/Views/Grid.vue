@@ -10,6 +10,7 @@
                 :squared-items="squaredItems"
                 :more-count="moreCount"
                 :more-item="visibleItems[visibleItems.length - 1]"
+                :uploading-media="uploadingMedia"
                 @view="(args) => {$emit('view', args)}"
                 @download="(args) => {$emit('download', args)}"
                 @edit="(args) => {$emit('edit', args)}"
@@ -27,6 +28,7 @@
                         :downloadable="downloadable"
                         :columns-count="columnsCount"
                         :squared-items="squaredItems"
+                        :uploading-media="uploadingMedia"
                         @view="(args) => {$emit('view', args)}"
                         @download="(args) => {$emit('download', args)}"
                         @edit="(args) => {$emit('edit', args)}"
@@ -67,6 +69,12 @@
             displayLimit: {
                 type: Number,
                 default: -1
+            },
+            uploadingMedia: {
+                type: Array,
+                default() {
+                    return [];
+                }
             },
         },
         data(){

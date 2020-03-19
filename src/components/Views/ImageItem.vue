@@ -7,7 +7,14 @@
                 :src="item.thumbnail"
                 alt=""
         />
-        <div class="overlay d-flex flex-column justify-content-center align-items-center">
+
+        <div v-if="showProgress" class="progress-overlay d-flex flex-column justify-content-center align-items-center">
+            <div class="w-100 px-3">
+                <b-progress :value="progressValue" variant="info" striped animated/>
+            </div>
+        </div>
+
+        <div v-else class="overlay d-flex flex-column justify-content-center align-items-center">
             <div>
                 <b-button v-if="isMoreItem" @click.prevent="$emit('more', item)">+{{ moreCount }}</b-button>
                 <template v-else>
@@ -21,7 +28,7 @@
 
                     <template v-if="!readonly">
 
-                        <b-button v-if="editable" variant="outline-light" class="mx-1" @click="$emit('edit', item)">
+                        <b-button v-if="editable && item.id" variant="outline-light" class="mx-1" @click="$emit('edit', item)">
                             <Icon class="fill-current" d="M6.3 12.3l10-10a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1 0 1.4l-10 10a1 1 0 0 1-.7.3H7a1 1 0 0 1-1-1v-4a1 1 0 0 1 .3-.7zM8 16h2.59l9-9L17 4.41l-9 9V16zm10-2a1 1 0 0 1 2 0v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h6a1 1 0 0 1 0 2H4v14h14v-6z"/>
                         </b-button>
 
@@ -63,6 +70,14 @@
             moreItem: {
                 type: Media,
             },
+            showProgress: {
+                type: Boolean,
+                default: false
+            },
+            progressValue: {
+                type: Number,
+                default: 0
+            }
         },
         computed: {
             isMoreItem(){
@@ -103,17 +118,21 @@
          overflow:hidden;
      }
 
-    .image-container .overlay {
+    .overlay,
+    .progress-overlay {
         width:100%;
         height:100%;
         position:absolute;
         overflow:hidden;
         top:0;
         left:0;
-        opacity:0;
         background-color:rgba(0,0,0,0.5);
         -webkit-transition:all .4s ease-in-out;
         transition:all .4s ease-in-out
+    }
+
+    .overlay {
+        opacity:0;
     }
 
     .image-container img {

@@ -12,6 +12,8 @@
                 :squared="squaredItems"
                 :more-count="moreCount"
                 :more-item="moreItem"
+                :show-progress="progress[item.v_id] !== undefined"
+                :progress-value="progress[item.v_id]"
                 @view="(args) => {$emit('view', args)}"
                 @download="(args) => {$emit('download', args)}"
                 @edit="(args) => {$emit('edit', args)}"
@@ -51,7 +53,24 @@
             moreItem: {
                 type: Media,
             },
-        }
+            uploadingMedia: {
+                type: Array,
+                default() {
+                    return [];
+                }
+            },
+        },
+        computed: {
+            progress(){
+                let obj = {};
+
+                this.uploadingMedia.every(item => {
+                    obj[item.media.v_id] = item.progress;
+                });
+
+                return obj;
+            }
+        },
     }
 </script>
 
