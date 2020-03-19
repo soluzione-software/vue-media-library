@@ -2,14 +2,11 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-require('tailwindcss/dist/base.css');
-require('tailwindcss/dist/components.css');
-require('tailwindcss/dist/utilities.css');
-var vueAdvancedCropper = require('vue-advanced-cropper');
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-//
-//
-//
+var vueAdvancedCropper = require('vue-advanced-cropper');
+var LightBox = _interopDefault(require('vue-image-lightbox'));
+
 //
 //
 //
@@ -164,32 +161,35 @@ var __vue_render__ = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
-  return _c("div", [
-    _c(
-      "button",
-      {
-        staticClass:
-          "bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 py-2 rounded",
+  return _c(
+    "div",
+    [
+      _c(
+        "b-button",
+        {
+          attrs: { variant: "primary" },
+          on: {
+            click: function($event) {
+              $event.preventDefault();
+              return _vm.$refs.input.click()
+            }
+          }
+        },
+        [_vm._v("Select a file")]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        ref: "input",
+        attrs: { type: "file", accept: _vm.accept },
         on: {
-          click: function($event) {
-            $event.preventDefault();
-            return _vm.$refs.input.click()
+          change: function() {
+            _vm.$emit("change", _vm.$refs.input.files);
           }
         }
-      },
-      [_vm._v("Select a file")]
-    ),
-    _vm._v(" "),
-    _c("input", {
-      ref: "input",
-      attrs: { type: "file", accept: _vm.accept },
-      on: {
-        change: function() {
-          _vm.$emit("change", _vm.$refs.input.files);
-        }
-      }
-    })
-  ])
+      })
+    ],
+    1
+  )
 };
 var __vue_staticRenderFns__ = [];
 __vue_render__._withStripped = true;
@@ -197,11 +197,11 @@ __vue_render__._withStripped = true;
   /* style */
   var __vue_inject_styles__ = function (inject) {
     if (!inject) { return }
-    inject("data-v-4e4f3f36_0", { source: "\ninput[data-v-4e4f3f36]{\n    display: none;\n}\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/FilePicker/ButtonFilePicker.vue"],"names":[],"mappings":";AAuBA;IACA,aAAA;AACA","file":"ButtonFilePicker.vue","sourcesContent":["<template>\n    <div>\n        <button\n                class=\"bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 py-2 rounded\"\n                @click.prevent=\"$refs.input.click()\"\n        >Select a file</button>\n        <input ref=\"input\" type=\"file\" :accept=\"accept\" @change=\"() => {$emit('change', $refs.input.files)}\"/>\n    </div>\n</template>\n\n<script>\n    export default {\n        name: \"ButtonFilePicker\",\n        props: {\n            accept: {\n                type: String,\n                required: true,\n            }\n        },\n    }\n</script>\n\n<style scoped>\n    input{\n        display: none;\n    }\n</style>"]}, media: undefined });
+    inject("data-v-643f4db8_0", { source: "\ninput[data-v-643f4db8]{\n    display: none;\n}\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/FilePicker/ButtonFilePicker.vue"],"names":[],"mappings":";AAoBA;IACA,aAAA;AACA","file":"ButtonFilePicker.vue","sourcesContent":["<template>\n    <div>\n        <b-button variant=\"primary\" @click.prevent=\"$refs.input.click()\">Select a file</b-button>\n        <input ref=\"input\" type=\"file\" :accept=\"accept\" @change=\"() => {$emit('change', $refs.input.files)}\"/>\n    </div>\n</template>\n\n<script>\n    export default {\n        name: \"ButtonFilePicker\",\n        props: {\n            accept: {\n                type: String,\n                required: true,\n            }\n        },\n    }\n</script>\n\n<style scoped>\n    input{\n        display: none;\n    }\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__ = "data-v-4e4f3f36";
+  var __vue_scope_id__ = "data-v-643f4db8";
   /* module identifier */
   var __vue_module_identifier__ = undefined;
   /* functional template */
@@ -406,180 +406,43 @@ __vue_render__$2._withStripped = true;
     undefined
   );
 
-var isDownloadable = {
-    props: {
-        downloadable: {
-            type: Boolean,
-            default: false
-        },
-    }
-};
-
-var isEditable = {
-    props: {
-        editable: {
-            type: Boolean,
-            default: false
-        },
-    }
-};
-
-var isViewable = {
-    props: {
-        viewable: {
-            type: Boolean,
-            default: false
-        },
-    }
-};
-
-var usesPortal = {
-    props: {
-        usePortal: {
-            type: Boolean,
-            default: false,
-        },
-        portalTarget: {
-            type: String,
-            default: 'modals',
-        },
-    }
-};
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 
 var script$3 = {
     name: "Modal",
-    mixins: [usesPortal],
     props: {
+        modalId: {
+            type: String,
+            default: function default$1(){
+                return Math.random().toString(36).substring(3);
+            }
+        },
         size: {
             type: String,
-            default: "2xl"
         },
-    },
-    data: function data() {
-        return {
-            visible: false,
-
-            paddingRight: 0,
-            isModalOverflowing: false,
-            isBodyOverflowing: false
+        okTitle: {
+            type: String
         }
-    },
-    watch: {
-        isModalOverflowing: function(overflowing) {
-            console.log(overflowing ? "modal is overflowing" : "");
-        },
-        isBodyOverflowing: function(overflowing) {
-            console.log(overflowing ? "body is overflowing" : "");
-        }
-    },
-    mounted: function mounted() {
-        document.addEventListener("keydown", this.keydownListener);
-
-        this._checkScrollbar();
-
-        this._setScrollbar();
-        this._adjustDialog();
-
-        this.toggleBodyClass("add", "overflow-hidden");
-    },
-    destroyed: function destroyed() {
-        document.removeEventListener("keydown", this.keydownListener);
-
-        this._resetAdjustments();
-        this._resetScrollbar();
-
-        this.toggleBodyClass("remove", "overflow-hidden");
     },
     methods: {
         show: function show(){
-            this.visible = true;
+            this.$bvModal.show(this.modalId);
         },
         hide: function hide(){
-            this.visible = false;
+            this.$bvModal.hide(this.modalId);
         },
-        keydownListener: function keydownListener(e){
-            // Close modal with 'esc' key
-            if (("key" in e && (e.key === "Escape" || e.key === "Esc")) || e.keyCode === 27) {
-                this.hide();
-            }
-        },
-        toggleBodyClass: function toggleBodyClass(addRemoveClass, className) {
-            var el = document.body;
-
-            if (addRemoveClass === "add") {
-                el.classList.add(className);
-            } else {
-                el.classList.remove(className);
-            }
-        },
-
-        // ----------------------------------------------------------------------
-        // Thanks to:
-        // https://github.com/twbs/bootstrap/blob/3b558734382ce58b51e5fc676453bfd53bba9201/js/src/modal.js
-        //
-        // the following methods are used to handle overflowing modals
-        // ----------------------------------------------------------------------
-        _adjustDialog: function _adjustDialog() {
-            this.isModalOverflowing =
-                this.$el.scrollHeight > document.documentElement.clientHeight;
-
-            if (!this.isBodyOverflowing && this.isModalOverflowing) {
-                this.$el.style.paddingLeft = (this._scrollbarWidth) + "px";
-            }
-
-            if (this.isBodyOverflowing && !this.isModalOverflowing) {
-                this.$el.style.paddingRight = (this._scrollbarWidth) + "px";
-            }
-        },
-
-        _resetAdjustments: function _resetAdjustments() {
-            this.$el.style.paddingLeft = "";
-            this.$el.style.paddingRight = "";
-        },
-
-        _checkScrollbar: function _checkScrollbar() {
-            var rect = document.body.getBoundingClientRect();
-            this.isBodyOverflowing = rect.left + rect.right < window.innerWidth;
-            this._scrollbarWidth = this._getScrollbarWidth();
-        },
-
-        _setScrollbar: function _setScrollbar() {
-            if (this.isBodyOverflowing) {
-                // Adjust body padding
-                var actualPadding = document.body.style.paddingRight;
-                var calculatedPadding = $(document.body).css("padding-right");
-
-                this.paddingRight = actualPadding;
-
-                $(document.body).css(
-                    "padding-right",
-                    ((parseFloat(calculatedPadding) + this._scrollbarWidth) + "px")
-                );
-            }
-        },
-
-        _resetScrollbar: function _resetScrollbar() {
-            // Restore body padding
-            var padding = this.paddingRight;
-
-            // Reset storing var
-            this.paddingRight = 0;
-
-            document.body.style.paddingRight = padding ? padding : 0;
-        },
-
-        _getScrollbarWidth: function _getScrollbarWidth() {
-            // thx d.walsh
-            var scrollDiv = document.createElement("div");
-            scrollDiv.className = "modal-scrollbar-measure";
-            document.body.appendChild(scrollDiv);
-            var scrollbarWidth =
-                scrollDiv.getBoundingClientRect().width - scrollDiv.clientWidth;
-            document.body.removeChild(scrollDiv);
-            return scrollbarWidth;
-        }
     },
 };
 
@@ -591,71 +454,25 @@ var __vue_render__$3 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
-  return _vm.visible
-    ? _c(
-        "div",
-        {
-          staticClass:
-            "animated fadeIn faster z-50 pin fixed inset-0 w-full h-full py-3"
-        },
-        [
-          _c("div", {
-            staticClass: "fixed inset-0 bg-dark opacity-75",
-            on: { click: _vm.hide }
-          }),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "relative max-h-full z-50 animated border border-smoke-lighter border-solid shadow-inner mx-auto bg-white md:rounded md:shadow flex flex-col pb-4",
-              class: "max-w-" + this.size
-            },
-            [
-              _c("div", { staticClass: "flex justify-end" }, [
-                _c(
-                  "span",
-                  {
-                    staticClass: "flex flex-col justify-end",
-                    on: { click: _vm.hide }
-                  },
-                  [
-                    _c(
-                      "svg",
-                      {
-                        staticClass:
-                          "h-6 w-6 font-hairline text-grey hover:text-grey-lighter",
-                        attrs: {
-                          xmlns: "http://www.w3.org/2000/svg",
-                          viewBox: "0 0 20 20"
-                        }
-                      },
-                      [
-                        _c("title", [_vm._v("(Esc)")]),
-                        _vm._v(" "),
-                        _c("path", {
-                          attrs: {
-                            d:
-                              "M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"
-                          }
-                        })
-                      ]
-                    )
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "px-6 overflow-y-auto" },
-                [_vm._t("default")],
-                2
-              )
-            ]
-          )
-        ]
-      )
-    : _vm._e()
+  return _c(
+    "b-modal",
+    {
+      attrs: {
+        id: _vm.modalId,
+        size: _vm.size,
+        static: true,
+        lazy: true,
+        "ok-title": _vm.okTitle
+      },
+      on: {
+        ok: function(args) {
+          _vm.$emit("ok", args);
+        }
+      }
+    },
+    [_vm._t("default")],
+    2
+  )
 };
 var __vue_staticRenderFns__$3 = [];
 __vue_render__$3._withStripped = true;
@@ -663,11 +480,11 @@ __vue_render__$3._withStripped = true;
   /* style */
   var __vue_inject_styles__$3 = function (inject) {
     if (!inject) { return }
-    inject("data-v-6b2bddb2_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Modal.vue"}, media: undefined });
+    inject("data-v-edc9d578_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Modal.vue"}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__$3 = "data-v-6b2bddb2";
+  var __vue_scope_id__$3 = "data-v-edc9d578";
   /* module identifier */
   var __vue_module_identifier__$3 = undefined;
   /* functional template */
@@ -874,6 +691,46 @@ __vue_render__$5._withStripped = true;
     undefined
   );
 
+var isDownloadable = {
+    props: {
+        downloadable: {
+            type: Boolean,
+            default: false
+        },
+    }
+};
+
+var isEditable = {
+    props: {
+        editable: {
+            type: Boolean,
+            default: false
+        },
+    }
+};
+
+var isViewable = {
+    props: {
+        viewable: {
+            type: Boolean,
+            default: false
+        },
+    }
+};
+
+var usesPortal = {
+    props: {
+        usePortal: {
+            type: Boolean,
+            default: false,
+        },
+        portalTarget: {
+            type: String,
+            default: 'modals',
+        },
+    }
+};
+
 /**
  * Class which represents each library item
  *
@@ -896,6 +753,13 @@ var Media = function Media(id, collectionName, fileName, mimeType, file, url, th
  */
 Media.fromObject = function fromObject (obj){
     return new Media(obj.id, obj.collection_name, obj.file_name, obj.mime_type, null, obj.url, obj.thumbnail)
+};
+
+/**
+ * @returns {Media}
+ */
+Media.prototype.clone = function clone (){
+    return new Media(this.id, this.collection_name, this.file_name, this.mime_type, this.file, this.url, this.thumbnail)
 };
 
 //
@@ -922,6 +786,14 @@ var script$6 = {
         moreItem: {
             type: Media,
         },
+        showProgress: {
+            type: Boolean,
+            default: false
+        },
+        progressValue: {
+            type: Number,
+            default: 0
+        }
     },
     computed: {
         isMoreItem: function isMoreItem(){
@@ -943,42 +815,62 @@ var __vue_render__$6 = function() {
   var _c = _vm._self._c || _h;
   return _c(
     "div",
-    { staticClass: "relative image-container flex items-center" },
+    {
+      staticClass: "position-relative image-container d-flex align-items-center"
+    },
     [
       _vm.squared ? _c("div", { staticClass: "spacer" }) : _vm._e(),
       _vm._v(" "),
       _c("img", {
         staticClass: "image",
         class: {
-          "h-full": _vm.squared,
-          absolute: _vm.squared,
+          "h-100": _vm.squared,
+          "position-absolute": _vm.squared,
           "t-0": _vm.squared,
           "object-cover": _vm.squared
         },
         attrs: { src: _vm.item.thumbnail, alt: "" }
       }),
       _vm._v(" "),
-      _vm.overlayVisible
+      _vm.showProgress
         ? _c(
             "div",
             {
-              staticClass: "overlay flex absolute inset-0 z-10",
-              class: { "opacity-0": !_vm.isMoreItem }
+              staticClass:
+                "progress-overlay d-flex flex-column justify-content-center align-items-center"
             },
             [
-              _c("div", {
-                staticClass: "absolute inset-0 bg-black opacity-50"
-              }),
-              _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "relative flex w-full justify-center z-10" },
+                { staticClass: "w-100 px-3" },
+                [
+                  _c("b-progress", {
+                    attrs: {
+                      value: _vm.progressValue,
+                      variant: "info",
+                      striped: "",
+                      animated: ""
+                    }
+                  })
+                ],
+                1
+              )
+            ]
+          )
+        : _c(
+            "div",
+            {
+              staticClass:
+                "overlay d-flex flex-column justify-content-center align-items-center"
+            },
+            [
+              _c(
+                "div",
                 [
                   _vm.isMoreItem
                     ? _c(
-                        "button",
+                        "b-button",
                         {
-                          staticClass: "self-center text-white text-4xl",
                           on: {
                             click: function($event) {
                               $event.preventDefault();
@@ -991,11 +883,10 @@ var __vue_render__$6 = function() {
                     : [
                         _vm.viewable
                           ? _c(
-                              "button",
+                              "b-button",
                               {
-                                staticClass:
-                                  "self-center bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded",
-                                attrs: { type: "button" },
+                                staticClass: "mx-1",
+                                attrs: { variant: "outline-light" },
                                 on: {
                                   click: function($event) {
                                     return _vm.$emit("view", _vm.item)
@@ -1017,11 +908,10 @@ var __vue_render__$6 = function() {
                         _vm._v(" "),
                         _vm.downloadable
                           ? _c(
-                              "button",
+                              "b-button",
                               {
-                                staticClass:
-                                  "self-center bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded",
-                                attrs: { type: "button" },
+                                staticClass: "mx-1",
+                                attrs: { variant: "outline-light" },
                                 on: {
                                   click: function($event) {
                                     return _vm.$emit("download", _vm.item)
@@ -1043,13 +933,12 @@ var __vue_render__$6 = function() {
                         _vm._v(" "),
                         !_vm.readonly
                           ? [
-                              _vm.editable
+                              _vm.editable && _vm.item.id
                                 ? _c(
-                                    "button",
+                                    "b-button",
                                     {
-                                      staticClass:
-                                        "self-center bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded ml-1",
-                                      attrs: { type: "button" },
+                                      staticClass: "mx-1",
+                                      attrs: { variant: "outline-light" },
                                       on: {
                                         click: function($event) {
                                           return _vm.$emit("edit", _vm.item)
@@ -1070,11 +959,10 @@ var __vue_render__$6 = function() {
                                 : _vm._e(),
                               _vm._v(" "),
                               _c(
-                                "button",
+                                "b-button",
                                 {
-                                  staticClass:
-                                    "self-center bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded ml-1",
-                                  attrs: { type: "button" },
+                                  staticClass: "mx-1",
+                                  attrs: { variant: "outline-light" },
                                   on: {
                                     click: function($event) {
                                       return _vm.$emit("delete", _vm.item)
@@ -1100,7 +988,6 @@ var __vue_render__$6 = function() {
               )
             ]
           )
-        : _vm._e()
     ]
   )
 };
@@ -1110,11 +997,11 @@ __vue_render__$6._withStripped = true;
   /* style */
   var __vue_inject_styles__$6 = function (inject) {
     if (!inject) { return }
-    inject("data-v-024b2619_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*\n    todo: use tailwind\n */\n.image[data-v-024b2619] {\n    vertical-align: middle;\n    width: 100%;\n    backface-visibility: hidden;\n}\n.image-container:hover .overlay[data-v-024b2619] {\n    opacity: 1;\n}\n.spacer[data-v-024b2619]{\n    padding-top: 100%;\n}\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/Views/ImageItem.vue"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAsFA;;EAEA;AACA;IACA,sBAAA;IACA,WAAA;IACA,2BAAA;AACA;AAEA;IACA,UAAA;AACA;AAEA;IACA,iBAAA;AACA","file":"ImageItem.vue","sourcesContent":["<template>\n    <div class=\"relative image-container flex items-center\">\n        <div v-if=\"squared\" class=\"spacer\"></div>\n        <img\n                class=\"image\"\n                :class=\"{'h-full': squared, 'absolute': squared, 't-0': squared, 'object-cover': squared}\"\n                :src=\"item.thumbnail\"\n                alt=\"\"\n        />\n\n        <div class=\"overlay flex absolute inset-0 z-10\" v-if=\"overlayVisible\" :class=\"{'opacity-0': !isMoreItem}\">\n            <div class=\"absolute inset-0 bg-black opacity-50\"></div>\n            <div class=\"relative flex w-full justify-center z-10\">\n                <button v-if=\"isMoreItem\" class=\"self-center text-white text-4xl\" @click.prevent=\"$emit('more', item)\">+{{ moreCount }}</button>\n                <template v-else>\n                    <button\n                            type=\"button\"\n                            v-if=\"viewable\"\n                            class=\"self-center bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded\"\n                            @click=\"$emit('view', item)\"\n                    ><Icon class=\"fill-current\" d=\"M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z\"/></button>\n                    <button\n                            type=\"button\"\n                            v-if=\"downloadable\"\n                            class=\"self-center bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded\"\n                            @click=\"$emit('download', item)\"\n                    ><Icon class=\"fill-current\" d=\"M11 14.59V3a1 1 0 0 1 2 0v11.59l3.3-3.3a1 1 0 0 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 0 1 1.4-1.42l3.3 3.3zM3 17a1 1 0 0 1 2 0v3h14v-3a1 1 0 0 1 2 0v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3z\"/></button>\n                    <template v-if=\"!readonly\">\n                        <button\n                                type=\"button\"\n                                v-if=\"editable\"\n                                class=\"self-center bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded ml-1\"\n                                @click=\"$emit('edit', item)\"\n                        ><Icon class=\"fill-current\" d=\"M6.3 12.3l10-10a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1 0 1.4l-10 10a1 1 0 0 1-.7.3H7a1 1 0 0 1-1-1v-4a1 1 0 0 1 .3-.7zM8 16h2.59l9-9L17 4.41l-9 9V16zm10-2a1 1 0 0 1 2 0v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h6a1 1 0 0 1 0 2H4v14h14v-6z\"/></button>\n                        <button\n                                type=\"button\"\n                                class=\"self-center bg-blue-500 hover:bg-blue-700 text-white font-bold p-1 rounded ml-1\"\n                                @click=\"$emit('delete', item)\"\n                        ><Icon class=\"fill-current\" d=\"M8 6V4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8H3a1 1 0 1 1 0-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1z\"/></button>\n                    </template>\n                </template>\n            </div>\n        </div>\n    </div>\n</template>\n\n<script>\n    import Icon from \"../Icon.vue\";\n    import {isDownloadable, isEditable, isViewable} from \"../../mixins\";\n    import Media from \"../../Media\";\n    export default {\n        name: \"ImageItem\",\n        components: {Icon},\n        mixins: [isDownloadable, isEditable, isViewable],\n        props: {\n            item: {\n                type: Object,\n                required: true\n            },\n            readonly: {\n                type: Boolean,\n                default: false,\n            },\n            squared: {\n                type: Boolean,\n                default: false,\n            },\n            moreCount: {\n                type: Number\n            },\n            moreItem: {\n                type: Media,\n            },\n        },\n        computed: {\n            isMoreItem(){\n                return this.moreCount !== undefined && this.moreItem !== undefined && this.moreItem.v_id === this.item.v_id;\n            },\n            overlayVisible(){\n                return this.isMoreItem || this.viewable || this.downloadable || !this.readonly;\n            }\n        }\n    }\n</script>\n\n<style scoped>\n    /*\n        todo: use tailwind\n     */\n    .image {\n        vertical-align: middle;\n        width: 100%;\n        backface-visibility: hidden;\n    }\n\n    .image-container:hover .overlay {\n        opacity: 1;\n    }\n\n    .spacer{\n        padding-top: 100%;\n    }\n</style>\n"]}, media: undefined });
+    inject("data-v-dbdf7060_0", { source: "\n.image[data-v-dbdf7060] {\n    vertical-align: middle;\n    width: 100%;\n    backface-visibility: hidden;\n}\n.image-container:hover .overlay[data-v-dbdf7060] {\n    opacity: 1;\n}\n.spacer[data-v-dbdf7060]{\n    padding-top: 100%;\n}\n.t-0[data-v-dbdf7060] {\n    top: 0;\n}\n.fill-current[data-v-dbdf7060] {\n    fill: currentColor;\n}\n.object-cover[data-v-dbdf7060] {\n    object-fit: cover;\n}\n.image-container[data-v-dbdf7060] {\n     overflow:hidden;\n}\n.overlay[data-v-dbdf7060],\n.progress-overlay[data-v-dbdf7060] {\n    width:100%;\n    height:100%;\n    position:absolute;\n    overflow:hidden;\n    top:0;\n    left:0;\n    background-color:rgba(0,0,0,0.5);\n    -webkit-transition:all .4s ease-in-out;\n    transition:all .4s ease-in-out\n}\n.overlay[data-v-dbdf7060] {\n    opacity:0;\n}\n.image-container img[data-v-dbdf7060] {\n    -webkit-transition:all .4s linear;\n    transition:all .4s linear;\n}\n.image-container:hover img[data-v-dbdf7060] {\n    -ms-transform:scale(1.2);\n    -webkit-transform:scale(1.2);\n    transform:scale(1.2);\n}\n.image-container:hover .overlay[data-v-dbdf7060] {\n    opacity:1;\n    filter:alpha(opacity=100);\n}\n\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/Views/ImageItem.vue"],"names":[],"mappings":";AA6FA;IACA,sBAAA;IACA,WAAA;IACA,2BAAA;AACA;AAEA;IACA,UAAA;AACA;AAEA;IACA,iBAAA;AACA;AACA;IACA,MAAA;AACA;AACA;IACA,kBAAA;AACA;AACA;IACA,iBAAA;AACA;AAEA;KACA,eAAA;AACA;AAEA;;IAEA,UAAA;IACA,WAAA;IACA,iBAAA;IACA,eAAA;IACA,KAAA;IACA,MAAA;IACA,gCAAA;IACA,sCAAA;IACA;AACA;AAEA;IACA,SAAA;AACA;AAEA;IACA,iCAAA;IACA,yBAAA;AACA;AAEA;IACA,wBAAA;IACA,4BAAA;IACA,oBAAA;AACA;AAEA;IACA,SAAA;IACA,yBAAA;AACA","file":"ImageItem.vue","sourcesContent":["<template>\n    <div class=\"position-relative image-container d-flex align-items-center\">\n        <div v-if=\"squared\" class=\"spacer\"></div>\n        <img\n                class=\"image\"\n                :class=\"{'h-100': squared, 'position-absolute': squared, 't-0': squared, 'object-cover': squared}\"\n                :src=\"item.thumbnail\"\n                alt=\"\"\n        />\n\n        <div v-if=\"showProgress\" class=\"progress-overlay d-flex flex-column justify-content-center align-items-center\">\n            <div class=\"w-100 px-3\">\n                <b-progress :value=\"progressValue\" variant=\"info\" striped animated/>\n            </div>\n        </div>\n\n        <div v-else class=\"overlay d-flex flex-column justify-content-center align-items-center\">\n            <div>\n                <b-button v-if=\"isMoreItem\" @click.prevent=\"$emit('more', item)\">+{{ moreCount }}</b-button>\n                <template v-else>\n                    <b-button v-if=\"viewable\" variant=\"outline-light\" class=\"mx-1\" @click=\"$emit('view', item)\">\n                        <Icon class=\"fill-current\" d=\"M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z\"/>\n                    </b-button>\n\n                    <b-button v-if=\"downloadable\" variant=\"outline-light\" class=\"mx-1\" @click=\"$emit('download', item)\">\n                        <Icon class=\"fill-current\" d=\"M11 14.59V3a1 1 0 0 1 2 0v11.59l3.3-3.3a1 1 0 0 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 0 1 1.4-1.42l3.3 3.3zM3 17a1 1 0 0 1 2 0v3h14v-3a1 1 0 0 1 2 0v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3z\"/>\n                    </b-button>\n\n                    <template v-if=\"!readonly\">\n\n                        <b-button v-if=\"editable && item.id\" variant=\"outline-light\" class=\"mx-1\" @click=\"$emit('edit', item)\">\n                            <Icon class=\"fill-current\" d=\"M6.3 12.3l10-10a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1 0 1.4l-10 10a1 1 0 0 1-.7.3H7a1 1 0 0 1-1-1v-4a1 1 0 0 1 .3-.7zM8 16h2.59l9-9L17 4.41l-9 9V16zm10-2a1 1 0 0 1 2 0v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h6a1 1 0 0 1 0 2H4v14h14v-6z\"/>\n                        </b-button>\n\n                        <b-button variant=\"outline-light\" class=\"mx-1\" @click=\"$emit('delete', item)\">\n                            <Icon class=\"fill-current\" d=\"M8 6V4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8H3a1 1 0 1 1 0-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1z\"/>\n                        </b-button>\n\n                    </template>\n                </template>\n            </div>\n        </div>\n    </div>\n</template>\n\n<script>\n    import Icon from \"../Icon.vue\";\n    import {isDownloadable, isEditable, isViewable} from \"../../mixins\";\n    import Media from \"../../Media\";\n    export default {\n        name: \"ImageItem\",\n        components: {Icon},\n        mixins: [isDownloadable, isEditable, isViewable],\n        props: {\n            item: {\n                type: Object,\n                required: true\n            },\n            readonly: {\n                type: Boolean,\n                default: false,\n            },\n            squared: {\n                type: Boolean,\n                default: false,\n            },\n            moreCount: {\n                type: Number\n            },\n            moreItem: {\n                type: Media,\n            },\n            showProgress: {\n                type: Boolean,\n                default: false\n            },\n            progressValue: {\n                type: Number,\n                default: 0\n            }\n        },\n        computed: {\n            isMoreItem(){\n                return this.moreCount !== undefined && this.moreItem !== undefined && this.moreItem.v_id === this.item.v_id;\n            },\n            overlayVisible(){\n                return this.isMoreItem || this.viewable || this.downloadable || !this.readonly;\n            }\n        }\n    }\n</script>\n\n<style scoped>\n    .image {\n        vertical-align: middle;\n        width: 100%;\n        backface-visibility: hidden;\n    }\n\n    .image-container:hover .overlay {\n        opacity: 1;\n    }\n\n    .spacer{\n        padding-top: 100%;\n    }\n    .t-0 {\n        top: 0;\n    }\n    .fill-current {\n        fill: currentColor;\n    }\n    .object-cover {\n        object-fit: cover;\n    }\n\n    .image-container {\n         overflow:hidden;\n     }\n\n    .overlay,\n    .progress-overlay {\n        width:100%;\n        height:100%;\n        position:absolute;\n        overflow:hidden;\n        top:0;\n        left:0;\n        background-color:rgba(0,0,0,0.5);\n        -webkit-transition:all .4s ease-in-out;\n        transition:all .4s ease-in-out\n    }\n\n    .overlay {\n        opacity:0;\n    }\n\n    .image-container img {\n        -webkit-transition:all .4s linear;\n        transition:all .4s linear;\n    }\n\n    .image-container:hover img {\n        -ms-transform:scale(1.2);\n        -webkit-transform:scale(1.2);\n        transform:scale(1.2);\n    }\n\n    .image-container:hover .overlay {\n        opacity:1;\n        filter:alpha(opacity=100);\n    }\n\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__$6 = "data-v-024b2619";
+  var __vue_scope_id__$6 = "data-v-dbdf7060";
   /* module identifier */
   var __vue_module_identifier__$6 = undefined;
   /* functional template */
@@ -1165,7 +1052,24 @@ var script$7 = {
         moreItem: {
             type: Media,
         },
-    }
+        uploadingMedia: {
+            type: Array,
+            default: function default$2() {
+                return [];
+            }
+        },
+    },
+    computed: {
+        progress: function progress(){
+            var obj = {};
+
+            this.uploadingMedia.every(function (item) {
+                obj[item.media.v_id] = item.progress;
+            });
+
+            return obj;
+        }
+    },
 };
 
 /* script */
@@ -1191,7 +1095,9 @@ var __vue_render__$7 = function() {
           downloadable: _vm.downloadable,
           squared: _vm.squaredItems,
           "more-count": _vm.moreCount,
-          "more-item": _vm.moreItem
+          "more-item": _vm.moreItem,
+          "show-progress": _vm.progress[item.v_id] !== undefined,
+          "progress-value": _vm.progress[item.v_id]
         },
         on: {
           view: function(args) {
@@ -1221,11 +1127,11 @@ __vue_render__$7._withStripped = true;
   /* style */
   var __vue_inject_styles__$7 = function (inject) {
     if (!inject) { return }
-    inject("data-v-09866fc4_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Column.vue"}, media: undefined });
+    inject("data-v-fc25ab3e_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Column.vue"}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__$7 = "data-v-09866fc4";
+  var __vue_scope_id__$7 = "data-v-fc25ab3e";
   /* module identifier */
   var __vue_module_identifier__$7 = undefined;
   /* functional template */
@@ -1290,6 +1196,12 @@ var script$8 = {
         moreItem: {
             type: Media,
         },
+        uploadingMedia: {
+            type: Array,
+            default: function default$3() {
+                return [];
+            }
+        },
     },
     data: function data(){
         return {
@@ -1298,11 +1210,11 @@ var script$8 = {
                 height: 0
             },
             breakpoints: {
-                // https://tailwindcss.com/docs/responsive-design/
-                'sm': 640,
+                // https://getbootstrap.com/docs/4.0/layout/overview/#responsive-breakpoints
+                'sm': 576,
                 'md': 768,
-                'lg': 1024,
-                'xl': 1280,
+                'lg': 992,
+                'xl': 1200,
             }
         }
     },
@@ -1339,12 +1251,6 @@ var script$8 = {
         getColumnsCount: function getColumnsCount(breakpoint){
             return this.columnsCount[breakpoint] || defaultColumns[breakpoint];
         },
-        getColumnClass: function getColumnClass(breakpoint){
-            var count = this.getColumnsCount(breakpoint);
-            var prefix = breakpoint !== 'xs' ? (breakpoint + ":") : '';
-            var w = count === 1 ? 'full' : ("1/" + count);
-            return (prefix + "w-" + w);
-        },
     },
     computed: {
         columns: function columns(){
@@ -1370,13 +1276,9 @@ var script$8 = {
             return breakpoint;
         },
         columnClasses: function columnClasses(){
-            return [
-                this.getColumnClass('xs'),
-                this.getColumnClass('sm'),
-                this.getColumnClass('md'),
-                this.getColumnClass('lg'),
-                this.getColumnClass('xl')
-            ]
+            var count = this.getColumnsCount(this.currentBreakpoint);
+            var w = count === 1 ? 'full' : ("1/" + count);
+            return ("w-" + w);
         },
     }
 };
@@ -1391,7 +1293,7 @@ var __vue_render__$8 = function() {
   var _c = _vm._self._c || _h;
   return _c(
     "div",
-    { staticClass: "flex flex-wrap" },
+    { staticClass: "d-flex flex-wrap" },
     _vm._l(_vm.columns, function(column, i) {
       return _c("column", {
         key: i,
@@ -1404,7 +1306,8 @@ var __vue_render__$8 = function() {
           downloadable: _vm.downloadable,
           "squared-items": _vm.squaredItems,
           "more-count": _vm.moreCount,
-          "more-item": _vm.moreItem
+          "more-item": _vm.moreItem,
+          "uploading-media": _vm.uploadingMedia
         },
         on: {
           view: function(args) {
@@ -1434,11 +1337,11 @@ __vue_render__$8._withStripped = true;
   /* style */
   var __vue_inject_styles__$8 = function (inject) {
     if (!inject) { return }
-    inject("data-v-71d1093c_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Columns.vue"}, media: undefined });
+    inject("data-v-3aedfc3e_0", { source: "\n.w-full[data-v-3aedfc3e] {\n    width: 100%;\n}\n.w-1\\/2[data-v-3aedfc3e] {\n    width: 50%;\n}\n.w-1\\/3[data-v-3aedfc3e] {\n    width: 33.33%;\n}\n.w-1\\/4[data-v-3aedfc3e] {\n    width: 25%;\n}\n.w-1\\/5[data-v-3aedfc3e] {\n    width: 20%;\n}\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/Views/Columns.vue"],"names":[],"mappings":";AA2JA;IACA,WAAA;AACA;AAEA;IACA,UAAA;AACA;AAEA;IACA,aAAA;AACA;AAEA;IACA,UAAA;AACA;AAEA;IACA,UAAA;AACA","file":"Columns.vue","sourcesContent":["<template>\n    <div class=\"d-flex flex-wrap\">\n        <column\n                :class=\"columnClasses\"\n                v-for=\"(column, i) in columns\"\n                :key=\"i\"\n                :items=\"column\"\n                :readonly=\"readonly\"\n                :viewable=\"viewable\"\n                :editable=\"editable\"\n                :downloadable=\"downloadable\"\n                :squared-items=\"squaredItems\"\n                :more-count=\"moreCount\"\n                :more-item=\"moreItem\"\n                :uploading-media=\"uploadingMedia\"\n                @view=\"(args) => {$emit('view', args)}\"\n                @download=\"(args) => {$emit('download', args)}\"\n                @edit=\"(args) => {$emit('edit', args)}\"\n                @delete=\"(args) => {$emit('delete', args)}\"\n                @more=\"(args) => {$emit('more', args)}\"\n        />\n    </div>\n</template>\n\n<script>\n    import Column from \"./Column.vue\";\n    import {isDownloadable, isEditable, isViewable} from \"../../mixins\";\n    import Media from \"../../Media\";\n\n    const defaultColumns = {\n        'xs': 1,\n        'sm': 2,\n        'md': 3,\n        'lg': 4,\n        'xl': 5\n    };\n\n    export default {\n        name: \"Columns\",\n        components: {Column},\n        mixins: [isDownloadable, isEditable, isViewable],\n        props: {\n            items: {\n                type: Array,\n                default(){\n                    return []\n                },\n            },\n            readonly: {\n                type: Boolean,\n                default: false\n            },\n            columnsCount: {\n                type: Object,\n                default(){\n                    return defaultColumns;\n                }\n            },\n            squaredItems: {\n                type: Boolean,\n                default: false,\n            },\n            moreCount: {\n                type: Number\n            },\n            moreItem: {\n                type: Media,\n            },\n            uploadingMedia: {\n                type: Array,\n                default() {\n                    return [];\n                }\n            },\n        },\n        data(){\n            return {\n                window: {\n                    width: 0,\n                    height: 0\n                },\n                breakpoints: {\n                    // https://getbootstrap.com/docs/4.0/layout/overview/#responsive-breakpoints\n                    'sm': 576,\n                    'md': 768,\n                    'lg': 992,\n                    'xl': 1200,\n                }\n            }\n        },\n        mounted() {\n\n        },\n        created() {\n            this.handleResize();\n            window.addEventListener('resize', this.handleResize);\n        },\n        destroyed() {\n            window.removeEventListener('resize', this.handleResize);\n        },\n        methods: {\n            chunk(array, chunks){\n                let res = [];\n\n                for (let i = 0; i < chunks; i++){\n                    res.push([]);\n                }\n\n                let current = 0;\n                array.forEach(item => {\n                    res[current].push(item);\n                    current = current + 1 < chunks ? current + 1 : 0;\n                });\n\n                return res;\n            },\n            handleResize() {\n                this.window.width = window.innerWidth;\n                this.window.height = window.innerHeight;\n            },\n            getColumnsCount(breakpoint){\n                return this.columnsCount[breakpoint] || defaultColumns[breakpoint];\n            },\n        },\n        computed: {\n            columns(){\n                let chunks = this.getColumnsCount(this.currentBreakpoint);\n\n                return this.chunk(this.items, chunks);\n            },\n            currentBreakpoint(){\n                let breakpoint = 'xs';\n\n                Object.entries(this.breakpoints).reverse().every(entry => {\n                    let br = entry[0];\n                    let size = entry[1];\n                    if (this.window.width >= size){\n                        breakpoint = br;\n                        return false;\n                    }\n                    return true;\n                });\n\n                return breakpoint;\n            },\n            columnClasses(){\n                let count = this.getColumnsCount(this.currentBreakpoint);\n                let w = count === 1 ? 'full' : `1/${count}`;\n                return `w-${w}`;\n            },\n        }\n    }\n</script>\n\n<style scoped>\n    .w-full {\n        width: 100%;\n    }\n\n    .w-1\\/2 {\n        width: 50%;\n    }\n\n    .w-1\\/3 {\n        width: 33.33%;\n    }\n\n    .w-1\\/4 {\n        width: 25%;\n    }\n\n    .w-1\\/5 {\n        width: 20%;\n    }\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__$8 = "data-v-71d1093c";
+  var __vue_scope_id__$8 = "data-v-3aedfc3e";
   /* module identifier */
   var __vue_module_identifier__$8 = undefined;
   /* functional template */
@@ -1490,6 +1393,12 @@ var script$9 = {
             type: Number,
             default: -1
         },
+        uploadingMedia: {
+            type: Array,
+            default: function default$2() {
+                return [];
+            }
+        },
     },
     data: function data(){
         return {
@@ -1535,7 +1444,8 @@ var __vue_render__$9 = function() {
           "columns-count": _vm.columnsCount,
           "squared-items": _vm.squaredItems,
           "more-count": _vm.moreCount,
-          "more-item": _vm.visibleItems[_vm.visibleItems.length - 1]
+          "more-item": _vm.visibleItems[_vm.visibleItems.length - 1],
+          "uploading-media": _vm.uploadingMedia
         },
         on: {
           view: function(args) {
@@ -1555,41 +1465,42 @@ var __vue_render__$9 = function() {
       }),
       _vm._v(" "),
       _c(
-        "modal",
-        {
-          ref: "moreModal",
-          attrs: {
-            size: "6xl",
-            "use-portal": _vm.usePortal,
-            "portal-target": _vm.portalTarget
-          }
-        },
+        _vm.usePortal ? "portal" : "template",
+        { tag: "component", attrs: { to: _vm.portalTarget } },
         [
-          _c("columns", {
-            attrs: {
-              items: _vm.items,
-              readonly: _vm.readonly,
-              viewable: _vm.viewable,
-              editable: _vm.editable,
-              downloadable: _vm.downloadable,
-              "columns-count": _vm.columnsCount,
-              "squared-items": _vm.squaredItems
-            },
-            on: {
-              view: function(args) {
-                _vm.$emit("view", args);
-              },
-              download: function(args) {
-                _vm.$emit("download", args);
-              },
-              edit: function(args) {
-                _vm.$emit("edit", args);
-              },
-              delete: function(args) {
-                _vm.$emit("delete", args);
-              }
-            }
-          })
+          _c(
+            "modal",
+            { ref: "moreModal", attrs: { size: "xl" } },
+            [
+              _c("columns", {
+                attrs: {
+                  items: _vm.items,
+                  readonly: _vm.readonly,
+                  viewable: _vm.viewable,
+                  editable: _vm.editable,
+                  downloadable: _vm.downloadable,
+                  "columns-count": _vm.columnsCount,
+                  "squared-items": _vm.squaredItems,
+                  "uploading-media": _vm.uploadingMedia
+                },
+                on: {
+                  view: function(args) {
+                    _vm.$emit("view", args);
+                  },
+                  download: function(args) {
+                    _vm.$emit("download", args);
+                  },
+                  edit: function(args) {
+                    _vm.$emit("edit", args);
+                  },
+                  delete: function(args) {
+                    _vm.$emit("delete", args);
+                  }
+                }
+              })
+            ],
+            1
+          )
         ],
         1
       )
@@ -1603,11 +1514,11 @@ __vue_render__$9._withStripped = true;
   /* style */
   var __vue_inject_styles__$9 = function (inject) {
     if (!inject) { return }
-    inject("data-v-51bc6aa4_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Grid.vue"}, media: undefined });
+    inject("data-v-1356e9f0_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Grid.vue"}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__$9 = "data-v-51bc6aa4";
+  var __vue_scope_id__$9 = "data-v-1356e9f0";
   /* module identifier */
   var __vue_module_identifier__$9 = undefined;
   /* functional template */
@@ -1724,7 +1635,7 @@ __vue_render__$a._withStripped = true;
 
 var script$b = {
     name: "MediaLibrary",
-    components: {ImageCropper: __vue_component__$4, Modal: __vue_component__$3, FilePicker: __vue_component__$2, Grid: __vue_component__$9, Single: __vue_component__$a},
+    components: {ImageCropper: __vue_component__$4, Modal: __vue_component__$3, FilePicker: __vue_component__$2, Grid: __vue_component__$9, Single: __vue_component__$a, LightBox: LightBox},
     mixins: [isDownloadable, isEditable, isViewable, usesPortal],
     props: {
         media: {
@@ -1794,13 +1705,15 @@ var script$b = {
             type: Number,
             default: -1
         },
+        uploadBaseUrl: {
+            type: String
+        },
+        uploadModelClass: {
+            type: String
+        },
     },
     data: function data(){
         return {
-            /**
-             * @var {Media|null} previewItem
-             */
-            previewItem: null,
             /**
              * @var {Media|null} addItem
              */
@@ -1814,17 +1727,23 @@ var script$b = {
              */
             items: [],
             /**
-             * @var {Media[]} addedItems
+             * @param {Array<Object>} addedItems where each item is an Object which has media property and optional
+             * pendingMediaId property
              */
             addedItems: [],
             /**
-             * @var {Media[]} updatedItems
+             * @param {Array<Object>} updatedItems where each item is an Object which has media property and optional
+             * pendingMediaId property
              */
             updatedItems: [],
             /**
              * @var {Media[]} deletedItems
              */
             deletedItems: [],
+            /**
+             * @param {Object} uploadingMedia
+             */
+            uploadingMedia: [],
         }
     },
     watch: {
@@ -1837,11 +1756,17 @@ var script$b = {
     },
     methods: {
         onSelected: function onSelected(file){
+            var this$1 = this;
+
             var img = URL.createObjectURL(file); // fixme: do only for images
             this.addItem = new Media(null, this.collectionName, file.name, file.type, file, img, img);
 
             if (this.editable){
-                this.$refs.addModal.show();
+                this.$nextTick(function () {
+                    this$1.$nextTick(function () {
+                        this$1.$refs.addModal.show();
+                    });
+                });
             }
             else {
                 this.items.push(this.addItem);
@@ -1857,15 +1782,29 @@ var script$b = {
 
             this.dataUrlToFile(img, this.addItem)
                 .then(function (file) {
-                    var item = Object.assign({}, this$1.addItem);
+                    var item = this$1.addItem.clone();
                     item.url = item.thumbnail = img;
                     item.file = file;
 
                     this$1.items.push(item);
 
-                    this$1.addedItems.push(item);
-
                     this$1.$emit('added', item);
+
+                    if (this$1.shouldAutoUpload){
+                        this$1.storePendingMedia(item)
+                            .then(function (ref) {
+                                var pendingMediaId = ref.pendingMediaId;
+
+                                this$1.addedItems.push({media: item, pendingMediaId: pendingMediaId});
+                            })
+                            .catch(function (error) {
+                                // todo: manage properly
+                                console.error(error);
+                            });
+                    }
+                    else {
+                        this$1.addedItems.push({media: item});
+                    }
                 })
                 .catch(function (reason) {
                     console.error(reason);
@@ -1880,12 +1819,12 @@ var script$b = {
 
             this.dataUrlToFile(img, this.editItem)
                 .then(function (file) {
-                    this$1.editItem.url = img;
-                    this$1.editItem.thumbnail = img;
-                    this$1.editItem.file = file;
+                    var editedMedia = this$1.editItem.clone();
+                    editedMedia.url = editedMedia.thumbnail = img;
+                    editedMedia.file = file;
 
                     this$1.items = this$1.items.map(function (item) {
-                        if (item.v_id === this$1.editItem.v_id){
+                        if (item.id === editedMedia.id){
                             item.url = img;
                             item.thumbnail = img;
                             item.file = this$1.editItem.file;
@@ -1893,24 +1832,50 @@ var script$b = {
                         return item;
                     });
 
-                    if (this$1.editItem.id){
-                        var previous = this$1.updatedItems.find(function (item) { return item.v_id === this$1.editItem.v_id; });
-                        if (previous){
-                            this$1.updatedItems.map(function (item) {
-                                return item.v_id === this$1.editItem.v_id ? this$1.editItem : item;
+                    this$1.$emit('updated', this$1.editItem);
+
+                    var previous = this$1.updatedItems.find(function (item) { return item.media.id === editedMedia.id; });
+                    if (previous){
+                        this$1.updatedItems = this$1.updatedItems.map(function (item) {
+                            if (item.media.id === editedMedia.id){
+                                item.media = editedMedia;
+                            }
+                            return item;
+                        });
+
+                        if (this$1.shouldAutoUpload){
+                            var updatedItem = this$1.updatedItems.find(function (item) { return item.media.id === editedMedia.id; });
+
+                            this$1.updatePendingMedia(updatedItem.media, updatedItem.pendingMediaId)
+                                .then(function () {
+                                    this$1.updatedItems = this$1.updatedItems.map(function (item) {
+                                        if (item.media.id === editedMedia.id){
+                                            item.pendingMediaId = updatedItem.pendingMediaId;
+                                        }
+                                        return item;
+                                    });
+                                })
+                                .catch(function (error) {
+                                    // todo: manage properly
+                                    console.error(error);
+                                });
+                        }
+                    }
+                    else if (this$1.shouldAutoUpload) {
+                        this$1.storePendingMedia(editedMedia)
+                            .then(function (ref) {
+                                var pendingMediaId = ref.pendingMediaId;
+
+                                this$1.updatedItems.push({media: editedMedia, pendingMediaId: pendingMediaId});
+                            })
+                            .catch(function (error) {
+                                // todo: manage properly
+                                console.error(error);
                             });
-                        }
-                        else {
-                            this$1.updatedItems.push(Object.assign({}, this$1.editItem));
-                        }
                     }
                     else {
-                        this$1.addedItems.map(function (item) {
-                            return item.v_id === this$1.editItem.v_id ? this$1.editItem : item;
-                        });
+                        this$1.updatedItems.push({media: editedMedia});
                     }
-
-                    this$1.$emit('updated', this$1.editItem);
                 })
                 .catch(function (reason) {
                     console.error(reason);
@@ -1927,9 +1892,13 @@ var script$b = {
                     .catch(reject);
             })
         },
+
+        /**
+         * @param {Media} item
+         */
         onView: function onView(item){
-            this.previewItem = item;
-            this.$refs.previewModal.show();
+            var i = this.items.map(function (v) { return v.v_id; }).indexOf(item.v_id);
+            this.$refs.lightBox.showImage(i);
         },
         onDownload: function onDownload(item){
             console.log('onDownload', item);
@@ -1947,15 +1916,20 @@ var script$b = {
             this.items = this.items.filter(function (mediaItem) {
                 return mediaItem.v_id !== item.v_id;
             });
-            this.addedItems = this.addedItems.filter(function (mediaItem) {
-                return mediaItem.v_id !== item.v_id;
-            });
-            this.updatedItems = this.updatedItems.filter(function (mediaItem) {
-                return mediaItem.v_id !== item.v_id;
-            });
 
+            var previous;
             if (item.id){
                 this.deletedItems.push(Object.assign({}, item));
+                previous = this.updatedItems.find(function (mediaItem) { return mediaItem.media.v_id === item.v_id; });
+                this.updatedItems = this.updatedItems.filter(function (mediaItem) { return mediaItem.media.v_id !== item.v_id; });
+            }
+            else {
+                previous = this.addedItems.find(function (mediaItem) { return mediaItem.media.v_id === item.v_id; });
+                this.addedItems = this.addedItems.filter(function (mediaItem) { return mediaItem.media.v_id !== item.v_id; });
+            }
+
+            if (previous && this.shouldAutoUpload){
+                this.deletePendingMedia(previous.pendingMediaId);
             }
 
             this.$emit('deleted', item);
@@ -1981,6 +1955,115 @@ var script$b = {
         },
 
         /**
+         * @param {Media} media
+         */
+        storePendingMedia: function storePendingMedia(media){
+            var this$1 = this;
+
+            return new Promise(function (resolve, reject) {
+                this$1.uploadingMedia.push({media: media, progress: 0});
+
+                var data = new FormData();
+                data.set('collection_name', this$1.collectionName);
+                data.set('model_class', this$1.uploadModelClass);
+                data.set('media[file]', media.file);
+
+                var config = {
+                    onUploadProgress: function (progressEvent) { return this$1.onUploadProgress(media, progressEvent); },
+                };
+
+                this$1.axios
+                    .post(this$1.pendingStoreUrl, data, config)
+                    .then(function (ref) {
+                        var data = ref.data;
+
+                        this$1.removeUploadingMedia(media);
+                        resolve({pendingMediaId: data.id});
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                        reject(error);
+                    });
+            })
+        },
+
+        /**
+         * @param {Media} media
+         * @param {Number} pendingMediaId
+         */
+        updatePendingMedia: function updatePendingMedia(media, pendingMediaId){
+            var this$1 = this;
+
+            return new Promise(function (resolve, reject) {
+                this$1.uploadingMedia.push({media: media, progress: 0});
+
+                var data = new FormData();
+                data.set('_method', 'PUT'); // we cannot send 'multipart/form-data' wit PUT request method
+                data.set('collection_name', this$1.collectionName);
+                data.set('model_class', this$1.uploadModelClass);
+                data.set('media[file]', media.file);
+
+                var config = {
+                    onUploadProgress: function (progressEvent) { return this$1.onUploadProgress(media, progressEvent); },
+                };
+
+                this$1.axios
+                    .post(this$1.pendingUpdateUrl.replace('{id}', ("" + pendingMediaId)), data, config)
+                    .then(function (ref) {
+                        var data = ref.data;
+
+                        resolve(data);
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                        reject(error);
+                    });
+            })
+        },
+
+        /**
+         * @param {Number} pendingMediaId
+         */
+        deletePendingMedia: function deletePendingMedia(pendingMediaId){
+            var this$1 = this;
+
+            return new Promise(function (resolve, reject) {
+                this$1.axios
+                    .delete(this$1.pendingDeleteUrl.replace('{id}', ("" + pendingMediaId)))
+                    .then(function (ref) {
+                        var data = ref.data;
+
+                        resolve(data);
+                    })
+                    .catch(function (error) {
+                        console.error(error);
+                        reject(error);
+                    });
+            })
+        },
+
+        onUploadProgress: function onUploadProgress(media, progressEvent){
+            var totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
+
+            if (totalLength !== null) {
+                this.updateProgressValue(media, Math.round( (progressEvent.loaded * 100) / totalLength ));
+            }
+        },
+
+        updateProgressValue: function updateProgressValue(media, value){
+            this.uploadingMedia = this.uploadingMedia.map(function (item) {
+                if (item.media.v_id === media.v_id){
+                    item.progress = value;
+                }
+                return item;
+            });
+        },
+
+        removeUploadingMedia: function removeUploadingMedia(media){
+            this.uploadingMedia = this.uploadingMedia.filter(function (item) { return item.media.v_id !== media.v_id; });
+        },
+
+        /**
          *
          * @param {FormData} formData
          */
@@ -1988,12 +2071,22 @@ var script$b = {
             var this$1 = this;
 
             this.addedItems.forEach(function (item) {
-                formData.append(("media[store][" + (this$1.collectionName) + "][][file]"), item.file);
+                if (item.pendingMediaId !== undefined){
+                    formData.append(("media[store][" + (this$1.collectionName) + "][][pending_media_id]"), item.pendingMediaId);
+                }
+                else {
+                    formData.append(("media[store][" + (this$1.collectionName) + "][][file]"), item.media.file);
+                }
             });
 
-            this.updatedItems.forEach(function (item) {
-                formData.append('media[update][][id]', item.id);
-                formData.append('media[update][][file]', item.file);
+            this.updatedItems.forEach(function (item, index) {
+                formData.set(("media[update][" + index + "][id]"), item.media.id);
+                if (item.pendingMediaId !== undefined){
+                    formData.set(("media[update][" + index + "][pending_media_id]"), item.pendingMediaId);
+                }
+                else {
+                    formData.set(("media[update][" + index + "][file]"), item.media.file);
+                }
             });
 
             this.deletedItems.forEach(function (item) {
@@ -2001,6 +2094,28 @@ var script$b = {
             });
         }
     },
+    computed: {
+        lightBoxMedia: function lightBoxMedia(){
+            /**
+             * @param {Media} item
+             */
+            return this.items.map(function (item) {
+                return {thumb: item.url, src: item.url}
+            })
+        },
+        pendingStoreUrl: function pendingStoreUrl() {
+            return ((this.uploadBaseUrl) + "/laravel-media-library/pending");
+        },
+        pendingUpdateUrl: function pendingUpdateUrl() {
+            return ((this.uploadBaseUrl) + "/laravel-media-library/pending/{id}");
+        },
+        pendingDeleteUrl: function pendingDeleteUrl() {
+            return ((this.uploadBaseUrl) + "/laravel-media-library/pending/{id}");
+        },
+        shouldAutoUpload: function shouldAutoUpload() {
+            return this.uploadBaseUrl !== undefined && this.uploadModelClass !== undefined;
+        },
+    }
 };
 
 /* script */
@@ -2024,7 +2139,10 @@ var __vue_render__$b = function() {
           downloadable: _vm.downloadable,
           "columns-count": _vm.gridColumns,
           "squared-items": _vm.gridSquaredItems,
-          "display-limit": _vm.gridDisplayLimit
+          "display-limit": _vm.gridDisplayLimit,
+          "use-portal": _vm.usePortal,
+          "portal-target": _vm.portalTarget,
+          "uploading-media": _vm.uploadingMedia
         },
         on: {
           view: _vm.onView,
@@ -2057,135 +2175,81 @@ var __vue_render__$b = function() {
                     true
                   )
                 })
-              : _vm._e(),
-            _vm._v(" "),
-            _c(
-              "modal",
-              {
-                ref: "addModal",
-                attrs: {
-                  "use-portal": _vm.usePortal,
-                  "portal-target": _vm.portalTarget
-                }
-              },
-              [
-                _vm.addItem
-                  ? _c("image-cropper", {
-                      ref: "addCropper",
-                      attrs: {
-                        image: _vm.addItem.url,
-                        "aspect-ratio": _vm.cropperAspectRatio,
-                        "min-width": _vm.cropperMinWidth,
-                        "max-width": _vm.cropperMaxWidth,
-                        "min-height": _vm.cropperMinHeight,
-                        "max-height": _vm.cropperMaxHeight
-                      }
-                    })
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("div", { staticClass: "mt-4 text-center" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150",
-                      on: {
-                        click: function() {
-                          _vm.$refs.addModal.hide();
-                        }
-                      }
-                    },
-                    [_vm._v("Cancel")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
-                      on: { click: _vm.onSaveCreate }
-                    },
-                    [_vm._v("Save")]
-                  )
-                ])
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "modal",
-              {
-                ref: "editModal",
-                attrs: {
-                  "use-portal": _vm.usePortal,
-                  "portal-target": _vm.portalTarget
-                }
-              },
-              [
-                _vm.editItem
-                  ? _c("image-cropper", {
-                      ref: "editCropper",
-                      attrs: {
-                        image: _vm.editItem.url,
-                        "aspect-ratio": _vm.cropperAspectRatio,
-                        "min-width": _vm.cropperMinWidth,
-                        "max-width": _vm.cropperMaxWidth,
-                        "min-height": _vm.cropperMinHeight,
-                        "max-height": _vm.cropperMaxHeight
-                      }
-                    })
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("div", { staticClass: "mt-4 text-center" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150",
-                      on: {
-                        click: function() {
-                          _vm.$refs.editModal.hide();
-                        }
-                      }
-                    },
-                    [_vm._v("Cancel")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass:
-                        "ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
-                      on: { click: _vm.onSaveEdit }
-                    },
-                    [_vm._v("Save")]
-                  )
-                ])
-              ],
-              1
-            )
+              : _vm._e()
           ]
         : _vm._e(),
       _vm._v(" "),
       _c(
-        "modal",
-        {
-          ref: "previewModal",
-          attrs: {
-            "content-width": "",
-            "use-portal": _vm.usePortal,
-            "portal-target": _vm.portalTarget
-          }
-        },
+        _vm.usePortal ? "portal" : "div",
+        { tag: "component", attrs: { to: _vm.portalTarget } },
         [
-          _vm.previewItem
-            ? _c("img", {
-                staticClass: "preview",
-                attrs: { src: _vm.previewItem.thumbnail, alt: "" }
-              })
+          !_vm.readonly
+            ? [
+                _c(
+                  "modal",
+                  {
+                    ref: "addModal",
+                    attrs: { size: "xl", "ok-title": "Save" },
+                    on: { ok: _vm.onSaveCreate }
+                  },
+                  [
+                    _vm.addItem
+                      ? _c("image-cropper", {
+                          ref: "addCropper",
+                          attrs: {
+                            image: _vm.addItem.url,
+                            "aspect-ratio": _vm.cropperAspectRatio,
+                            "min-width": _vm.cropperMinWidth,
+                            "max-width": _vm.cropperMaxWidth,
+                            "min-height": _vm.cropperMinHeight,
+                            "max-height": _vm.cropperMaxHeight
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "modal",
+                  {
+                    ref: "editModal",
+                    attrs: { size: "xl", "ok-title": "Save" },
+                    on: { ok: _vm.onSaveEdit }
+                  },
+                  [
+                    _vm.editItem
+                      ? _c("image-cropper", {
+                          ref: "editCropper",
+                          attrs: {
+                            image: _vm.editItem.url,
+                            "aspect-ratio": _vm.cropperAspectRatio,
+                            "min-width": _vm.cropperMinWidth,
+                            "max-width": _vm.cropperMaxWidth,
+                            "min-height": _vm.cropperMinHeight,
+                            "max-height": _vm.cropperMaxHeight
+                          }
+                        })
+                      : _vm._e()
+                  ],
+                  1
+                )
+              ]
             : _vm._e()
-        ]
-      )
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _vm.viewable
+        ? _c("light-box", {
+            ref: "lightBox",
+            attrs: {
+              media: _vm.lightBoxMedia,
+              "show-light-box": false,
+              "show-thumbs": false
+            }
+          })
+        : _vm._e()
     ],
     2
   )
@@ -2196,11 +2260,11 @@ __vue_render__$b._withStripped = true;
   /* style */
   var __vue_inject_styles__$b = function (inject) {
     if (!inject) { return }
-    inject("data-v-e184a23e_0", { source: "\n.preview[data-v-e184a23e]{\n    max-height: 100vh;\n}\n\n\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/MediaLibrary.vue"],"names":[],"mappings":";AA6WA;IACA,iBAAA;AACA","file":"MediaLibrary.vue","sourcesContent":["<template>\n    <div>\n        <component\n                :is=\"viewMode\"\n                :items=\"items\"\n                :readonly=\"readonly\"\n                :viewable=\"viewable\"\n                :editable=\"editable\"\n                :downloadable=\"downloadable\"\n                :columns-count=\"gridColumns\"\n                :squared-items=\"gridSquaredItems\"\n                :display-limit=\"gridDisplayLimit\"\n                @view=\"onView\"\n                @download=\"onDownload\"\n                @edit=\"onEdit\"\n                @delete=\"onDelete\"\n        />\n\n        <template v-if=\"!readonly\">\n            <file-picker\n                    v-if=\"(viewMode === 'single' && items.length === 0) || (viewMode !== 'single' && (limit === -1 || items.length < limit))\"\n                    class=\"my-2 mx-1\"\n                    :mode=\"filePickerMode\"\n                    :accept=\"accept\"\n                    @selected=\"onSelected\"\n            >\n                <template #help>\n                    <slot name=\"help\"/>\n                </template>\n            </file-picker>\n\n            <modal ref=\"addModal\" :use-portal=\"usePortal\" :portal-target=\"portalTarget\">\n                <image-cropper\n                        ref=\"addCropper\"\n                        v-if=\"addItem\"\n                        :image=\"addItem.url\"\n                        :aspect-ratio=\"cropperAspectRatio\"\n                        :min-width=\"cropperMinWidth\"\n                        :max-width=\"cropperMaxWidth\"\n                        :min-height=\"cropperMinHeight\"\n                        :max-height=\"cropperMaxHeight\"\n                />\n                <div class=\"mt-4 text-center\">\n                    <button class=\"rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150\"\n                            @click=\"() => { $refs.addModal.hide() }\">Cancel</button>\n                    <button class=\"ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded\" @click=\"onSaveCreate\">Save</button>\n                </div>\n            </modal>\n\n            <modal ref=\"editModal\" :use-portal=\"usePortal\" :portal-target=\"portalTarget\">\n                <image-cropper\n                        ref=\"editCropper\"\n                        v-if=\"editItem\"\n                        :image=\"editItem.url\"\n                        :aspect-ratio=\"cropperAspectRatio\"\n                        :min-width=\"cropperMinWidth\"\n                        :max-width=\"cropperMaxWidth\"\n                        :min-height=\"cropperMinHeight\"\n                        :max-height=\"cropperMaxHeight\"\n                />\n                <div class=\"mt-4 text-center\">\n                    <button class=\"rounded border border-gray-300 px-4 py-2 bg-white text-base font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline transition ease-in-out duration-150\"\n                            @click=\"() => { $refs.editModal.hide() }\">Cancel</button>\n                    <button class=\"ml-5 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded\" @click=\"onSaveEdit\">Save</button>\n                </div>\n            </modal>\n        </template>\n\n        <modal ref=\"previewModal\" content-width :use-portal=\"usePortal\" :portal-target=\"portalTarget\">\n            <img v-if=\"previewItem\" :src=\"previewItem.thumbnail\" class=\"preview\" alt=\"\"/>\n        </modal>\n\n    </div>\n</template>\n\n<script>\n    import \"tailwindcss/dist/base.css\";\n    import \"tailwindcss/dist/components.css\";\n    import \"tailwindcss/dist/utilities.css\";\n\n    import FilePicker from \"./FilePicker/index.vue\";\n    import Modal from \"./Modal.vue\";\n    import ImageCropper from \"./ImageCropper.vue\";\n    import Grid from \"./Views/Grid.vue\";\n    import Single from \"./Views/Single.vue\";\n    import Media from \"../Media.js\";\n    import {isDownloadable, isEditable, isViewable, usesPortal} from \"../mixins\";\n\n    export default {\n        name: \"MediaLibrary\",\n        components: {ImageCropper, Modal, FilePicker, Grid, Single},\n        mixins: [isDownloadable, isEditable, isViewable, usesPortal],\n        props: {\n            media: {\n                type: Array,\n                required: true,\n            },\n            accept: {\n                type: Array,\n                default(){\n                    return ['*']\n                }\n            },\n            limit: {\n                type: Number,\n                default: -1,\n            },\n            viewMode: {\n                type: String,\n                default: 'grid',\n                validator(value) {\n                    return [\n                        'grid',\n                        'single',\n                        // 'list' todo:\n                    ].indexOf(value) !== -1\n                }\n            },\n            filePickerMode: {\n                type: String,\n                default: 'button',\n                validator(value) {\n                    return [\n                        'button',\n                        'drag' // fixme: make it more graceful\n                    ].indexOf(value) !== -1\n                }\n            },\n            collectionName: {\n                type: String,\n                default: 'default',\n            },\n            readonly: {\n                type: Boolean,\n                default: false,\n            },\n            cropperAspectRatio: {\n                type: Number\n            },\n            cropperMinWidth: {\n                type: Number\n            },\n            cropperMaxWidth: {\n                type: Number\n            },\n            cropperMinHeight: {\n                type: Number\n            },\n            cropperMaxHeight: {\n                type: Number\n            },\n            gridColumns: {\n                type: Object,\n            },\n            gridSquaredItems: {\n                type: Boolean,\n                default: false,\n            },\n            gridDisplayLimit: {\n                type: Number,\n                default: -1\n            },\n        },\n        data(){\n            return {\n                /**\n                 * @var {Media|null} previewItem\n                 */\n                previewItem: null,\n                /**\n                 * @var {Media|null} addItem\n                 */\n                addItem: null,\n                /**\n                 * @var {Media|null} editItem\n                 */\n                editItem: null,\n                /**\n                 * @var {Media[]} items\n                 */\n                items: [],\n                /**\n                 * @var {Media[]} addedItems\n                 */\n                addedItems: [],\n                /**\n                 * @var {Media[]} updatedItems\n                 */\n                updatedItems: [],\n                /**\n                 * @var {Media[]} deletedItems\n                 */\n                deletedItems: [],\n            }\n        },\n        watch: {\n            media(new_){\n                this.items = this.filterMedia(this.mapObjectsToMedia(new_));\n            }\n        },\n        mounted(){\n            this.items = this.filterMedia(this.mapObjectsToMedia(this.media));\n        },\n        methods: {\n            onSelected(file){\n                let img = URL.createObjectURL(file); // fixme: do only for images\n                this.addItem = new Media(null, this.collectionName, file.name, file.type, file, img, img);\n\n                if (this.editable){\n                    this.$refs.addModal.show();\n                }\n                else {\n                    this.items.push(this.addItem);\n                    this.$emit('added', this.addItem);\n                }\n            },\n            onSaveCreate(){\n                this.$refs.addModal.hide();\n\n                let img = this.$refs.addCropper.getResult();\n\n                this.dataUrlToFile(img, this.addItem)\n                    .then(file => {\n                        let item = {...this.addItem};\n                        item.url = item.thumbnail = img;\n                        item.file = file;\n\n                        this.items.push(item);\n\n                        this.addedItems.push(item);\n\n                        this.$emit('added', item);\n                    })\n                    .catch(reason => {\n                        console.error(reason)\n                    });\n            },\n            onSaveEdit(){\n                this.$refs.editModal.hide();\n\n                let img = this.$refs.editCropper.getResult();\n\n                this.dataUrlToFile(img, this.editItem)\n                    .then(file => {\n                        this.editItem.url = img;\n                        this.editItem.thumbnail = img;\n                        this.editItem.file = file;\n\n                        this.items = this.items.map(item => {\n                            if (item.v_id === this.editItem.v_id){\n                                item.url = img;\n                                item.thumbnail = img;\n                                item.file = this.editItem.file;\n                            }\n                            return item;\n                        });\n\n                        if (this.editItem.id){\n                            let previous = this.updatedItems.find(item => item.v_id === this.editItem.v_id);\n                            if (previous){\n                                this.updatedItems.map(item => {\n                                    return item.v_id === this.editItem.v_id ? this.editItem : item;\n                                })\n                            }\n                            else {\n                                this.updatedItems.push({...this.editItem});\n                            }\n                        }\n                        else {\n                            this.addedItems.map(item => {\n                                return item.v_id === this.editItem.v_id ? this.editItem : item;\n                            })\n                        }\n\n                        this.$emit('updated', this.editItem);\n                    })\n                    .catch(reason => {\n                        console.error(reason);\n                    });\n            },\n            async dataUrlToFile(data, item){\n                return new Promise((resolve, reject) => {\n                    fetch(data)\n                        .then(res => res.blob())\n                        .then(blob => {\n                            let file = new File([blob], item.fileName,{ type: item.mimeType });\n                            resolve(file);\n                        })\n                        .catch(reject);\n                })\n            },\n            onView(item){\n                this.previewItem = item;\n                this.$refs.previewModal.show();\n            },\n            onDownload(item){\n                console.log('onDownload', item);\n            },\n            onEdit(item){\n                this.editItem = item;\n                this.$refs.editModal.show()\n            },\n            onDelete(item){\n                if (confirm('Sure?')){ // fixme: use tailwind dialog\n                    this.delete(item);\n                }\n            },\n            delete(item){\n                this.items = this.items.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n                this.addedItems = this.addedItems.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n                this.updatedItems = this.updatedItems.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n\n                if (item.id){\n                    this.deletedItems.push({...item});\n                }\n\n                this.$emit('deleted', item)\n            },\n\n            /**\n             * @param {Object[]} items\n             * @return {Media[]}\n             */\n            mapObjectsToMedia(items){\n                return items.map(item => Media.fromObject(item))\n            },\n\n            /**\n             * Filters \"mediaItems\" param based on collectionName\n             * @param {Media[]} mediaItems\n             * @return {Media[]}\n             */\n            filterMedia(mediaItems){\n                return mediaItems.filter(item => item.collection_name === this.collectionName)\n            },\n\n            /**\n             *\n             * @param {FormData} formData\n             */\n            fillFormData(formData){\n                this.addedItems.forEach(item => {\n                    formData.append(`media[store][${this.collectionName}][][file]`, item.file);\n                });\n\n                this.updatedItems.forEach(item => {\n                    formData.append('media[update][][id]', item.id);\n                    formData.append('media[update][][file]', item.file);\n                });\n\n                this.deletedItems.forEach(item => {\n                    formData.append('media[delete][]', item.id);\n                });\n            }\n        },\n    }\n</script>\n\n<style scoped>\n    .preview{\n        max-height: 100vh;\n    }\n\n\n</style>\n"]}, media: undefined });
+    inject("data-v-d4e6b54c_0", { source: "\n[data-v-d4e6b54c] .vue-lb-footer-count{\n    display: none;\n}\n", map: {"version":3,"sources":["/Users/yuriy/Work/packages/npm/vue-media-library/src/components/MediaLibrary.vue"],"names":[],"mappings":";AAoiBA;IACA,aAAA;AACA","file":"MediaLibrary.vue","sourcesContent":["<template>\n    <div>\n        <component\n                :is=\"viewMode\"\n                :items=\"items\"\n                :readonly=\"readonly\"\n                :viewable=\"viewable\"\n                :editable=\"editable\"\n                :downloadable=\"downloadable\"\n                :columns-count=\"gridColumns\"\n                :squared-items=\"gridSquaredItems\"\n                :display-limit=\"gridDisplayLimit\"\n                :use-portal=\"usePortal\"\n                :portal-target=\"portalTarget\"\n                :uploading-media=\"uploadingMedia\"\n                @view=\"onView\"\n                @download=\"onDownload\"\n                @edit=\"onEdit\"\n                @delete=\"onDelete\"\n        />\n\n        <template v-if=\"!readonly\">\n            <file-picker\n                    v-if=\"(viewMode === 'single' && items.length === 0) || (viewMode !== 'single' && (limit === -1 || items.length < limit))\"\n                    class=\"my-2 mx-1\"\n                    :mode=\"filePickerMode\"\n                    :accept=\"accept\"\n                    @selected=\"onSelected\"\n            >\n                <template #help>\n                    <slot name=\"help\"/>\n                </template>\n            </file-picker>\n        </template>\n\n        <component :is=\"usePortal ? 'portal' : 'div'\" :to=\"portalTarget\">\n            <template v-if=\"!readonly\">\n                <modal ref=\"addModal\" size=\"xl\" @ok=\"onSaveCreate\" ok-title=\"Save\">\n                    <image-cropper\n                            ref=\"addCropper\"\n                            v-if=\"addItem\"\n                            :image=\"addItem.url\"\n                            :aspect-ratio=\"cropperAspectRatio\"\n                            :min-width=\"cropperMinWidth\"\n                            :max-width=\"cropperMaxWidth\"\n                            :min-height=\"cropperMinHeight\"\n                            :max-height=\"cropperMaxHeight\"\n                    />\n                </modal>\n\n                <modal ref=\"editModal\" size=\"xl\" @ok=\"onSaveEdit\" ok-title=\"Save\">\n                    <image-cropper\n                            ref=\"editCropper\"\n                            v-if=\"editItem\"\n                            :image=\"editItem.url\"\n                            :aspect-ratio=\"cropperAspectRatio\"\n                            :min-width=\"cropperMinWidth\"\n                            :max-width=\"cropperMaxWidth\"\n                            :min-height=\"cropperMinHeight\"\n                            :max-height=\"cropperMaxHeight\"\n                    />\n                </modal>\n            </template>\n        </component>\n\n        <light-box\n                v-if=\"viewable\"\n                ref=\"lightBox\"\n                :media=\"lightBoxMedia\"\n                :show-light-box=\"false\"\n                :show-thumbs=\"false\"\n        />\n    </div>\n</template>\n\n<script>\n    import FilePicker from \"./FilePicker/index.vue\";\n    import Modal from \"./Modal.vue\";\n    import ImageCropper from \"./ImageCropper.vue\";\n    import Grid from \"./Views/Grid.vue\";\n    import Single from \"./Views/Single.vue\";\n    import Media from \"../Media.js\";\n    import {isDownloadable, isEditable, isViewable, usesPortal} from \"../mixins\";\n    import LightBox from 'vue-image-lightbox';\n\n    export default {\n        name: \"MediaLibrary\",\n        components: {ImageCropper, Modal, FilePicker, Grid, Single, LightBox},\n        mixins: [isDownloadable, isEditable, isViewable, usesPortal],\n        props: {\n            media: {\n                type: Array,\n                required: true,\n            },\n            accept: {\n                type: Array,\n                default(){\n                    return ['*']\n                }\n            },\n            limit: {\n                type: Number,\n                default: -1,\n            },\n            viewMode: {\n                type: String,\n                default: 'grid',\n                validator(value) {\n                    return [\n                        'grid',\n                        'single',\n                        // 'list' todo:\n                    ].indexOf(value) !== -1\n                }\n            },\n            filePickerMode: {\n                type: String,\n                default: 'button',\n                validator(value) {\n                    return [\n                        'button',\n                        'drag' // fixme: make it more graceful\n                    ].indexOf(value) !== -1\n                }\n            },\n            collectionName: {\n                type: String,\n                default: 'default',\n            },\n            readonly: {\n                type: Boolean,\n                default: false,\n            },\n            cropperAspectRatio: {\n                type: Number\n            },\n            cropperMinWidth: {\n                type: Number\n            },\n            cropperMaxWidth: {\n                type: Number\n            },\n            cropperMinHeight: {\n                type: Number\n            },\n            cropperMaxHeight: {\n                type: Number\n            },\n            gridColumns: {\n                type: Object,\n            },\n            gridSquaredItems: {\n                type: Boolean,\n                default: false,\n            },\n            gridDisplayLimit: {\n                type: Number,\n                default: -1\n            },\n            uploadBaseUrl: {\n                type: String\n            },\n            uploadModelClass: {\n                type: String\n            },\n        },\n        data(){\n            return {\n                /**\n                 * @var {Media|null} addItem\n                 */\n                addItem: null,\n                /**\n                 * @var {Media|null} editItem\n                 */\n                editItem: null,\n                /**\n                 * @var {Media[]} items\n                 */\n                items: [],\n                /**\n                 * @param {Array<Object>} addedItems where each item is an Object which has media property and optional\n                 * pendingMediaId property\n                 */\n                addedItems: [],\n                /**\n                 * @param {Array<Object>} updatedItems where each item is an Object which has media property and optional\n                 * pendingMediaId property\n                 */\n                updatedItems: [],\n                /**\n                 * @var {Media[]} deletedItems\n                 */\n                deletedItems: [],\n                /**\n                 * @param {Object} uploadingMedia\n                 */\n                uploadingMedia: [],\n            }\n        },\n        watch: {\n            media(new_){\n                this.items = this.filterMedia(this.mapObjectsToMedia(new_));\n            }\n        },\n        mounted(){\n            this.items = this.filterMedia(this.mapObjectsToMedia(this.media));\n        },\n        methods: {\n            onSelected(file){\n                let img = URL.createObjectURL(file); // fixme: do only for images\n                this.addItem = new Media(null, this.collectionName, file.name, file.type, file, img, img);\n\n                if (this.editable){\n                    this.$nextTick(() => {\n                        this.$nextTick(() => {\n                            this.$refs.addModal.show()\n                        })\n                    })\n                }\n                else {\n                    this.items.push(this.addItem);\n                    this.$emit('added', this.addItem);\n                }\n            },\n            onSaveCreate(){\n                this.$refs.addModal.hide();\n\n                let img = this.$refs.addCropper.getResult();\n\n                this.dataUrlToFile(img, this.addItem)\n                    .then(file => {\n                        let item = this.addItem.clone();\n                        item.url = item.thumbnail = img;\n                        item.file = file;\n\n                        this.items.push(item);\n\n                        this.$emit('added', item);\n\n                        if (this.shouldAutoUpload){\n                            this.storePendingMedia(item)\n                                .then(({pendingMediaId}) => {\n                                    this.addedItems.push({media: item, pendingMediaId});\n                                })\n                                .catch(error => {\n                                    // todo: manage properly\n                                    console.error(error)\n                                });\n                        }\n                        else {\n                            this.addedItems.push({media: item});\n                        }\n                    })\n                    .catch(reason => {\n                        console.error(reason)\n                    });\n            },\n            onSaveEdit(){\n                this.$refs.editModal.hide();\n\n                let img = this.$refs.editCropper.getResult();\n\n                this.dataUrlToFile(img, this.editItem)\n                    .then(file => {\n                        let editedMedia = this.editItem.clone();\n                        editedMedia.url = editedMedia.thumbnail = img;\n                        editedMedia.file = file;\n\n                        this.items = this.items.map(item => {\n                            if (item.id === editedMedia.id){\n                                item.url = img;\n                                item.thumbnail = img;\n                                item.file = this.editItem.file;\n                            }\n                            return item;\n                        });\n\n                        this.$emit('updated', this.editItem);\n\n                        let previous = this.updatedItems.find(item => item.media.id === editedMedia.id);\n                        if (previous){\n                            this.updatedItems = this.updatedItems.map(item => {\n                                if (item.media.id === editedMedia.id){\n                                    item.media = editedMedia;\n                                }\n                                return item;\n                            });\n\n                            if (this.shouldAutoUpload){\n                                let updatedItem = this.updatedItems.find(item => item.media.id === editedMedia.id);\n\n                                this.updatePendingMedia(updatedItem.media, updatedItem.pendingMediaId)\n                                    .then(() => {\n                                        this.updatedItems = this.updatedItems.map(item => {\n                                            if (item.media.id === editedMedia.id){\n                                                item.pendingMediaId = updatedItem.pendingMediaId;\n                                            }\n                                            return item;\n                                        });\n                                    })\n                                    .catch(error => {\n                                        // todo: manage properly\n                                        console.error(error)\n                                    });\n                            }\n                        }\n                        else if (this.shouldAutoUpload) {\n                            this.storePendingMedia(editedMedia)\n                                .then(({pendingMediaId}) => {\n                                    this.updatedItems.push({media: editedMedia, pendingMediaId});\n                                })\n                                .catch(error => {\n                                    // todo: manage properly\n                                    console.error(error)\n                                });\n                        }\n                        else {\n                            this.updatedItems.push({media: editedMedia});\n                        }\n                    })\n                    .catch(reason => {\n                        console.error(reason);\n                    });\n            },\n            async dataUrlToFile(data, item){\n                return new Promise((resolve, reject) => {\n                    fetch(data)\n                        .then(res => res.blob())\n                        .then(blob => {\n                            let file = new File([blob], item.fileName,{ type: item.mimeType });\n                            resolve(file);\n                        })\n                        .catch(reject);\n                })\n            },\n\n            /**\n             * @param {Media} item\n             */\n            onView(item){\n                let i = this.items.map(v => v.v_id).indexOf(item.v_id);\n                this.$refs.lightBox.showImage(i);\n            },\n            onDownload(item){\n                console.log('onDownload', item);\n            },\n            onEdit(item){\n                this.editItem = item;\n                this.$refs.editModal.show()\n            },\n            onDelete(item){\n                if (confirm('Sure?')){ // fixme: use tailwind dialog\n                    this.delete(item);\n                }\n            },\n            delete(item){\n                this.items = this.items.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n\n                let previous;\n                if (item.id){\n                    this.deletedItems.push({...item});\n                    previous = this.updatedItems.find(mediaItem => mediaItem.media.v_id === item.v_id);\n                    this.updatedItems = this.updatedItems.filter(mediaItem => mediaItem.media.v_id !== item.v_id);\n                }\n                else {\n                    previous = this.addedItems.find(mediaItem => mediaItem.media.v_id === item.v_id);\n                    this.addedItems = this.addedItems.filter(mediaItem => mediaItem.media.v_id !== item.v_id);\n                }\n\n                if (previous && this.shouldAutoUpload){\n                    this.deletePendingMedia(previous.pendingMediaId);\n                }\n\n                this.$emit('deleted', item)\n            },\n\n            /**\n             * @param {Object[]} items\n             * @return {Media[]}\n             */\n            mapObjectsToMedia(items){\n                return items.map(item => Media.fromObject(item))\n            },\n\n            /**\n             * Filters \"mediaItems\" param based on collectionName\n             * @param {Media[]} mediaItems\n             * @return {Media[]}\n             */\n            filterMedia(mediaItems){\n                return mediaItems.filter(item => item.collection_name === this.collectionName)\n            },\n\n            /**\n             * @param {Media} media\n             */\n            storePendingMedia(media){\n                return new Promise((resolve, reject) => {\n                    this.uploadingMedia.push({media, progress: 0});\n\n                    let data = new FormData();\n                    data.set('collection_name', this.collectionName);\n                    data.set('model_class', this.uploadModelClass);\n                    data.set('media[file]', media.file);\n\n                    let config = {\n                        onUploadProgress: (progressEvent) => this.onUploadProgress(media, progressEvent),\n                    };\n\n                    this.axios\n                        .post(this.pendingStoreUrl, data, config)\n                        .then(({data}) => {\n                            this.removeUploadingMedia(media);\n                            resolve({pendingMediaId: data.id});\n                        })\n                        .catch(error => {\n                            console.error(error);\n                            reject(error);\n                        });\n                })\n            },\n\n            /**\n             * @param {Media} media\n             * @param {Number} pendingMediaId\n             */\n            updatePendingMedia(media, pendingMediaId){\n                return new Promise((resolve, reject) => {\n                    this.uploadingMedia.push({media, progress: 0});\n\n                    let data = new FormData();\n                    data.set('_method', 'PUT'); // we cannot send 'multipart/form-data' wit PUT request method\n                    data.set('collection_name', this.collectionName);\n                    data.set('model_class', this.uploadModelClass);\n                    data.set('media[file]', media.file);\n\n                    let config = {\n                        onUploadProgress: (progressEvent) => this.onUploadProgress(media, progressEvent),\n                    };\n\n                    this.axios\n                        .post(this.pendingUpdateUrl.replace('{id}', `${pendingMediaId}`), data, config)\n                        .then(({data}) => {\n                            resolve(data);\n                        })\n                        .catch(error => {\n                            console.error(error);\n                            reject(error);\n                        });\n                })\n            },\n\n            /**\n             * @param {Number} pendingMediaId\n             */\n            deletePendingMedia(pendingMediaId){\n                return new Promise((resolve, reject) => {\n                    this.axios\n                        .delete(this.pendingDeleteUrl.replace('{id}', `${pendingMediaId}`))\n                        .then(({data}) => {\n                            resolve(data);\n                        })\n                        .catch(error => {\n                            console.error(error);\n                            reject(error);\n                        });\n                })\n            },\n\n            onUploadProgress(media, progressEvent){\n                const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');\n\n                if (totalLength !== null) {\n                    this.updateProgressValue(media, Math.round( (progressEvent.loaded * 100) / totalLength ));\n                }\n            },\n\n            updateProgressValue(media, value){\n                this.uploadingMedia = this.uploadingMedia.map(item => {\n                    if (item.media.v_id === media.v_id){\n                        item.progress = value;\n                    }\n                    return item;\n                })\n            },\n\n            removeUploadingMedia(media){\n                this.uploadingMedia = this.uploadingMedia.filter(item => item.media.v_id !== media.v_id)\n            },\n\n            /**\n             *\n             * @param {FormData} formData\n             */\n            fillFormData(formData){\n                this.addedItems.forEach(item => {\n                    if (item.pendingMediaId !== undefined){\n                        formData.append(`media[store][${this.collectionName}][][pending_media_id]`, item.pendingMediaId);\n                    }\n                    else {\n                        formData.append(`media[store][${this.collectionName}][][file]`, item.media.file);\n                    }\n                });\n\n                this.updatedItems.forEach((item, index) => {\n                    formData.set(`media[update][${index}][id]`, item.media.id);\n                    if (item.pendingMediaId !== undefined){\n                        formData.set(`media[update][${index}][pending_media_id]`, item.pendingMediaId);\n                    }\n                    else {\n                        formData.set(`media[update][${index}][file]`, item.media.file);\n                    }\n                });\n\n                this.deletedItems.forEach(item => {\n                    formData.append('media[delete][]', item.id);\n                });\n            }\n        },\n        computed: {\n            lightBoxMedia(){\n                /**\n                 * @param {Media} item\n                 */\n                return this.items.map((item) => {\n                    return {thumb: item.url, src: item.url}\n                })\n            },\n            pendingStoreUrl() {\n                return `${this.uploadBaseUrl}/laravel-media-library/pending`;\n            },\n            pendingUpdateUrl() {\n                return `${this.uploadBaseUrl}/laravel-media-library/pending/{id}`;\n            },\n            pendingDeleteUrl() {\n                return `${this.uploadBaseUrl}/laravel-media-library/pending/{id}`;\n            },\n            shouldAutoUpload() {\n                return this.uploadBaseUrl !== undefined && this.uploadModelClass !== undefined;\n            },\n        }\n    }\n</script>\n\n<style scoped>\n    >>> .vue-lb-footer-count{\n        display: none;\n    }\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__$b = "data-v-e184a23e";
+  var __vue_scope_id__$b = "data-v-d4e6b54c";
   /* module identifier */
   var __vue_module_identifier__$b = undefined;
   /* functional template */
@@ -2224,7 +2288,7 @@ __vue_render__$b._withStripped = true;
     undefined
   );
 
-// Import vue component
+require('vue-image-lightbox/dist/vue-image-lightbox.min.css');
 
 // Declare install function executed by Vue.use()
 function install(Vue) {
