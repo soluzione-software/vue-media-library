@@ -2336,5 +2336,4 @@ if (GlobalVue) {
 }
 
 export default __vue_component__$b;
-export { install };
 //# sourceMappingURL=index.esm.js.map

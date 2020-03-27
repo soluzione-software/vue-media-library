@@ -2341,7 +2341,6 @@
     }
 
     exports.default = __vue_component__$b;
-    exports.install = install;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 

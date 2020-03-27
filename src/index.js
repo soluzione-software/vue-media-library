@@ -4,7 +4,7 @@ require('vue-image-lightbox/dist/vue-image-lightbox.min.css');
 import MediaLibrary from './components/MediaLibrary.vue';
 
 // Declare install function executed by Vue.use()
-export function install(Vue) {
+function install(Vue) {
     if (install.installed) return;
     install.installed = true;
     Vue.component('media-library', MediaLibrary);

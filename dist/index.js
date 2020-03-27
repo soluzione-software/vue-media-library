@@ -2342,5 +2342,4 @@ if (GlobalVue) {
 }
 
 exports.default = __vue_component__$b;
-exports.install = install;
 //# sourceMappingURL=index.js.map
