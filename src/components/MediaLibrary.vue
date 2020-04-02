@@ -223,16 +223,12 @@
                     this.$emit('added', this.addItem);
                 }
             },
+
             onSaveCreate(){
                 this.$refs.addModal.hide();
 
-                let img = this.$refs.addCropper.getResult();
-
-                this.dataUrlToFile(img, this.addItem)
-                    .then(file => {
-                        let item = this.addItem.clone();
-                        item.url = item.thumbnail = img;
-                        item.file = file;
+                this.$refs.addCropper.getResult(blob => {
+                        let item = this.blobToMedia(blob, this.addItem);
 
                         this.items.push(item);
 
@@ -251,88 +247,82 @@
                         else {
                             this.addedItems.push({media: item});
                         }
-                    })
-                    .catch(reason => {
-                        console.error(reason)
-                    });
+                    }, this.addItem.mime_type);
             },
+
             onSaveEdit(){
                 this.$refs.editModal.hide();
 
-                let img = this.$refs.editCropper.getResult();
+                this.$refs.editCropper.getResult(blob => {
+                    let editedMedia = this.blobToMedia(blob, this.editItem);
 
-                this.dataUrlToFile(img, this.editItem)
-                    .then(file => {
-                        let editedMedia = this.editItem.clone();
-                        editedMedia.url = editedMedia.thumbnail = img;
-                        editedMedia.file = file;
+                    this.items = this.items.map(item => {
+                        if (item.id === editedMedia.id){
+                            item.url = editedMedia.url;
+                            item.thumbnail = editedMedia.thumbnail;
+                            item.file = editedMedia.file;
+                        }
+                        return item;
+                    });
 
-                        this.items = this.items.map(item => {
-                            if (item.id === editedMedia.id){
-                                item.url = img;
-                                item.thumbnail = img;
-                                item.file = this.editItem.file;
+                    this.$emit('updated', this.editItem);
+
+                    let previous = this.updatedItems.find(item => item.media.id === editedMedia.id);
+                    if (previous){
+                        this.updatedItems = this.updatedItems.map(item => {
+                            if (item.media.id === editedMedia.id){
+                                item.media = editedMedia;
                             }
                             return item;
                         });
 
-                        this.$emit('updated', this.editItem);
+                        if (this.shouldAutoUpload){
+                            let updatedItem = this.updatedItems.find(item => item.media.id === editedMedia.id);
 
-                        let previous = this.updatedItems.find(item => item.media.id === editedMedia.id);
-                        if (previous){
-                            this.updatedItems = this.updatedItems.map(item => {
-                                if (item.media.id === editedMedia.id){
-                                    item.media = editedMedia;
-                                }
-                                return item;
-                            });
-
-                            if (this.shouldAutoUpload){
-                                let updatedItem = this.updatedItems.find(item => item.media.id === editedMedia.id);
-
-                                this.updatePendingMedia(updatedItem.media, updatedItem.pendingMediaId)
-                                    .then(() => {
-                                        this.updatedItems = this.updatedItems.map(item => {
-                                            if (item.media.id === editedMedia.id){
-                                                item.pendingMediaId = updatedItem.pendingMediaId;
-                                            }
-                                            return item;
-                                        });
-                                    })
-                                    .catch(error => {
-                                        // todo: manage properly
-                                        console.error(error)
+                            this.updatePendingMedia(updatedItem.media, updatedItem.pendingMediaId)
+                                .then(() => {
+                                    this.updatedItems = this.updatedItems.map(item => {
+                                        if (item.media.id === editedMedia.id){
+                                            item.pendingMediaId = updatedItem.pendingMediaId;
+                                        }
+                                        return item;
                                     });
-                            }
-                        }
-                        else if (this.shouldAutoUpload) {
-                            this.storePendingMedia(editedMedia)
-                                .then(({pendingMediaId}) => {
-                                    this.updatedItems.push({media: editedMedia, pendingMediaId});
                                 })
                                 .catch(error => {
                                     // todo: manage properly
                                     console.error(error)
                                 });
                         }
-                        else {
-                            this.updatedItems.push({media: editedMedia});
-                        }
-                    })
-                    .catch(reason => {
-                        console.error(reason);
-                    });
+                    }
+                    else if (this.shouldAutoUpload) {
+                        this.storePendingMedia(editedMedia)
+                            .then(({pendingMediaId}) => {
+                                this.updatedItems.push({media: editedMedia, pendingMediaId});
+                            })
+                            .catch(error => {
+                                // todo: manage properly
+                                console.error(error)
+                            });
+                    }
+                    else {
+                        this.updatedItems.push({media: editedMedia});
+                    }
+                }, this.editItem.mime_type);
             },
-            async dataUrlToFile(data, item){
-                return new Promise((resolve, reject) => {
-                    fetch(data)
-                        .then(res => res.blob())
-                        .then(blob => {
-                            let file = new File([blob], item.fileName,{ type: item.mimeType });
-                            resolve(file);
-                        })
-                        .catch(reject);
-                })
+
+            /**
+             * @param {Blob} blob
+             * @param {Media} item
+             */
+            blobToMedia(blob, item){
+                let newItem = item.clone();
+
+                let file = new File([blob], newItem.file.name,{ type: blob.type });
+                let url = URL.createObjectURL(blob);
+                newItem.url = newItem.thumbnail = url;
+                newItem.file = file;
+
+                return newItem;
             },
 
             /**

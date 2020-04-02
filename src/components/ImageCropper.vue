@@ -40,8 +40,14 @@
             }
         },
         methods: {
-            getResult(){
-                return this.$refs.cropper.getResult().canvas.toDataURL();
+            /**
+             *
+             * @param {BlobCallback} callback
+             * @param {string?} type
+             * @param {number?} quality
+             */
+            getResult(callback, type, quality){
+                this.$refs.cropper.getResult().canvas.toBlob(callback, type, quality);
             },
         },
         computed: {
