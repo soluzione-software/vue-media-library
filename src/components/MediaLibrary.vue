@@ -317,7 +317,7 @@
             blobToMedia(blob, item){
                 let newItem = item.clone();
 
-                let file = new File([blob], newItem.file.name,{ type: blob.type });
+                let file = new File([blob], newItem.file_name,{ type: blob.type });
                 let url = URL.createObjectURL(blob);
                 newItem.url = newItem.thumbnail = url;
                 newItem.file = file;
