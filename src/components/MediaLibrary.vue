@@ -79,13 +79,14 @@
     import ImageCropper from "./ImageCropper.vue";
     import Grid from "./Views/Grid.vue";
     import Single from "./Views/Single.vue";
+    import List from "./Views/List.vue";
     import Media from "../Media.js";
     import {isDownloadable, isEditable, isViewable, usesPortal} from "../mixins";
     import LightBox from 'vue-image-lightbox';
 
     export default {
         name: "MediaLibrary",
-        components: {ImageCropper, Modal, FilePicker, Grid, Single, LightBox},
+        components: {ImageCropper, Modal, FilePicker, Grid, Single, List, LightBox},
         mixins: [isDownloadable, isEditable, isViewable, usesPortal],
         props: {
             media: {
@@ -109,7 +110,7 @@
                     return [
                         'grid',
                         'single',
-                        // 'list' todo:
+                        'list',
                     ].indexOf(value) !== -1
                 }
             },
