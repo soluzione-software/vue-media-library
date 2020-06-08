@@ -105,7 +105,7 @@
             },
             viewMode: {
                 type: String,
-                default: 'grid',
+                default: 'list',
                 validator(value) {
                     return [
                         'grid',
