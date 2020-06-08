@@ -220,8 +220,10 @@
                     })
                 }
                 else {
-                    this.items.push(this.addItem);
-                    this.$emit('added', this.addItem);
+                    let item = this.addItem.clone();
+                    this.items.push(item);
+                    this.addedItems.push({media: item});
+                    this.$emit('added', item);
                 }
             },
 
