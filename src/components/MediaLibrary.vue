@@ -165,6 +165,9 @@
                 type: String
             },
         },
+        model: {
+            prop: 'media',
+        },
         data(){
             return {
                 /**
@@ -223,7 +226,7 @@
                     let item = this.addItem.clone();
                     this.items.push(item);
                     this.addedItems.push({media: item});
-                    this.$emit('added', item);
+                    this.onAdded(item);
                 }
             },
 
@@ -235,7 +238,7 @@
 
                         this.items.push(item);
 
-                        this.$emit('added', item);
+                        this.onAdded(item);
 
                         if (this.shouldAutoUpload){
                             this.storePendingMedia(item)
@@ -267,8 +270,7 @@
                         }
                         return item;
                     });
-
-                    this.$emit('updated', this.editItem);
+                    this.onUpdated(this.editItem);
 
                     let previous = this.updatedItems.find(item => item.media.id === editedMedia.id);
                     if (previous){
@@ -367,7 +369,7 @@
                     this.deletePendingMedia(previous.pendingMediaId);
                 }
 
-                this.$emit('deleted', item)
+                this.onDeleted(item);
             },
 
             /**
@@ -511,7 +513,19 @@
                 this.deletedItems.forEach(item => {
                     formData.append('media[delete][]', item.id);
                 });
-            }
+            },
+            onAdded(item){
+                this.$emit('added', item);
+                this.$emit('input', this.items);
+            },
+            onUpdated(item){
+                this.$emit('updated', item);
+                this.$emit('input', this.items);
+            },
+            onDeleted(item){
+                this.$emit('deleted', item);
+                this.$emit('input', this.items);
+            },
         },
         computed: {
             lightBoxMedia(){
