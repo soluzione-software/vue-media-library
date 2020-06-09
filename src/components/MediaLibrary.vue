@@ -213,16 +213,30 @@
         methods: {
             onSelected(file){
                 let img = URL.createObjectURL(file); // fixme: do only for images
-                this.addItem = new Media(null, this.collectionName, file.name, file.type, file, img, img);
 
                 if (this.editable){
-                    this.$nextTick(() => {
-                        this.$nextTick(() => {
-                            this.$refs.addModal.show()
-                        })
-                    })
+                    let image = new Image();
+                    image.onload = () => {
+                        if (this.cropperMinWidth && image.width < this.cropperMinWidth){
+                            alert('Invalid image width!');
+                        }
+                        else if (this.cropperMinHeight && image.height < this.cropperMinHeight){
+                            alert('Invalid image height!');
+                        }
+                        else {
+                            this.addItem = new Media(null, this.collectionName, file.name, file.type, file, img, img);
+
+                            this.$nextTick(() => {
+                                this.$nextTick(() => {
+                                    this.$refs.addModal.show()
+                                })
+                            })
+                        }
+                    }
+                    image.src = img;
                 }
                 else {
+                    this.addItem = new Media(null, this.collectionName, file.name, file.type, file, img, img);
                     let item = this.addItem.clone();
                     this.items.push(item);
                     this.addedItems.push({media: item});
