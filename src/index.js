@@ -1,5 +1,3 @@
-require('vue-image-lightbox/dist/vue-image-lightbox.min.css');
-
 // Import vue component
 import MediaLibrary from './components/MediaLibrary.vue';
 
