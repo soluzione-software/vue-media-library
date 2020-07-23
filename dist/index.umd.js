@@ -2434,7 +2434,7 @@
         undefined
       );
 
-    require('vue-image-lightbox/dist/vue-image-lightbox.min.css');
+    // Import vue component
 
     // Declare install function executed by Vue.use()
     function install(Vue) {
