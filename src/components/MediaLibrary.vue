@@ -63,13 +63,7 @@
             </template>
         </component>
 
-        <light-box
-                v-if="viewable"
-                ref="lightBox"
-                :media="lightBoxMedia"
-                :show-light-box="false"
-                :show-thumbs="false"
-        />
+        <slot v-if="viewable" name="viewer"/>
     </div>
 </template>
 
@@ -82,11 +76,10 @@
     import List from "./Views/List.vue";
     import Media from "../Media.js";
     import {isDownloadable, isEditable, isViewable, usesPortal} from "../mixins";
-    import LightBox from 'vue-image-lightbox';
 
     export default {
         name: "MediaLibrary",
-        components: {ImageCropper, Modal, FilePicker, Grid, Single, List, LightBox},
+        components: {ImageCropper, Modal, FilePicker, Grid, Single, List},
         mixins: [isDownloadable, isEditable, isViewable, usesPortal],
         props: {
             media: {
@@ -349,7 +342,7 @@
              */
             onView(item){
                 let i = this.items.map(v => v.v_id).indexOf(item.v_id);
-                this.$refs.lightBox.showImage(i);
+                this.$emit('view', {media: item, index: i});
             },
             onDownload(item){
                 console.log('onDownload', item);
@@ -542,14 +535,6 @@
             },
         },
         computed: {
-            lightBoxMedia(){
-                /**
-                 * @param {Media} item
-                 */
-                return this.items.map((item) => {
-                    return {thumb: item.url, src: item.url}
-                })
-            },
             pendingStoreUrl() {
                 return `${this.uploadBaseUrl}/laravel-media-library/pending`;
             },
