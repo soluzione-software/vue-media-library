@@ -45,6 +45,7 @@
                             :max-width="cropperMaxWidth"
                             :min-height="cropperMinHeight"
                             :max-height="cropperMaxHeight"
+                            :fill-color="cropperFillColor"
                     />
                 </modal>
 
@@ -58,6 +59,7 @@
                             :max-width="cropperMaxWidth"
                             :min-height="cropperMinHeight"
                             :max-height="cropperMaxHeight"
+                            :fill-color="cropperFillColor"
                     />
                 </modal>
             </template>
@@ -139,6 +141,9 @@
             },
             cropperMaxHeight: {
                 type: Number
+            },
+            cropperFillColor: {
+                type: String,
             },
             gridColumns: {
                 type: Object,
