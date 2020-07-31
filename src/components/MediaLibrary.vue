@@ -124,6 +124,9 @@
             cropperOptions: {
                 type: Object,
             },
+            mimeType: {
+                type: String,
+            },
             gridColumns: {
                 type: Object,
             },
@@ -239,7 +242,7 @@
                         else if (this.updating){
                             this.onEdited(item);
                         }
-                    }, this.cropperMedia.mime_type);
+                    }, this.mimeType || this.cropperMedia.mime_type);
             },
 
             /**
