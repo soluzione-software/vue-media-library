@@ -518,29 +518,15 @@ var script$4 = {
             type: String,
             required: true,
         },
-        aspectRatio: {
-            type: Number
-        },
-        minWidth: {
-            type: Number
-        },
-        maxWidth: {
-            type: Number
-        },
-        minHeight: {
-            type: Number
-        },
-        maxHeight: {
-            type: Number
-        },
-        fillColor: {
-            // from cropperjs: a color to fill any alpha values in the output canvas, the default value is transparent.
-            type: String,
+        options: {
+            type: Object,
+            default: function () {
+                return {};
+            },
         },
     },
     data: function data(){
-        return {
-        }
+        return {}
     },
     methods: {
         /**
@@ -549,37 +535,199 @@ var script$4 = {
          * @param {number?} quality
          */
         getResult: function getResult(callback, type, quality){
-            this.$refs.cropper.getCroppedCanvas({
-                minWidth: this.minWidth,
-                minHeight: this.minHeight,
-                maxWidth: this.maxWidth,
-                maxHeight: this.maxHeight,
-                fillColor: this.fillColor,
-            }).toBlob(callback, type, quality);
+            this.$refs.cropper.getCroppedCanvas(this.options).toBlob(callback, type, quality);
         },
     },
     computed: {
-        stencilProps: function stencilProps(){
-            return {
-                aspectRatio: this.aspectRatio,
-            }
-        },
-        restrictions: function restrictions(){
+        slotBindings: function slotBindings(){
             var this$1 = this;
 
-            if (this.minWidth || this.minHeight || this.maxWidth || this.maxHeight){
-                return function () {
-                    return {
-                        minWidth: this$1.minWidth,
-                        minHeight: this$1.minHeight,
-                        maxWidth: this$1.maxWidth,
-                        maxHeight: this$1.maxHeight,
-                    }
-                }
-            }
-            return undefined;
+            return {
+                reset: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).reset.apply(ref, args);
+            },
+                clear: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).clear.apply(ref, args);
+            },
+                initCrop: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).initCrop.apply(ref, args);
+            },
+                replace: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).replace.apply(ref, args);
+            },
+                enable: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).enable.apply(ref, args);
+            },
+                disable: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).disable.apply(ref, args);
+            },
+                destroy: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).destroy.apply(ref, args);
+            },
+                move: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).move.apply(ref, args);
+            },
+                moveTo: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).moveTo.apply(ref, args);
+            },
+                relativeZoom: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).relativeZoom.apply(ref, args);
+            },
+                zoomTo: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).zoomTo.apply(ref, args);
+            },
+                rotate: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).rotate.apply(ref, args);
+            },
+                rotateTo: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).rotateTo.apply(ref, args);
+            },
+                scaleX: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).scaleX.apply(ref, args);
+            },
+                scaleY: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).scaleY.apply(ref, args);
+            },
+                scale: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).scale.apply(ref, args);
+            },
+                getData: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).getData.apply(ref, args);
+            },
+                setData: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).setData.apply(ref, args);
+            },
+                getContainerData: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).getContainerData.apply(ref, args);
+            },
+                getImageData: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).getImageData.apply(ref, args);
+            },
+                getCanvasData: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).getCanvasData.apply(ref, args);
+            },
+                setCanvasData: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).setCanvasData.apply(ref, args);
+            },
+                getCropBoxData: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).getCropBoxData.apply(ref, args);
+            },
+                setCropBoxData: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).setCropBoxData.apply(ref, args);
+            },
+                setAspectRatio: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).setAspectRatio.apply(ref, args);
+            },
+                setDragMode: function () {
+                    var ref;
+
+                    var args = [], len = arguments.length;
+                    while ( len-- ) args[ len ] = arguments[ len ];
+                    return (ref = this$1.$refs.cropper).setDragMode.apply(ref, args);
+            },
+            };
         },
-    }
+    },
 };
 
 /* script */
@@ -590,18 +738,28 @@ var __vue_render__$4 = function() {
   var _vm = this;
   var _h = _vm.$createElement;
   var _c = _vm._self._c || _h;
-  return _c("cropper", {
-    ref: "cropper",
-    attrs: {
-      classname: "v-cropper",
-      src: _vm.image,
-      "aspect-ratio": _vm.aspectRatio,
-      "min-crop-box-width": _vm.minWidth,
-      "max-crop-box-width": _vm.maxWidth,
-      "min-crop-box-height": _vm.minHeight,
-      "max-crop-box-height": _vm.maxHeight
-    }
-  })
+  return _c(
+    "div",
+    [
+      _c(
+        "cropper",
+        _vm._b(
+          { ref: "cropper", attrs: { src: _vm.image } },
+          "cropper",
+          _vm.options,
+          false
+        )
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "mt-3" },
+        [_vm._t("default", null, null, _vm.slotBindings)],
+        2
+      )
+    ],
+    1
+  )
 };
 var __vue_staticRenderFns__$4 = [];
 __vue_render__$4._withStripped = true;
@@ -609,11 +767,11 @@ __vue_render__$4._withStripped = true;
   /* style */
   var __vue_inject_styles__$4 = function (inject) {
     if (!inject) { return }
-    inject("data-v-57e74651_0", { source: "\n.v-cropper[data-v-57e74651] {\n    max-height: 80vh;\n}\n", map: {"version":3,"sources":["/home/yuriy/gits/vue-media-library/src/components/ImageCropper.vue"],"names":[],"mappings":";AAyFA;IACA,gBAAA;AACA","file":"ImageCropper.vue","sourcesContent":["<template>\n    <cropper\n            ref=\"cropper\"\n            classname=\"v-cropper\"\n            :src=\"image\"\n            :aspect-ratio=\"aspectRatio\"\n            :min-crop-box-width=\"minWidth\"\n            :max-crop-box-width=\"maxWidth\"\n            :min-crop-box-height=\"minHeight\"\n            :max-crop-box-height=\"maxHeight\"\n    />\n</template>\n\n<script>\n    import Cropper from 'vue-cropperjs';\n    import 'cropperjs/dist/cropper.css';\n\n    export default {\n        name: \"ImageCropper\",\n        components: {Cropper},\n        props: {\n            image: {\n                type: String,\n                required: true,\n            },\n            aspectRatio: {\n                type: Number\n            },\n            minWidth: {\n                type: Number\n            },\n            maxWidth: {\n                type: Number\n            },\n            minHeight: {\n                type: Number\n            },\n            maxHeight: {\n                type: Number\n            },\n            fillColor: {\n                // from cropperjs: a color to fill any alpha values in the output canvas, the default value is transparent.\n                type: String,\n            },\n        },\n        data(){\n            return {\n            }\n        },\n        methods: {\n            /**\n             * @param {BlobCallback} callback\n             * @param {string?} type\n             * @param {number?} quality\n             */\n            getResult(callback, type, quality){\n                this.$refs.cropper.getCroppedCanvas({\n                    minWidth: this.minWidth,\n                    minHeight: this.minHeight,\n                    maxWidth: this.maxWidth,\n                    maxHeight: this.maxHeight,\n                    fillColor: this.fillColor,\n                }).toBlob(callback, type, quality)\n            },\n        },\n        computed: {\n            stencilProps(){\n                return {\n                    aspectRatio: this.aspectRatio,\n                }\n            },\n            restrictions(){\n                if (this.minWidth || this.minHeight || this.maxWidth || this.maxHeight){\n                    return () => {\n                        return {\n                            minWidth: this.minWidth,\n                            minHeight: this.minHeight,\n                            maxWidth: this.maxWidth,\n                            maxHeight: this.maxHeight,\n                        }\n                    }\n                }\n                return undefined;\n            },\n        }\n    }\n</script>\n\n<style scoped>\n    .v-cropper {\n        max-height: 80vh;\n    }\n</style>\n"]}, media: undefined });
+    inject("data-v-fa8f131a_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"ImageCropper.vue"}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__$4 = "data-v-57e74651";
+  var __vue_scope_id__$4 = "data-v-fa8f131a";
   /* module identifier */
   var __vue_module_identifier__$4 = undefined;
   /* functional template */
@@ -1837,22 +1995,10 @@ var script$c = {
             type: Boolean,
             default: false,
         },
-        cropperAspectRatio: {
-            type: Number
+        cropperOptions: {
+            type: Object,
         },
-        cropperMinWidth: {
-            type: Number
-        },
-        cropperMaxWidth: {
-            type: Number
-        },
-        cropperMinHeight: {
-            type: Number
-        },
-        cropperMaxHeight: {
-            type: Number
-        },
-        cropperFillColor: {
+        mimeType: {
             type: String,
         },
         gridColumns: {
@@ -1879,13 +2025,20 @@ var script$c = {
     data: function data(){
         return {
             /**
-             * @var {Media|null} addItem
+             * @var {Media|null} cropperMedia
              */
-            addItem: null,
+            cropperMedia: null,
+
             /**
-             * @var {Media|null} editItem
+             * @var {boolean} creating
              */
-            editItem: null,
+            creating: false,
+
+            /**
+             * @var {boolean} updating
+             */
+            updating: false,
+
             /**
              * @var {Media[]} items
              */
@@ -1925,6 +2078,8 @@ var script$c = {
             var img = URL.createObjectURL(file); // fixme: do only for images
 
             if (this.editable){
+                this.creating = true;
+
                 var image = new Image();
                 image.onload = function () {
                     if (this$1.cropperMinWidth && image.width < this$1.cropperMinWidth){
@@ -1934,11 +2089,11 @@ var script$c = {
                         alert('Invalid image height!');
                     }
                     else {
-                        this$1.addItem = new Media(null, this$1.collectionName, file.name, file.type, file, img, img);
+                        this$1.cropperMedia = new Media(null, this$1.collectionName, file.name, file.type, file, img, img);
 
                         this$1.$nextTick(function () {
                             this$1.$nextTick(function () {
-                                this$1.$refs.addModal.show();
+                                this$1.$refs.cropperModal.show();
                             });
                         });
                     }
@@ -1946,105 +2101,118 @@ var script$c = {
                 image.src = img;
             }
             else {
-                this.addItem = new Media(null, this.collectionName, file.name, file.type, file, img, img);
-                var item = this.addItem.clone();
-                this.items.push(item);
-                this.addedItems.push({media: item});
-                this.onAdded(item);
+                var media = new Media(null, this.collectionName, file.name, file.type, file, img, img);
+                this.onAdded(media);
             }
         },
 
-        onSaveCreate: function onSaveCreate(){
+        onSave: function onSave(){
             var this$1 = this;
 
-            this.$refs.addModal.hide();
+            this.$refs.cropperModal.hide();
 
-            this.$refs.addCropper.getResult(function (blob) {
-                    var item = this$1.blobToMedia(blob, this$1.addItem);
+            this.$refs.cropper.getResult(function (blob) {
+                    var item = this$1.blobToMedia(blob, this$1.cropperMedia);
 
-                    this$1.items.push(item);
-
-                    this$1.onAdded(item);
-
-                    if (this$1.shouldAutoUpload){
-                        this$1.storePendingMedia(item)
-                            .then(function (ref) {
-                                var pendingMediaId = ref.pendingMediaId;
-
-                                this$1.addedItems.push({media: item, pendingMediaId: pendingMediaId});
-                            })
-                            .catch(function (error) {
-                                // todo: manage properly
-                                console.error(error);
-                            });
+                    if (this$1.creating){
+                        this$1.onAdded(item);
                     }
-                    else {
-                        this$1.addedItems.push({media: item});
+                    else if (this$1.updating){
+                        this$1.onEdited(item);
                     }
-                }, this.addItem.mime_type);
+                }, this.mimeType || this.cropperMedia.mime_type);
         },
 
-        onSaveEdit: function onSaveEdit(){
+        /**
+         * @param {Media} media
+         */
+        onAdded: function onAdded(media){
             var this$1 = this;
 
-            this.$refs.editModal.hide();
+            this.items.push(media);
 
-            this.$refs.editCropper.getResult(function (blob) {
-                var editedMedia = this$1.blobToMedia(blob, this$1.editItem);
+            this.onCreated(media);
 
-                this$1.items = this$1.items.map(function (item) {
-                    if (item.id === editedMedia.id){
-                        item.url = editedMedia.url;
-                        item.thumbnail = editedMedia.thumbnail;
-                        item.file = editedMedia.file;
+            if (this.shouldAutoUpload){
+                this.storePendingMedia(media)
+                    .then(function (ref) {
+                        var pendingMediaId = ref.pendingMediaId;
+
+                        this$1.addedItems.push({media: media, pendingMediaId: pendingMediaId});
+                    })
+                    .catch(function (error) {
+                        // todo: manage properly
+                        console.error(error);
+                    });
+            }
+            else {
+                this.addedItems.push({media: media});
+            }
+
+            this.creating = false;
+        },
+
+        /**
+         * @param {Media} media
+         */
+        onEdited: function onEdited(media){
+            var this$1 = this;
+
+            this.items = this.items.map(function (item) {
+                if (item.id === media.id){
+                    item.url = media.url;
+                    item.thumbnail = media.thumbnail;
+                    item.file = media.file;
+                }
+                return item;
+            });
+
+            this.onUpdated(media);
+
+            var previous = this.updatedItems.find(function (item) { return item.media.id === media.id; });
+            if (previous){
+                this.updatedItems = this.updatedItems.map(function (item) {
+                    if (item.media.id === media.id){
+                        item.media = media;
                     }
                     return item;
                 });
-                this$1.onUpdated(this$1.editItem);
 
-                var previous = this$1.updatedItems.find(function (item) { return item.media.id === editedMedia.id; });
-                if (previous){
-                    this$1.updatedItems = this$1.updatedItems.map(function (item) {
-                        if (item.media.id === editedMedia.id){
-                            item.media = editedMedia;
-                        }
-                        return item;
-                    });
+                if (this.shouldAutoUpload){
+                    var updatedItem = this.updatedItems.find(function (item) { return item.media.id === media.id; });
 
-                    if (this$1.shouldAutoUpload){
-                        var updatedItem = this$1.updatedItems.find(function (item) { return item.media.id === editedMedia.id; });
-
-                        this$1.updatePendingMedia(updatedItem.media, updatedItem.pendingMediaId)
-                            .then(function () {
-                                this$1.updatedItems = this$1.updatedItems.map(function (item) {
-                                    if (item.media.id === editedMedia.id){
-                                        item.pendingMediaId = updatedItem.pendingMediaId;
-                                    }
-                                    return item;
-                                });
-                            })
-                            .catch(function (error) {
-                                // todo: manage properly
-                                console.error(error);
+                    this.updatePendingMedia(updatedItem.media, updatedItem.pendingMediaId)
+                        .then(function () {
+                            this$1.updatedItems = this$1.updatedItems.map(function (item) {
+                                if (item.media.id === media.id){
+                                    item.pendingMediaId = updatedItem.pendingMediaId;
+                                }
+                                return item;
                             });
-                    }
-                }
-                else if (this$1.shouldAutoUpload) {
-                    this$1.storePendingMedia(editedMedia)
-                        .then(function (ref) {
-                            var pendingMediaId = ref.pendingMediaId;
-
-                            this$1.updatedItems.push({media: editedMedia, pendingMediaId: pendingMediaId});
                         })
                         .catch(function (error) {
                             // todo: manage properly
                             console.error(error);
                         });
                 }
-                else {
-                    this$1.updatedItems.push({media: editedMedia});
-                }
-            }, this.editItem.mime_type);
+            }
+            else if (this.shouldAutoUpload) {
+                this.storePendingMedia(media)
+                    .then(function (ref) {
+                        var pendingMediaId = ref.pendingMediaId;
+
+                        this$1.updatedItems.push({media: media, pendingMediaId: pendingMediaId});
+                    })
+                    .catch(function (error) {
+                        // todo: manage properly
+                        console.error(error);
+                    });
+            }
+            else {
+                this.updatedItems.push({media: media});
+            }
+
+            this.updating = false;
         },
 
         /**
@@ -2072,9 +2240,10 @@ var script$c = {
         onDownload: function onDownload(item){
             console.log('onDownload', item);
         },
-        onEdit: function onEdit(item){
-            this.editItem = item;
-            this.$refs.editModal.show();
+        onEdit: function onEdit(media){
+            this.updating = true;
+            this.cropperMedia = media;
+            this.$refs.cropperModal.show();
         },
         onDelete: function onDelete(item){
             if (confirm('Sure?')){ // fixme: use tailwind dialog
@@ -2262,8 +2431,8 @@ var script$c = {
                 formData.append('media[delete][]', item.id);
             });
         },
-        onAdded: function onAdded(item){
-            this.$emit('added', item);
+        onCreated: function onCreated(item){
+            this.$emit('created', item);
             this.$emit('input', this.items);
         },
         onUpdated: function onUpdated(item){
@@ -2352,68 +2521,52 @@ var __vue_render__$c = function() {
           ]
         : _vm._e(),
       _vm._v(" "),
-      _c(
-        _vm.usePortal ? "portal" : "div",
-        { tag: "component", attrs: { to: _vm.portalTarget } },
-        [
-          !_vm.readonly
-            ? [
-                _c(
-                  "modal",
-                  {
-                    ref: "addModal",
-                    attrs: { size: "xl", "ok-title": "Save" },
-                    on: { ok: _vm.onSaveCreate }
-                  },
-                  [
-                    _vm.addItem
-                      ? _c("image-cropper", {
-                          ref: "addCropper",
-                          attrs: {
-                            image: _vm.addItem.url,
-                            "aspect-ratio": _vm.cropperAspectRatio,
-                            "min-width": _vm.cropperMinWidth,
-                            "max-width": _vm.cropperMaxWidth,
-                            "min-height": _vm.cropperMinHeight,
-                            "max-height": _vm.cropperMaxHeight,
-                            "fill-color": _vm.cropperFillColor
-                          }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "modal",
-                  {
-                    ref: "editModal",
-                    attrs: { size: "xl", "ok-title": "Save" },
-                    on: { ok: _vm.onSaveEdit }
-                  },
-                  [
-                    _vm.editItem
-                      ? _c("image-cropper", {
-                          ref: "editCropper",
-                          attrs: {
-                            image: _vm.editItem.url,
-                            "aspect-ratio": _vm.cropperAspectRatio,
-                            "min-width": _vm.cropperMinWidth,
-                            "max-width": _vm.cropperMaxWidth,
-                            "min-height": _vm.cropperMinHeight,
-                            "max-height": _vm.cropperMaxHeight,
-                            "fill-color": _vm.cropperFillColor
-                          }
-                        })
-                      : _vm._e()
-                  ],
-                  1
-                )
-              ]
-            : _vm._e()
-        ],
-        2
-      ),
+      !_vm.readonly
+        ? _c(
+            _vm.usePortal ? "portal" : "div",
+            { tag: "component", attrs: { to: _vm.portalTarget } },
+            [
+              _c(
+                "modal",
+                {
+                  ref: "cropperModal",
+                  attrs: { size: "xl", "ok-title": "Save" },
+                  on: { ok: _vm.onSave }
+                },
+                [
+                  _vm.cropperMedia
+                    ? _c("image-cropper", {
+                        ref: "cropper",
+                        attrs: {
+                          image: _vm.cropperMedia.url,
+                          options: _vm.cropperOptions
+                        },
+                        scopedSlots: _vm._u(
+                          [
+                            {
+                              key: "default",
+                              fn: function(scope) {
+                                return _vm._t(
+                                  "cropper-tools",
+                                  null,
+                                  null,
+                                  scope
+                                )
+                              }
+                            }
+                          ],
+                          null,
+                          true
+                        )
+                      })
+                    : _vm._e()
+                ],
+                1
+              )
+            ],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
       _vm.viewable ? _vm._t("viewer") : _vm._e()
     ],
@@ -2426,11 +2579,11 @@ __vue_render__$c._withStripped = true;
   /* style */
   var __vue_inject_styles__$c = function (inject) {
     if (!inject) { return }
-    inject("data-v-94606f8c_0", { source: "\n[data-v-94606f8c] .vue-lb-footer-count{\n    display: none;\n}\n", map: {"version":3,"sources":["/home/yuriy/gits/vue-media-library/src/components/MediaLibrary.vue"],"names":[],"mappings":";AA+iBA;IACA,aAAA;AACA","file":"MediaLibrary.vue","sourcesContent":["<template>\n    <div>\n        <component\n                :is=\"viewMode\"\n                :items=\"items\"\n                :readonly=\"readonly\"\n                :viewable=\"viewable\"\n                :editable=\"editable\"\n                :downloadable=\"downloadable\"\n                :columns-count=\"gridColumns\"\n                :squared-items=\"gridSquaredItems\"\n                :display-limit=\"gridDisplayLimit\"\n                :use-portal=\"usePortal\"\n                :portal-target=\"portalTarget\"\n                :uploading-media=\"uploadingMedia\"\n                @view=\"onView\"\n                @download=\"onDownload\"\n                @edit=\"onEdit\"\n                @delete=\"onDelete\"\n        />\n\n        <template v-if=\"!readonly\">\n            <file-picker\n                    v-if=\"(viewMode === 'single' && items.length === 0) || (viewMode !== 'single' && (limit === -1 || items.length < limit))\"\n                    class=\"my-2 mx-1\"\n                    :mode=\"filePickerMode\"\n                    :accept=\"accept\"\n                    @selected=\"onSelected\"\n            >\n                <template #help>\n                    <slot name=\"help\"/>\n                </template>\n            </file-picker>\n        </template>\n\n        <component :is=\"usePortal ? 'portal' : 'div'\" :to=\"portalTarget\">\n            <template v-if=\"!readonly\">\n                <modal ref=\"addModal\" size=\"xl\" @ok=\"onSaveCreate\" ok-title=\"Save\">\n                    <image-cropper\n                            ref=\"addCropper\"\n                            v-if=\"addItem\"\n                            :image=\"addItem.url\"\n                            :aspect-ratio=\"cropperAspectRatio\"\n                            :min-width=\"cropperMinWidth\"\n                            :max-width=\"cropperMaxWidth\"\n                            :min-height=\"cropperMinHeight\"\n                            :max-height=\"cropperMaxHeight\"\n                            :fill-color=\"cropperFillColor\"\n                    />\n                </modal>\n\n                <modal ref=\"editModal\" size=\"xl\" @ok=\"onSaveEdit\" ok-title=\"Save\">\n                    <image-cropper\n                            ref=\"editCropper\"\n                            v-if=\"editItem\"\n                            :image=\"editItem.url\"\n                            :aspect-ratio=\"cropperAspectRatio\"\n                            :min-width=\"cropperMinWidth\"\n                            :max-width=\"cropperMaxWidth\"\n                            :min-height=\"cropperMinHeight\"\n                            :max-height=\"cropperMaxHeight\"\n                            :fill-color=\"cropperFillColor\"\n                    />\n                </modal>\n            </template>\n        </component>\n\n        <slot v-if=\"viewable\" name=\"viewer\"/>\n    </div>\n</template>\n\n<script>\n    import FilePicker from \"./FilePicker/index.vue\";\n    import Modal from \"./Modal.vue\";\n    import ImageCropper from \"./ImageCropper.vue\";\n    import Grid from \"./Views/Grid.vue\";\n    import Single from \"./Views/Single.vue\";\n    import List from \"./Views/List.vue\";\n    import Media from \"../Media.js\";\n    import {isDownloadable, isEditable, isViewable, usesPortal} from \"../mixins\";\n\n    export default {\n        name: \"MediaLibrary\",\n        components: {ImageCropper, Modal, FilePicker, Grid, Single, List},\n        mixins: [isDownloadable, isEditable, isViewable, usesPortal],\n        props: {\n            media: {\n                type: Array,\n                required: true,\n            },\n            accept: {\n                type: Array,\n                default(){\n                    return ['*']\n                }\n            },\n            limit: {\n                type: Number,\n                default: -1,\n            },\n            viewMode: {\n                type: String,\n                default: 'list',\n                validator(value) {\n                    return [\n                        'grid',\n                        'single',\n                        'list',\n                    ].indexOf(value) !== -1\n                }\n            },\n            filePickerMode: {\n                type: String,\n                default: 'button',\n                validator(value) {\n                    return [\n                        'button',\n                        'drag' // fixme: make it more graceful\n                    ].indexOf(value) !== -1\n                }\n            },\n            collectionName: {\n                type: String,\n                default: 'default',\n            },\n            readonly: {\n                type: Boolean,\n                default: false,\n            },\n            cropperAspectRatio: {\n                type: Number\n            },\n            cropperMinWidth: {\n                type: Number\n            },\n            cropperMaxWidth: {\n                type: Number\n            },\n            cropperMinHeight: {\n                type: Number\n            },\n            cropperMaxHeight: {\n                type: Number\n            },\n            cropperFillColor: {\n                type: String,\n            },\n            gridColumns: {\n                type: Object,\n            },\n            gridSquaredItems: {\n                type: Boolean,\n                default: false,\n            },\n            gridDisplayLimit: {\n                type: Number,\n                default: -1\n            },\n            uploadBaseUrl: {\n                type: String\n            },\n            uploadModelClass: {\n                type: String\n            },\n        },\n        model: {\n            prop: 'media',\n        },\n        data(){\n            return {\n                /**\n                 * @var {Media|null} addItem\n                 */\n                addItem: null,\n                /**\n                 * @var {Media|null} editItem\n                 */\n                editItem: null,\n                /**\n                 * @var {Media[]} items\n                 */\n                items: [],\n                /**\n                 * @param {Array<Object>} addedItems where each item is an Object which has media property and optional\n                 * pendingMediaId property\n                 */\n                addedItems: [],\n                /**\n                 * @param {Array<Object>} updatedItems where each item is an Object which has media property and optional\n                 * pendingMediaId property\n                 */\n                updatedItems: [],\n                /**\n                 * @var {Media[]} deletedItems\n                 */\n                deletedItems: [],\n                /**\n                 * @param {Object} uploadingMedia\n                 */\n                uploadingMedia: [],\n            }\n        },\n        watch: {\n            media(new_){\n                this.items = this.filterMedia(this.mapObjectsToMedia(new_));\n            }\n        },\n        mounted(){\n            this.items = this.filterMedia(this.mapObjectsToMedia(this.media));\n        },\n        methods: {\n            onSelected(file){\n                let img = URL.createObjectURL(file); // fixme: do only for images\n\n                if (this.editable){\n                    let image = new Image();\n                    image.onload = () => {\n                        if (this.cropperMinWidth && image.width < this.cropperMinWidth){\n                            alert('Invalid image width!');\n                        }\n                        else if (this.cropperMinHeight && image.height < this.cropperMinHeight){\n                            alert('Invalid image height!');\n                        }\n                        else {\n                            this.addItem = new Media(null, this.collectionName, file.name, file.type, file, img, img);\n\n                            this.$nextTick(() => {\n                                this.$nextTick(() => {\n                                    this.$refs.addModal.show()\n                                })\n                            })\n                        }\n                    }\n                    image.src = img;\n                }\n                else {\n                    this.addItem = new Media(null, this.collectionName, file.name, file.type, file, img, img);\n                    let item = this.addItem.clone();\n                    this.items.push(item);\n                    this.addedItems.push({media: item});\n                    this.onAdded(item);\n                }\n            },\n\n            onSaveCreate(){\n                this.$refs.addModal.hide();\n\n                this.$refs.addCropper.getResult(blob => {\n                        let item = this.blobToMedia(blob, this.addItem);\n\n                        this.items.push(item);\n\n                        this.onAdded(item);\n\n                        if (this.shouldAutoUpload){\n                            this.storePendingMedia(item)\n                                .then(({pendingMediaId}) => {\n                                    this.addedItems.push({media: item, pendingMediaId});\n                                })\n                                .catch(error => {\n                                    // todo: manage properly\n                                    console.error(error)\n                                });\n                        }\n                        else {\n                            this.addedItems.push({media: item});\n                        }\n                    }, this.addItem.mime_type);\n            },\n\n            onSaveEdit(){\n                this.$refs.editModal.hide();\n\n                this.$refs.editCropper.getResult(blob => {\n                    let editedMedia = this.blobToMedia(blob, this.editItem);\n\n                    this.items = this.items.map(item => {\n                        if (item.id === editedMedia.id){\n                            item.url = editedMedia.url;\n                            item.thumbnail = editedMedia.thumbnail;\n                            item.file = editedMedia.file;\n                        }\n                        return item;\n                    });\n                    this.onUpdated(this.editItem);\n\n                    let previous = this.updatedItems.find(item => item.media.id === editedMedia.id);\n                    if (previous){\n                        this.updatedItems = this.updatedItems.map(item => {\n                            if (item.media.id === editedMedia.id){\n                                item.media = editedMedia;\n                            }\n                            return item;\n                        });\n\n                        if (this.shouldAutoUpload){\n                            let updatedItem = this.updatedItems.find(item => item.media.id === editedMedia.id);\n\n                            this.updatePendingMedia(updatedItem.media, updatedItem.pendingMediaId)\n                                .then(() => {\n                                    this.updatedItems = this.updatedItems.map(item => {\n                                        if (item.media.id === editedMedia.id){\n                                            item.pendingMediaId = updatedItem.pendingMediaId;\n                                        }\n                                        return item;\n                                    });\n                                })\n                                .catch(error => {\n                                    // todo: manage properly\n                                    console.error(error)\n                                });\n                        }\n                    }\n                    else if (this.shouldAutoUpload) {\n                        this.storePendingMedia(editedMedia)\n                            .then(({pendingMediaId}) => {\n                                this.updatedItems.push({media: editedMedia, pendingMediaId});\n                            })\n                            .catch(error => {\n                                // todo: manage properly\n                                console.error(error)\n                            });\n                    }\n                    else {\n                        this.updatedItems.push({media: editedMedia});\n                    }\n                }, this.editItem.mime_type);\n            },\n\n            /**\n             * @param {Blob} blob\n             * @param {Media} item\n             */\n            blobToMedia(blob, item){\n                let newItem = item.clone();\n\n                let file = new File([blob], newItem.file_name,{ type: blob.type });\n                let url = URL.createObjectURL(blob);\n                newItem.url = newItem.thumbnail = url;\n                newItem.file = file;\n\n                return newItem;\n            },\n\n            /**\n             * @param {Media} item\n             */\n            onView(item){\n                let i = this.items.map(v => v.v_id).indexOf(item.v_id);\n                this.$emit('view', {media: item, index: i});\n            },\n            onDownload(item){\n                console.log('onDownload', item);\n            },\n            onEdit(item){\n                this.editItem = item;\n                this.$refs.editModal.show()\n            },\n            onDelete(item){\n                if (confirm('Sure?')){ // fixme: use tailwind dialog\n                    this.delete(item);\n                }\n            },\n            delete(item){\n                this.items = this.items.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n\n                let previous;\n                if (item.id){\n                    this.deletedItems.push({...item});\n                    previous = this.updatedItems.find(mediaItem => mediaItem.media.v_id === item.v_id);\n                    this.updatedItems = this.updatedItems.filter(mediaItem => mediaItem.media.v_id !== item.v_id);\n                }\n                else {\n                    previous = this.addedItems.find(mediaItem => mediaItem.media.v_id === item.v_id);\n                    this.addedItems = this.addedItems.filter(mediaItem => mediaItem.media.v_id !== item.v_id);\n                }\n\n                if (previous && this.shouldAutoUpload){\n                    this.deletePendingMedia(previous.pendingMediaId);\n                }\n\n                this.onDeleted(item);\n            },\n\n            /**\n             * @param {Object[]} items\n             * @return {Media[]}\n             */\n            mapObjectsToMedia(items){\n                return items.map(item => Media.fromObject(item))\n            },\n\n            /**\n             * Filters \"mediaItems\" param based on collectionName\n             * @param {Media[]} mediaItems\n             * @return {Media[]}\n             */\n            filterMedia(mediaItems){\n                return mediaItems.filter(item => item.collection_name === this.collectionName)\n            },\n\n            /**\n             * @param {Media} media\n             */\n            storePendingMedia(media){\n                return new Promise((resolve, reject) => {\n                    this.uploadingMedia.push({media, progress: 0});\n\n                    let data = new FormData();\n                    data.set('collection_name', this.collectionName);\n                    data.set('model_class', this.uploadModelClass);\n                    data.set('media[file]', media.file);\n\n                    let config = {\n                        onUploadProgress: (progressEvent) => this.onUploadProgress(media, progressEvent),\n                    };\n\n                    this.axios\n                        .post(this.pendingStoreUrl, data, config)\n                        .then(({data}) => {\n                            this.removeUploadingMedia(media);\n                            resolve({pendingMediaId: data.id});\n                        })\n                        .catch(error => {\n                            console.error(error);\n                            reject(error);\n                        });\n                })\n            },\n\n            /**\n             * @param {Media} media\n             * @param {Number} pendingMediaId\n             */\n            updatePendingMedia(media, pendingMediaId){\n                return new Promise((resolve, reject) => {\n                    this.uploadingMedia.push({media, progress: 0});\n\n                    let data = new FormData();\n                    data.set('_method', 'PUT'); // we cannot send 'multipart/form-data' wit PUT request method\n                    data.set('collection_name', this.collectionName);\n                    data.set('model_class', this.uploadModelClass);\n                    data.set('media[file]', media.file);\n\n                    let config = {\n                        onUploadProgress: (progressEvent) => this.onUploadProgress(media, progressEvent),\n                    };\n\n                    this.axios\n                        .post(this.pendingUpdateUrl.replace('{id}', `${pendingMediaId}`), data, config)\n                        .then(({data}) => {\n                            resolve(data);\n                        })\n                        .catch(error => {\n                            console.error(error);\n                            reject(error);\n                        });\n                })\n            },\n\n            /**\n             * @param {Number} pendingMediaId\n             */\n            deletePendingMedia(pendingMediaId){\n                return new Promise((resolve, reject) => {\n                    this.axios\n                        .delete(this.pendingDeleteUrl.replace('{id}', `${pendingMediaId}`))\n                        .then(({data}) => {\n                            resolve(data);\n                        })\n                        .catch(error => {\n                            console.error(error);\n                            reject(error);\n                        });\n                })\n            },\n\n            onUploadProgress(media, progressEvent){\n                const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');\n\n                if (totalLength !== null) {\n                    this.updateProgressValue(media, Math.round( (progressEvent.loaded * 100) / totalLength ));\n                }\n            },\n\n            updateProgressValue(media, value){\n                this.uploadingMedia = this.uploadingMedia.map(item => {\n                    if (item.media.v_id === media.v_id){\n                        item.progress = value;\n                    }\n                    return item;\n                })\n            },\n\n            removeUploadingMedia(media){\n                this.uploadingMedia = this.uploadingMedia.filter(item => item.media.v_id !== media.v_id)\n            },\n\n            /**\n             *\n             * @param {FormData} formData\n             */\n            fillFormData(formData){\n                this.addedItems.forEach(item => {\n                    if (item.pendingMediaId !== undefined){\n                        formData.append(`media[store][${this.collectionName}][][pending_media_id]`, item.pendingMediaId);\n                    }\n                    else {\n                        formData.append(`media[store][${this.collectionName}][][file]`, item.media.file);\n                    }\n                });\n\n                this.updatedItems.forEach((item, index) => {\n                    formData.set(`media[update][${index}][id]`, item.media.id);\n                    if (item.pendingMediaId !== undefined){\n                        formData.set(`media[update][${index}][pending_media_id]`, item.pendingMediaId);\n                    }\n                    else {\n                        formData.set(`media[update][${index}][file]`, item.media.file);\n                    }\n                });\n\n                this.deletedItems.forEach(item => {\n                    formData.append('media[delete][]', item.id);\n                });\n            },\n            onAdded(item){\n                this.$emit('added', item);\n                this.$emit('input', this.items);\n            },\n            onUpdated(item){\n                this.$emit('updated', item);\n                this.$emit('input', this.items);\n            },\n            onDeleted(item){\n                this.$emit('deleted', item);\n                this.$emit('input', this.items);\n            },\n        },\n        computed: {\n            pendingStoreUrl() {\n                return `${this.uploadBaseUrl}/laravel-media-library/pending`;\n            },\n            pendingUpdateUrl() {\n                return `${this.uploadBaseUrl}/laravel-media-library/pending/{id}`;\n            },\n            pendingDeleteUrl() {\n                return `${this.uploadBaseUrl}/laravel-media-library/pending/{id}`;\n            },\n            shouldAutoUpload() {\n                return this.uploadBaseUrl !== undefined && this.uploadModelClass !== undefined;\n            },\n        }\n    }\n</script>\n\n<style scoped>\n    >>> .vue-lb-footer-count{\n        display: none;\n    }\n</style>\n"]}, media: undefined });
+    inject("data-v-f39ec10e_0", { source: "\n[data-v-f39ec10e] .vue-lb-footer-count{\n    display: none;\n}\n", map: {"version":3,"sources":["/home/yuriy/gits/vue-media-library/src/components/MediaLibrary.vue"],"names":[],"mappings":";AAkjBA;IACA,aAAA;AACA","file":"MediaLibrary.vue","sourcesContent":["<template>\n    <div>\n        <component\n                :is=\"viewMode\"\n                :items=\"items\"\n                :readonly=\"readonly\"\n                :viewable=\"viewable\"\n                :editable=\"editable\"\n                :downloadable=\"downloadable\"\n                :columns-count=\"gridColumns\"\n                :squared-items=\"gridSquaredItems\"\n                :display-limit=\"gridDisplayLimit\"\n                :use-portal=\"usePortal\"\n                :portal-target=\"portalTarget\"\n                :uploading-media=\"uploadingMedia\"\n                @view=\"onView\"\n                @download=\"onDownload\"\n                @edit=\"onEdit\"\n                @delete=\"onDelete\"\n        />\n\n        <template v-if=\"!readonly\">\n            <file-picker\n                    v-if=\"(viewMode === 'single' && items.length === 0) || (viewMode !== 'single' && (limit === -1 || items.length < limit))\"\n                    class=\"my-2 mx-1\"\n                    :mode=\"filePickerMode\"\n                    :accept=\"accept\"\n                    @selected=\"onSelected\"\n            >\n                <template #help>\n                    <slot name=\"help\"/>\n                </template>\n            </file-picker>\n        </template>\n\n        <component\n            v-if=\"!readonly\"\n            :is=\"usePortal ? 'portal' : 'div'\"\n            :to=\"portalTarget\"\n        >\n            <modal\n                ref=\"cropperModal\"\n                size=\"xl\"\n                @ok=\"onSave\"\n                ok-title=\"Save\"\n            >\n                <image-cropper\n                    ref=\"cropper\"\n                    v-if=\"cropperMedia\"\n                    :image=\"cropperMedia.url\"\n                    :options=\"cropperOptions\"\n                >\n                    <slot\n                        name=\"cropper-tools\"\n                        slot-scope=\"scope\"\n                        v-bind=\"scope\"\n                    />\n                </image-cropper>\n            </modal>\n        </component>\n\n        <slot v-if=\"viewable\" name=\"viewer\"/>\n    </div>\n</template>\n\n<script>\n    import FilePicker from \"./FilePicker/index.vue\";\n    import Modal from \"./Modal.vue\";\n    import ImageCropper from \"./ImageCropper.vue\";\n    import Grid from \"./Views/Grid.vue\";\n    import Single from \"./Views/Single.vue\";\n    import List from \"./Views/List.vue\";\n    import Media from \"../Media.js\";\n    import {isDownloadable, isEditable, isViewable, usesPortal} from \"../mixins\";\n\n    export default {\n        name: \"MediaLibrary\",\n        components: {ImageCropper, Modal, FilePicker, Grid, Single, List},\n        mixins: [isDownloadable, isEditable, isViewable, usesPortal],\n        props: {\n            media: {\n                type: Array,\n                required: true,\n            },\n            accept: {\n                type: Array,\n                default(){\n                    return ['*']\n                }\n            },\n            limit: {\n                type: Number,\n                default: -1,\n            },\n            viewMode: {\n                type: String,\n                default: 'list',\n                validator(value) {\n                    return [\n                        'grid',\n                        'single',\n                        'list',\n                    ].indexOf(value) !== -1\n                }\n            },\n            filePickerMode: {\n                type: String,\n                default: 'button',\n                validator(value) {\n                    return [\n                        'button',\n                        'drag' // fixme: make it more graceful\n                    ].indexOf(value) !== -1\n                }\n            },\n            collectionName: {\n                type: String,\n                default: 'default',\n            },\n            readonly: {\n                type: Boolean,\n                default: false,\n            },\n            cropperOptions: {\n                type: Object,\n            },\n            mimeType: {\n                type: String,\n            },\n            gridColumns: {\n                type: Object,\n            },\n            gridSquaredItems: {\n                type: Boolean,\n                default: false,\n            },\n            gridDisplayLimit: {\n                type: Number,\n                default: -1\n            },\n            uploadBaseUrl: {\n                type: String\n            },\n            uploadModelClass: {\n                type: String\n            },\n        },\n        model: {\n            prop: 'media',\n        },\n        data(){\n            return {\n                /**\n                 * @var {Media|null} cropperMedia\n                 */\n                cropperMedia: null,\n\n                /**\n                 * @var {boolean} creating\n                 */\n                creating: false,\n\n                /**\n                 * @var {boolean} updating\n                 */\n                updating: false,\n\n                /**\n                 * @var {Media[]} items\n                 */\n                items: [],\n                /**\n                 * @param {Array<Object>} addedItems where each item is an Object which has media property and optional\n                 * pendingMediaId property\n                 */\n                addedItems: [],\n                /**\n                 * @param {Array<Object>} updatedItems where each item is an Object which has media property and optional\n                 * pendingMediaId property\n                 */\n                updatedItems: [],\n                /**\n                 * @var {Media[]} deletedItems\n                 */\n                deletedItems: [],\n                /**\n                 * @param {Object} uploadingMedia\n                 */\n                uploadingMedia: [],\n            }\n        },\n        watch: {\n            media(new_){\n                this.items = this.filterMedia(this.mapObjectsToMedia(new_));\n            }\n        },\n        mounted(){\n            this.items = this.filterMedia(this.mapObjectsToMedia(this.media));\n        },\n        methods: {\n            onSelected(file){\n                let img = URL.createObjectURL(file); // fixme: do only for images\n\n                if (this.editable){\n                    this.creating = true;\n\n                    let image = new Image();\n                    image.onload = () => {\n                        if (this.cropperMinWidth && image.width < this.cropperMinWidth){\n                            alert('Invalid image width!');\n                        }\n                        else if (this.cropperMinHeight && image.height < this.cropperMinHeight){\n                            alert('Invalid image height!');\n                        }\n                        else {\n                            this.cropperMedia = new Media(null, this.collectionName, file.name, file.type, file, img, img);\n\n                            this.$nextTick(() => {\n                                this.$nextTick(() => {\n                                    this.$refs.cropperModal.show()\n                                })\n                            })\n                        }\n                    }\n                    image.src = img;\n                }\n                else {\n                    let media = new Media(null, this.collectionName, file.name, file.type, file, img, img);\n                    this.onAdded(media);\n                }\n            },\n\n            onSave(){\n                this.$refs.cropperModal.hide();\n\n                this.$refs.cropper.getResult(blob => {\n                        let item = this.blobToMedia(blob, this.cropperMedia);\n\n                        if (this.creating){\n                            this.onAdded(item);\n                        }\n                        else if (this.updating){\n                            this.onEdited(item);\n                        }\n                    }, this.mimeType || this.cropperMedia.mime_type);\n            },\n\n            /**\n             * @param {Media} media\n             */\n            onAdded(media){\n                this.items.push(media);\n\n                this.onCreated(media);\n\n                if (this.shouldAutoUpload){\n                    this.storePendingMedia(media)\n                        .then(({pendingMediaId}) => {\n                            this.addedItems.push({media, pendingMediaId});\n                        })\n                        .catch(error => {\n                            // todo: manage properly\n                            console.error(error)\n                        });\n                }\n                else {\n                    this.addedItems.push({media});\n                }\n\n                this.creating = false;\n            },\n\n            /**\n             * @param {Media} media\n             */\n            onEdited(media){\n                this.items = this.items.map(item => {\n                    if (item.id === media.id){\n                        item.url = media.url;\n                        item.thumbnail = media.thumbnail;\n                        item.file = media.file;\n                    }\n                    return item;\n                });\n\n                this.onUpdated(media);\n\n                let previous = this.updatedItems.find(item => item.media.id === media.id);\n                if (previous){\n                    this.updatedItems = this.updatedItems.map(item => {\n                        if (item.media.id === media.id){\n                            item.media = media;\n                        }\n                        return item;\n                    });\n\n                    if (this.shouldAutoUpload){\n                        let updatedItem = this.updatedItems.find(item => item.media.id === media.id);\n\n                        this.updatePendingMedia(updatedItem.media, updatedItem.pendingMediaId)\n                            .then(() => {\n                                this.updatedItems = this.updatedItems.map(item => {\n                                    if (item.media.id === media.id){\n                                        item.pendingMediaId = updatedItem.pendingMediaId;\n                                    }\n                                    return item;\n                                });\n                            })\n                            .catch(error => {\n                                // todo: manage properly\n                                console.error(error)\n                            });\n                    }\n                }\n                else if (this.shouldAutoUpload) {\n                    this.storePendingMedia(media)\n                        .then(({pendingMediaId}) => {\n                            this.updatedItems.push({media: media, pendingMediaId});\n                        })\n                        .catch(error => {\n                            // todo: manage properly\n                            console.error(error)\n                        });\n                }\n                else {\n                    this.updatedItems.push({media: media});\n                }\n\n                this.updating = false;\n            },\n\n            /**\n             * @param {Blob} blob\n             * @param {Media} item\n             */\n            blobToMedia(blob, item){\n                let newItem = item.clone();\n\n                let file = new File([blob], newItem.file_name,{ type: blob.type });\n                let url = URL.createObjectURL(blob);\n                newItem.url = newItem.thumbnail = url;\n                newItem.file = file;\n\n                return newItem;\n            },\n\n            /**\n             * @param {Media} item\n             */\n            onView(item){\n                let i = this.items.map(v => v.v_id).indexOf(item.v_id);\n                this.$emit('view', {media: item, index: i});\n            },\n            onDownload(item){\n                console.log('onDownload', item);\n            },\n            onEdit(media){\n                this.updating = true;\n                this.cropperMedia = media;\n                this.$refs.cropperModal.show();\n            },\n            onDelete(item){\n                if (confirm('Sure?')){ // fixme: use tailwind dialog\n                    this.delete(item);\n                }\n            },\n            delete(item){\n                this.items = this.items.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n\n                let previous;\n                if (item.id){\n                    this.deletedItems.push({...item});\n                    previous = this.updatedItems.find(mediaItem => mediaItem.media.v_id === item.v_id);\n                    this.updatedItems = this.updatedItems.filter(mediaItem => mediaItem.media.v_id !== item.v_id);\n                }\n                else {\n                    previous = this.addedItems.find(mediaItem => mediaItem.media.v_id === item.v_id);\n                    this.addedItems = this.addedItems.filter(mediaItem => mediaItem.media.v_id !== item.v_id);\n                }\n\n                if (previous && this.shouldAutoUpload){\n                    this.deletePendingMedia(previous.pendingMediaId);\n                }\n\n                this.onDeleted(item);\n            },\n\n            /**\n             * @param {Object[]} items\n             * @return {Media[]}\n             */\n            mapObjectsToMedia(items){\n                return items.map(item => Media.fromObject(item))\n            },\n\n            /**\n             * Filters \"mediaItems\" param based on collectionName\n             * @param {Media[]} mediaItems\n             * @return {Media[]}\n             */\n            filterMedia(mediaItems){\n                return mediaItems.filter(item => item.collection_name === this.collectionName)\n            },\n\n            /**\n             * @param {Media} media\n             */\n            storePendingMedia(media){\n                return new Promise((resolve, reject) => {\n                    this.uploadingMedia.push({media, progress: 0});\n\n                    let data = new FormData();\n                    data.set('collection_name', this.collectionName);\n                    data.set('model_class', this.uploadModelClass);\n                    data.set('media[file]', media.file);\n\n                    let config = {\n                        onUploadProgress: (progressEvent) => this.onUploadProgress(media, progressEvent),\n                    };\n\n                    this.axios\n                        .post(this.pendingStoreUrl, data, config)\n                        .then(({data}) => {\n                            this.removeUploadingMedia(media);\n                            resolve({pendingMediaId: data.id});\n                        })\n                        .catch(error => {\n                            console.error(error);\n                            reject(error);\n                        });\n                })\n            },\n\n            /**\n             * @param {Media} media\n             * @param {Number} pendingMediaId\n             */\n            updatePendingMedia(media, pendingMediaId){\n                return new Promise((resolve, reject) => {\n                    this.uploadingMedia.push({media, progress: 0});\n\n                    let data = new FormData();\n                    data.set('_method', 'PUT'); // we cannot send 'multipart/form-data' wit PUT request method\n                    data.set('collection_name', this.collectionName);\n                    data.set('model_class', this.uploadModelClass);\n                    data.set('media[file]', media.file);\n\n                    let config = {\n                        onUploadProgress: (progressEvent) => this.onUploadProgress(media, progressEvent),\n                    };\n\n                    this.axios\n                        .post(this.pendingUpdateUrl.replace('{id}', `${pendingMediaId}`), data, config)\n                        .then(({data}) => {\n                            resolve(data);\n                        })\n                        .catch(error => {\n                            console.error(error);\n                            reject(error);\n                        });\n                })\n            },\n\n            /**\n             * @param {Number} pendingMediaId\n             */\n            deletePendingMedia(pendingMediaId){\n                return new Promise((resolve, reject) => {\n                    this.axios\n                        .delete(this.pendingDeleteUrl.replace('{id}', `${pendingMediaId}`))\n                        .then(({data}) => {\n                            resolve(data);\n                        })\n                        .catch(error => {\n                            console.error(error);\n                            reject(error);\n                        });\n                })\n            },\n\n            onUploadProgress(media, progressEvent){\n                const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');\n\n                if (totalLength !== null) {\n                    this.updateProgressValue(media, Math.round( (progressEvent.loaded * 100) / totalLength ));\n                }\n            },\n\n            updateProgressValue(media, value){\n                this.uploadingMedia = this.uploadingMedia.map(item => {\n                    if (item.media.v_id === media.v_id){\n                        item.progress = value;\n                    }\n                    return item;\n                })\n            },\n\n            removeUploadingMedia(media){\n                this.uploadingMedia = this.uploadingMedia.filter(item => item.media.v_id !== media.v_id)\n            },\n\n            /**\n             *\n             * @param {FormData} formData\n             */\n            fillFormData(formData){\n                this.addedItems.forEach(item => {\n                    if (item.pendingMediaId !== undefined){\n                        formData.append(`media[store][${this.collectionName}][][pending_media_id]`, item.pendingMediaId);\n                    }\n                    else {\n                        formData.append(`media[store][${this.collectionName}][][file]`, item.media.file);\n                    }\n                });\n\n                this.updatedItems.forEach((item, index) => {\n                    formData.set(`media[update][${index}][id]`, item.media.id);\n                    if (item.pendingMediaId !== undefined){\n                        formData.set(`media[update][${index}][pending_media_id]`, item.pendingMediaId);\n                    }\n                    else {\n                        formData.set(`media[update][${index}][file]`, item.media.file);\n                    }\n                });\n\n                this.deletedItems.forEach(item => {\n                    formData.append('media[delete][]', item.id);\n                });\n            },\n            onCreated(item){\n                this.$emit('created', item);\n                this.$emit('input', this.items);\n            },\n            onUpdated(item){\n                this.$emit('updated', item);\n                this.$emit('input', this.items);\n            },\n            onDeleted(item){\n                this.$emit('deleted', item);\n                this.$emit('input', this.items);\n            },\n        },\n        computed: {\n            pendingStoreUrl() {\n                return `${this.uploadBaseUrl}/laravel-media-library/pending`;\n            },\n            pendingUpdateUrl() {\n                return `${this.uploadBaseUrl}/laravel-media-library/pending/{id}`;\n            },\n            pendingDeleteUrl() {\n                return `${this.uploadBaseUrl}/laravel-media-library/pending/{id}`;\n            },\n            shouldAutoUpload() {\n                return this.uploadBaseUrl !== undefined && this.uploadModelClass !== undefined;\n            },\n        }\n    }\n</script>\n\n<style scoped>\n    >>> .vue-lb-footer-count{\n        display: none;\n    }\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__$c = "data-v-94606f8c";
+  var __vue_scope_id__$c = "data-v-f39ec10e";
   /* module identifier */
   var __vue_module_identifier__$c = undefined;
   /* functional template */
