@@ -33,36 +33,30 @@
             </file-picker>
         </template>
 
-        <component :is="usePortal ? 'portal' : 'div'" :to="portalTarget">
-            <template v-if="!readonly">
-                <modal ref="addModal" size="xl" @ok="onSaveCreate" ok-title="Save">
-                    <image-cropper
-                            ref="addCropper"
-                            v-if="addItem"
-                            :image="addItem.url"
-                            :aspect-ratio="cropperAspectRatio"
-                            :min-width="cropperMinWidth"
-                            :max-width="cropperMaxWidth"
-                            :min-height="cropperMinHeight"
-                            :max-height="cropperMaxHeight"
-                            :fill-color="cropperFillColor"
+        <component
+            v-if="!readonly"
+            :is="usePortal ? 'portal' : 'div'"
+            :to="portalTarget"
+        >
+            <modal
+                ref="cropperModal"
+                size="xl"
+                @ok="onSave"
+                ok-title="Save"
+            >
+                <image-cropper
+                    ref="cropper"
+                    v-if="cropperMedia"
+                    :image="cropperMedia.url"
+                    :options="cropperOptions"
+                >
+                    <slot
+                        name="cropper-tools"
+                        slot-scope="scope"
+                        v-bind="scope"
                     />
-                </modal>
-
-                <modal ref="editModal" size="xl" @ok="onSaveEdit" ok-title="Save">
-                    <image-cropper
-                            ref="editCropper"
-                            v-if="editItem"
-                            :image="editItem.url"
-                            :aspect-ratio="cropperAspectRatio"
-                            :min-width="cropperMinWidth"
-                            :max-width="cropperMaxWidth"
-                            :min-height="cropperMinHeight"
-                            :max-height="cropperMaxHeight"
-                            :fill-color="cropperFillColor"
-                    />
-                </modal>
-            </template>
+                </image-cropper>
+            </modal>
         </component>
 
         <slot v-if="viewable" name="viewer"/>
@@ -127,23 +121,8 @@
                 type: Boolean,
                 default: false,
             },
-            cropperAspectRatio: {
-                type: Number
-            },
-            cropperMinWidth: {
-                type: Number
-            },
-            cropperMaxWidth: {
-                type: Number
-            },
-            cropperMinHeight: {
-                type: Number
-            },
-            cropperMaxHeight: {
-                type: Number
-            },
-            cropperFillColor: {
-                type: String,
+            cropperOptions: {
+                type: Object,
             },
             gridColumns: {
                 type: Object,
@@ -169,13 +148,20 @@
         data(){
             return {
                 /**
-                 * @var {Media|null} addItem
+                 * @var {Media|null} cropperMedia
                  */
-                addItem: null,
+                cropperMedia: null,
+
                 /**
-                 * @var {Media|null} editItem
+                 * @var {boolean} creating
                  */
-                editItem: null,
+                creating: false,
+
+                /**
+                 * @var {boolean} updating
+                 */
+                updating: false,
+
                 /**
                  * @var {Media[]} items
                  */
@@ -213,6 +199,8 @@
                 let img = URL.createObjectURL(file); // fixme: do only for images
 
                 if (this.editable){
+                    this.creating = true;
+
                     let image = new Image();
                     image.onload = () => {
                         if (this.cropperMinWidth && image.width < this.cropperMinWidth){
@@ -222,11 +210,11 @@
                             alert('Invalid image height!');
                         }
                         else {
-                            this.addItem = new Media(null, this.collectionName, file.name, file.type, file, img, img);
+                            this.cropperMedia = new Media(null, this.collectionName, file.name, file.type, file, img, img);
 
                             this.$nextTick(() => {
                                 this.$nextTick(() => {
-                                    this.$refs.addModal.show()
+                                    this.$refs.cropperModal.show()
                                 })
                             })
                         }
@@ -234,97 +222,108 @@
                     image.src = img;
                 }
                 else {
-                    this.addItem = new Media(null, this.collectionName, file.name, file.type, file, img, img);
-                    let item = this.addItem.clone();
-                    this.items.push(item);
-                    this.addedItems.push({media: item});
-                    this.onAdded(item);
+                    let media = new Media(null, this.collectionName, file.name, file.type, file, img, img);
+                    this.onAdded(media);
                 }
             },
 
-            onSaveCreate(){
-                this.$refs.addModal.hide();
+            onSave(){
+                this.$refs.cropperModal.hide();
 
-                this.$refs.addCropper.getResult(blob => {
-                        let item = this.blobToMedia(blob, this.addItem);
+                this.$refs.cropper.getResult(blob => {
+                        let item = this.blobToMedia(blob, this.cropperMedia);
 
-                        this.items.push(item);
-
-                        this.onAdded(item);
-
-                        if (this.shouldAutoUpload){
-                            this.storePendingMedia(item)
-                                .then(({pendingMediaId}) => {
-                                    this.addedItems.push({media: item, pendingMediaId});
-                                })
-                                .catch(error => {
-                                    // todo: manage properly
-                                    console.error(error)
-                                });
+                        if (this.creating){
+                            this.onAdded(item);
                         }
-                        else {
-                            this.addedItems.push({media: item});
+                        else if (this.updating){
+                            this.onEdited(item);
                         }
-                    }, this.addItem.mime_type);
+                    }, this.cropperMedia.mime_type);
             },
 
-            onSaveEdit(){
-                this.$refs.editModal.hide();
+            /**
+             * @param {Media} media
+             */
+            onAdded(media){
+                this.items.push(media);
 
-                this.$refs.editCropper.getResult(blob => {
-                    let editedMedia = this.blobToMedia(blob, this.editItem);
+                this.onCreated(media);
 
-                    this.items = this.items.map(item => {
-                        if (item.id === editedMedia.id){
-                            item.url = editedMedia.url;
-                            item.thumbnail = editedMedia.thumbnail;
-                            item.file = editedMedia.file;
+                if (this.shouldAutoUpload){
+                    this.storePendingMedia(media)
+                        .then(({pendingMediaId}) => {
+                            this.addedItems.push({media, pendingMediaId});
+                        })
+                        .catch(error => {
+                            // todo: manage properly
+                            console.error(error)
+                        });
+                }
+                else {
+                    this.addedItems.push({media});
+                }
+
+                this.creating = false;
+            },
+
+            /**
+             * @param {Media} media
+             */
+            onEdited(media){
+                this.items = this.items.map(item => {
+                    if (item.id === media.id){
+                        item.url = media.url;
+                        item.thumbnail = media.thumbnail;
+                        item.file = media.file;
+                    }
+                    return item;
+                });
+
+                this.onUpdated(media);
+
+                let previous = this.updatedItems.find(item => item.media.id === media.id);
+                if (previous){
+                    this.updatedItems = this.updatedItems.map(item => {
+                        if (item.media.id === media.id){
+                            item.media = media;
                         }
                         return item;
                     });
-                    this.onUpdated(this.editItem);
 
-                    let previous = this.updatedItems.find(item => item.media.id === editedMedia.id);
-                    if (previous){
-                        this.updatedItems = this.updatedItems.map(item => {
-                            if (item.media.id === editedMedia.id){
-                                item.media = editedMedia;
-                            }
-                            return item;
-                        });
+                    if (this.shouldAutoUpload){
+                        let updatedItem = this.updatedItems.find(item => item.media.id === media.id);
 
-                        if (this.shouldAutoUpload){
-                            let updatedItem = this.updatedItems.find(item => item.media.id === editedMedia.id);
-
-                            this.updatePendingMedia(updatedItem.media, updatedItem.pendingMediaId)
-                                .then(() => {
-                                    this.updatedItems = this.updatedItems.map(item => {
-                                        if (item.media.id === editedMedia.id){
-                                            item.pendingMediaId = updatedItem.pendingMediaId;
-                                        }
-                                        return item;
-                                    });
-                                })
-                                .catch(error => {
-                                    // todo: manage properly
-                                    console.error(error)
+                        this.updatePendingMedia(updatedItem.media, updatedItem.pendingMediaId)
+                            .then(() => {
+                                this.updatedItems = this.updatedItems.map(item => {
+                                    if (item.media.id === media.id){
+                                        item.pendingMediaId = updatedItem.pendingMediaId;
+                                    }
+                                    return item;
                                 });
-                        }
-                    }
-                    else if (this.shouldAutoUpload) {
-                        this.storePendingMedia(editedMedia)
-                            .then(({pendingMediaId}) => {
-                                this.updatedItems.push({media: editedMedia, pendingMediaId});
                             })
                             .catch(error => {
                                 // todo: manage properly
                                 console.error(error)
                             });
                     }
-                    else {
-                        this.updatedItems.push({media: editedMedia});
-                    }
-                }, this.editItem.mime_type);
+                }
+                else if (this.shouldAutoUpload) {
+                    this.storePendingMedia(media)
+                        .then(({pendingMediaId}) => {
+                            this.updatedItems.push({media: media, pendingMediaId});
+                        })
+                        .catch(error => {
+                            // todo: manage properly
+                            console.error(error)
+                        });
+                }
+                else {
+                    this.updatedItems.push({media: media});
+                }
+
+                this.updating = false;
             },
 
             /**
@@ -352,9 +351,10 @@
             onDownload(item){
                 console.log('onDownload', item);
             },
-            onEdit(item){
-                this.editItem = item;
-                this.$refs.editModal.show()
+            onEdit(media){
+                this.updating = true;
+                this.cropperMedia = media;
+                this.$refs.cropperModal.show();
             },
             onDelete(item){
                 if (confirm('Sure?')){ // fixme: use tailwind dialog
@@ -526,8 +526,8 @@
                     formData.append('media[delete][]', item.id);
                 });
             },
-            onAdded(item){
-                this.$emit('added', item);
+            onCreated(item){
+                this.$emit('created', item);
                 this.$emit('input', this.items);
             },
             onUpdated(item){

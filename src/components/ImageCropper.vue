@@ -1,14 +1,15 @@
 <template>
-    <cropper
+    <div>
+        <cropper
             ref="cropper"
-            classname="v-cropper"
             :src="image"
-            :aspect-ratio="aspectRatio"
-            :min-crop-box-width="minWidth"
-            :max-crop-box-width="maxWidth"
-            :min-crop-box-height="minHeight"
-            :max-crop-box-height="maxHeight"
-    />
+            v-bind="options"
+        />
+
+        <div class="mt-3">
+            <slot v-bind="slotBindings"/>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -23,29 +24,15 @@
                 type: String,
                 required: true,
             },
-            aspectRatio: {
-                type: Number
-            },
-            minWidth: {
-                type: Number
-            },
-            maxWidth: {
-                type: Number
-            },
-            minHeight: {
-                type: Number
-            },
-            maxHeight: {
-                type: Number
-            },
-            fillColor: {
-                // from cropperjs: a color to fill any alpha values in the output canvas, the default value is transparent.
-                type: String,
+            options: {
+                type: Object,
+                default: () => {
+                    return {};
+                },
             },
         },
         data(){
-            return {
-            }
+            return {}
         },
         methods: {
             /**
@@ -54,40 +41,44 @@
              * @param {number?} quality
              */
             getResult(callback, type, quality){
-                this.$refs.cropper.getCroppedCanvas({
-                    minWidth: this.minWidth,
-                    minHeight: this.minHeight,
-                    maxWidth: this.maxWidth,
-                    maxHeight: this.maxHeight,
-                    fillColor: this.fillColor,
-                }).toBlob(callback, type, quality)
+                this.$refs.cropper.getCroppedCanvas(this.options).toBlob(callback, type, quality)
             },
         },
         computed: {
-            stencilProps(){
+            slotBindings(){
                 return {
-                    aspectRatio: this.aspectRatio,
-                }
+                    reset: (...args) => this.$refs.cropper.reset(...args),
+                    clear: (...args) => this.$refs.cropper.clear(...args),
+                    initCrop: (...args) => this.$refs.cropper.initCrop(...args),
+                    replace: (...args) => this.$refs.cropper.replace(...args),
+                    enable: (...args) => this.$refs.cropper.enable(...args),
+                    disable: (...args) => this.$refs.cropper.disable(...args),
+                    destroy: (...args) => this.$refs.cropper.destroy(...args),
+                    move: (...args) => this.$refs.cropper.move(...args),
+                    moveTo: (...args) => this.$refs.cropper.moveTo(...args),
+                    relativeZoom: (...args) => this.$refs.cropper.relativeZoom(...args),
+                    zoomTo: (...args) => this.$refs.cropper.zoomTo(...args),
+                    rotate: (...args) => this.$refs.cropper.rotate(...args),
+                    rotateTo: (...args) => this.$refs.cropper.rotateTo(...args),
+                    scaleX: (...args) => this.$refs.cropper.scaleX(...args),
+                    scaleY: (...args) => this.$refs.cropper.scaleY(...args),
+                    scale: (...args) => this.$refs.cropper.scale(...args),
+                    getData: (...args) => this.$refs.cropper.getData(...args),
+                    setData: (...args) => this.$refs.cropper.setData(...args),
+                    getContainerData: (...args) => this.$refs.cropper.getContainerData(...args),
+                    getImageData: (...args) => this.$refs.cropper.getImageData(...args),
+                    getCanvasData: (...args) => this.$refs.cropper.getCanvasData(...args),
+                    setCanvasData: (...args) => this.$refs.cropper.setCanvasData(...args),
+                    getCropBoxData: (...args) => this.$refs.cropper.getCropBoxData(...args),
+                    setCropBoxData: (...args) => this.$refs.cropper.setCropBoxData(...args),
+                    setAspectRatio: (...args) => this.$refs.cropper.setAspectRatio(...args),
+                    setDragMode: (...args) => this.$refs.cropper.setDragMode(...args),
+                };
             },
-            restrictions(){
-                if (this.minWidth || this.minHeight || this.maxWidth || this.maxHeight){
-                    return () => {
-                        return {
-                            minWidth: this.minWidth,
-                            minHeight: this.minHeight,
-                            maxWidth: this.maxWidth,
-                            maxHeight: this.maxHeight,
-                        }
-                    }
-                }
-                return undefined;
-            },
-        }
+        },
     }
 </script>
 
 <style scoped>
-    .v-cropper {
-        max-height: 80vh;
-    }
+
 </style>
