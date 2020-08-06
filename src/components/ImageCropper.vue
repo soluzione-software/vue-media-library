@@ -4,6 +4,7 @@
             ref="cropper"
             :src="image"
             v-bind="options"
+            :container-style="{maxHeight: '70vh'}"
         />
 
         <div class="mt-3">
