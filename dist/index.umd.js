@@ -743,7 +743,10 @@
           _c(
             "cropper",
             _vm._b(
-              { ref: "cropper", attrs: { src: _vm.image } },
+              {
+                ref: "cropper",
+                attrs: { src: _vm.image, "container-style": { maxHeight: "70vh" } }
+              },
               "cropper",
               _vm.options,
               false
@@ -766,11 +769,11 @@
       /* style */
       var __vue_inject_styles__$4 = function (inject) {
         if (!inject) { return }
-        inject("data-v-fa8f131a_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"ImageCropper.vue"}, media: undefined });
+        inject("data-v-51f952b9_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"ImageCropper.vue"}, media: undefined });
 
       };
       /* scoped */
-      var __vue_scope_id__$4 = "data-v-fa8f131a";
+      var __vue_scope_id__$4 = "data-v-51f952b9";
       /* module identifier */
       var __vue_module_identifier__$4 = undefined;
       /* functional template */
