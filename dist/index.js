@@ -197,11 +197,11 @@ __vue_render__._withStripped = true;
   /* style */
   var __vue_inject_styles__ = function (inject) {
     if (!inject) { return }
-    inject("data-v-cd8eab8a_0", { source: "\ninput[data-v-cd8eab8a]{\n    display: none;\n}\n", map: {"version":3,"sources":["/home/yuriy/gits/vue-media-library/src/components/FilePicker/ButtonFilePicker.vue"],"names":[],"mappings":";AAoBA;IACA,aAAA;AACA","file":"ButtonFilePicker.vue","sourcesContent":["<template>\n    <div>\n        <b-button variant=\"primary\" @click.prevent=\"$refs.input.click()\">Select a file</b-button>\n        <input ref=\"input\" type=\"file\" :accept=\"accept\" @change=\"() => {$emit('change', $refs.input.files)}\"/>\n    </div>\n</template>\n\n<script>\n    export default {\n        name: \"ButtonFilePicker\",\n        props: {\n            accept: {\n                type: String,\n                required: true,\n            }\n        },\n    }\n</script>\n\n<style scoped>\n    input{\n        display: none;\n    }\n</style>\n"]}, media: undefined });
+    inject("data-v-729617df_0", { source: "\ninput[data-v-729617df] {\n    display: none;\n}\n", map: {"version":3,"sources":["/home/yuriy/gits/vue-media-library/src/components/FilePicker/ButtonFilePicker.vue"],"names":[],"mappings":";AAoBA;IACA,aAAA;AACA","file":"ButtonFilePicker.vue","sourcesContent":["<template>\n    <div>\n        <b-button variant=\"primary\" @click.prevent=\"$refs.input.click()\">Select a file</b-button>\n        <input ref=\"input\" type=\"file\" :accept=\"accept\" @change=\"() => {$emit('change', $refs.input.files)}\"/>\n    </div>\n</template>\n\n<script>\nexport default {\n    name: \"ButtonFilePicker\",\n    props: {\n        accept: {\n            type: String,\n            required: true,\n        }\n    },\n}\n</script>\n\n<style scoped>\ninput {\n    display: none;\n}\n</style>\n"]}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__ = "data-v-cd8eab8a";
+  var __vue_scope_id__ = "data-v-729617df";
   /* module identifier */
   var __vue_module_identifier__ = undefined;
   /* functional template */
@@ -325,26 +325,30 @@ var script$2 = {
         },
     },
     methods: {
-        onChange: function onChange(files){
-            var file = files[0];
-            if (!file){
-                console.error('File type not accepted', file);
+        /**
+         * @param {FileList} files
+         * @returns void
+         */
+        onChange: function onChange(files) {
+            var file = this.filter(files[0]);
+            if (!file) {
+                this.$emit('error:wrong_files', {files: files});
                 return;
             }
 
             this.$emit('selected', file);
         },
+
         /**
-         *
          * @param {File} file
          * @returns {File|null}
          */
-        filter: function filter(file){
+        filter: function filter(file) {
             return this.accept.indexOf(file.type) >= 0 || this.accept.indexOf('*') >= 0 ? file : null;
         }
     },
     computed: {
-        acceptFiles: function acceptFiles(){
+        acceptFiles: function acceptFiles() {
             return this.accept.join(',');
         }
     }
@@ -361,15 +365,22 @@ var __vue_render__$2 = function() {
   return _c(
     "div",
     [
-      _c(_vm.mode + "-file-picker", {
-        tag: "component",
-        attrs: { accept: _vm.acceptFiles },
-        on: { change: _vm.onChange }
+      _vm._t("default", null, {
+        change: _vm.onChange,
+        accept: _vm.acceptFiles
       }),
+      _vm._v(" "),
+      !_vm.$scopedSlots["default"]
+        ? _c(_vm.mode + "-file-picker", {
+            tag: "component",
+            attrs: { accept: _vm.acceptFiles },
+            on: { change: _vm.onChange }
+          })
+        : _vm._e(),
       _vm._v(" "),
       _c("div", { staticClass: "mt-1" }, [_vm._t("help")], 2)
     ],
-    1
+    2
   )
 };
 var __vue_staticRenderFns__$2 = [];
@@ -378,11 +389,11 @@ __vue_render__$2._withStripped = true;
   /* style */
   var __vue_inject_styles__$2 = function (inject) {
     if (!inject) { return }
-    inject("data-v-1bf0095f_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"index.vue"}, media: undefined });
+    inject("data-v-b780b57c_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"index.vue"}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__$2 = "data-v-1bf0095f";
+  var __vue_scope_id__$2 = "data-v-b780b57c";
   /* module identifier */
   var __vue_module_identifier__$2 = undefined;
   /* functional template */
@@ -1962,7 +1973,7 @@ var script$c = {
         },
         accept: {
             type: Array,
-            default: function default$1(){
+            default: function default$1() {
                 return ['*']
             }
         },
@@ -2025,7 +2036,7 @@ var script$c = {
     model: {
         prop: 'media',
     },
-    data: function data(){
+    data: function data() {
         return {
             /**
              * @var {Media|null} cropperMedia
@@ -2067,31 +2078,29 @@ var script$c = {
         }
     },
     watch: {
-        media: function media(new_){
+        media: function media(new_) {
             this.items = this.filterMedia(this.mapObjectsToMedia(new_));
         }
     },
-    mounted: function mounted(){
+    mounted: function mounted() {
         this.items = this.filterMedia(this.mapObjectsToMedia(this.media));
     },
     methods: {
-        onSelected: function onSelected(file){
+        onSelected: function onSelected(file) {
             var this$1 = this;
 
             var img = URL.createObjectURL(file); // fixme: do only for images
 
-            if (this.editable){
+            if (this.editable) {
                 this.creating = true;
 
                 var image = new Image();
                 image.onload = function () {
-                    if (this$1.cropperMinWidth && image.width < this$1.cropperMinWidth){
-                        alert('Invalid image width!');
-                    }
-                    else if (this$1.cropperMinHeight && image.height < this$1.cropperMinHeight){
-                        alert('Invalid image height!');
-                    }
-                    else {
+                    if (this$1.cropperMinWidth && image.width < this$1.cropperMinWidth) {
+                        this$1.$emit('error:wrong_width', {image: image});
+                    } else if (this$1.cropperMinHeight && image.height < this$1.cropperMinHeight) {
+                        this$1.$emit('error:wrong_height', {image: image});
+                    } else {
                         this$1.cropperMedia = new Media(null, this$1.collectionName, file.name, file.type, file, img, img);
 
                         this$1.$nextTick(function () {
@@ -2102,41 +2111,39 @@ var script$c = {
                     }
                 };
                 image.src = img;
-            }
-            else {
+            } else {
                 var media = new Media(null, this.collectionName, file.name, file.type, file, img, img);
                 this.onAdded(media);
             }
         },
 
-        onSave: function onSave(){
+        onSave: function onSave() {
             var this$1 = this;
 
             this.$refs.cropperModal.hide();
 
             this.$refs.cropper.getResult(function (blob) {
-                    var item = this$1.blobToMedia(blob, this$1.cropperMedia);
+                var item = this$1.blobToMedia(blob, this$1.cropperMedia);
 
-                    if (this$1.creating){
-                        this$1.onAdded(item);
-                    }
-                    else if (this$1.updating){
-                        this$1.onEdited(item);
-                    }
-                }, this.mimeType || this.cropperMedia.mime_type);
+                if (this$1.creating) {
+                    this$1.onAdded(item);
+                } else if (this$1.updating) {
+                    this$1.onEdited(item);
+                }
+            }, this.mimeType || this.cropperMedia.mime_type);
         },
 
         /**
          * @param {Media} media
          */
-        onAdded: function onAdded(media){
+        onAdded: function onAdded(media) {
             var this$1 = this;
 
             this.items.push(media);
 
             this.onCreated(media);
 
-            if (this.shouldAutoUpload){
+            if (this.shouldAutoUpload) {
                 this.storePendingMedia(media)
                     .then(function (ref) {
                         var pendingMediaId = ref.pendingMediaId;
@@ -2147,8 +2154,7 @@ var script$c = {
                         // todo: manage properly
                         console.error(error);
                     });
-            }
-            else {
+            } else {
                 this.addedItems.push({media: media});
             }
 
@@ -2158,11 +2164,11 @@ var script$c = {
         /**
          * @param {Media} media
          */
-        onEdited: function onEdited(media){
+        onEdited: function onEdited(media) {
             var this$1 = this;
 
             this.items = this.items.map(function (item) {
-                if (item.id === media.id){
+                if (item.id === media.id) {
                     item.url = media.url;
                     item.thumbnail = media.thumbnail;
                     item.file = media.file;
@@ -2173,21 +2179,21 @@ var script$c = {
             this.onUpdated(media);
 
             var previous = this.updatedItems.find(function (item) { return item.media.id === media.id; });
-            if (previous){
+            if (previous) {
                 this.updatedItems = this.updatedItems.map(function (item) {
-                    if (item.media.id === media.id){
+                    if (item.media.id === media.id) {
                         item.media = media;
                     }
                     return item;
                 });
 
-                if (this.shouldAutoUpload){
+                if (this.shouldAutoUpload) {
                     var updatedItem = this.updatedItems.find(function (item) { return item.media.id === media.id; });
 
                     this.updatePendingMedia(updatedItem.media, updatedItem.pendingMediaId)
                         .then(function () {
                             this$1.updatedItems = this$1.updatedItems.map(function (item) {
-                                if (item.media.id === media.id){
+                                if (item.media.id === media.id) {
                                     item.pendingMediaId = updatedItem.pendingMediaId;
                                 }
                                 return item;
@@ -2198,8 +2204,7 @@ var script$c = {
                             console.error(error);
                         });
                 }
-            }
-            else if (this.shouldAutoUpload) {
+            } else if (this.shouldAutoUpload) {
                 this.storePendingMedia(media)
                     .then(function (ref) {
                         var pendingMediaId = ref.pendingMediaId;
@@ -2210,8 +2215,7 @@ var script$c = {
                         // todo: manage properly
                         console.error(error);
                     });
-            }
-            else {
+            } else {
                 this.updatedItems.push({media: media});
             }
 
@@ -2222,10 +2226,10 @@ var script$c = {
          * @param {Blob} blob
          * @param {Media} item
          */
-        blobToMedia: function blobToMedia(blob, item){
+        blobToMedia: function blobToMedia(blob, item) {
             var newItem = item.clone();
 
-            var file = new File([blob], newItem.file_name,{ type: blob.type });
+            var file = new File([blob], newItem.file_name, {type: blob.type});
             var url = URL.createObjectURL(blob);
             newItem.url = newItem.thumbnail = url;
             newItem.file = file;
@@ -2236,40 +2240,37 @@ var script$c = {
         /**
          * @param {Media} item
          */
-        onView: function onView(item){
+        onView: function onView(item) {
             var i = this.items.map(function (v) { return v.v_id; }).indexOf(item.v_id);
             this.$emit('view', {media: item, index: i});
         },
-        onDownload: function onDownload(item){
+        onDownload: function onDownload(item) {
             console.log('onDownload', item);
         },
-        onEdit: function onEdit(media){
+        onEdit: function onEdit(media) {
             this.updating = true;
             this.cropperMedia = media;
             this.$refs.cropperModal.show();
         },
-        onDelete: function onDelete(item){
-            if (confirm('Sure?')){ // fixme: use tailwind dialog
-                this.delete(item);
-            }
+        onDelete: function onDelete(item) {
+            this.$emit('delete', {item: item, delete: this.delete});
         },
-        delete: function delete$1(item){
+        delete: function delete$1(item) {
             this.items = this.items.filter(function (mediaItem) {
                 return mediaItem.v_id !== item.v_id;
             });
 
             var previous;
-            if (item.id){
+            if (item.id) {
                 this.deletedItems.push(Object.assign({}, item));
                 previous = this.updatedItems.find(function (mediaItem) { return mediaItem.media.v_id === item.v_id; });
                 this.updatedItems = this.updatedItems.filter(function (mediaItem) { return mediaItem.media.v_id !== item.v_id; });
-            }
-            else {
+            } else {
                 previous = this.addedItems.find(function (mediaItem) { return mediaItem.media.v_id === item.v_id; });
                 this.addedItems = this.addedItems.filter(function (mediaItem) { return mediaItem.media.v_id !== item.v_id; });
             }
 
-            if (previous && this.shouldAutoUpload){
+            if (previous && this.shouldAutoUpload) {
                 this.deletePendingMedia(previous.pendingMediaId);
             }
 
@@ -2280,7 +2281,7 @@ var script$c = {
          * @param {Object[]} items
          * @return {Media[]}
          */
-        mapObjectsToMedia: function mapObjectsToMedia(items){
+        mapObjectsToMedia: function mapObjectsToMedia(items) {
             return items.map(function (item) { return Media.fromObject(item); })
         },
 
@@ -2289,7 +2290,7 @@ var script$c = {
          * @param {Media[]} mediaItems
          * @return {Media[]}
          */
-        filterMedia: function filterMedia(mediaItems){
+        filterMedia: function filterMedia(mediaItems) {
             var this$1 = this;
 
             return mediaItems.filter(function (item) { return item.collection_name === this$1.collectionName; })
@@ -2298,7 +2299,7 @@ var script$c = {
         /**
          * @param {Media} media
          */
-        storePendingMedia: function storePendingMedia(media){
+        storePendingMedia: function storePendingMedia(media) {
             var this$1 = this;
 
             return new Promise(function (resolve, reject) {
@@ -2332,7 +2333,7 @@ var script$c = {
          * @param {Media} media
          * @param {Number} pendingMediaId
          */
-        updatePendingMedia: function updatePendingMedia(media, pendingMediaId){
+        updatePendingMedia: function updatePendingMedia(media, pendingMediaId) {
             var this$1 = this;
 
             return new Promise(function (resolve, reject) {
@@ -2365,7 +2366,7 @@ var script$c = {
         /**
          * @param {Number} pendingMediaId
          */
-        deletePendingMedia: function deletePendingMedia(pendingMediaId){
+        deletePendingMedia: function deletePendingMedia(pendingMediaId) {
             var this$1 = this;
 
             return new Promise(function (resolve, reject) {
@@ -2383,24 +2384,24 @@ var script$c = {
             })
         },
 
-        onUploadProgress: function onUploadProgress(media, progressEvent){
+        onUploadProgress: function onUploadProgress(media, progressEvent) {
             var totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');
 
             if (totalLength !== null) {
-                this.updateProgressValue(media, Math.round( (progressEvent.loaded * 100) / totalLength ));
+                this.updateProgressValue(media, Math.round((progressEvent.loaded * 100) / totalLength));
             }
         },
 
-        updateProgressValue: function updateProgressValue(media, value){
+        updateProgressValue: function updateProgressValue(media, value) {
             this.uploadingMedia = this.uploadingMedia.map(function (item) {
-                if (item.media.v_id === media.v_id){
+                if (item.media.v_id === media.v_id) {
                     item.progress = value;
                 }
                 return item;
             });
         },
 
-        removeUploadingMedia: function removeUploadingMedia(media){
+        removeUploadingMedia: function removeUploadingMedia(media) {
             this.uploadingMedia = this.uploadingMedia.filter(function (item) { return item.media.v_id !== media.v_id; });
         },
 
@@ -2408,24 +2409,22 @@ var script$c = {
          *
          * @param {FormData} formData
          */
-        fillFormData: function fillFormData(formData){
+        fillFormData: function fillFormData(formData) {
             var this$1 = this;
 
             this.addedItems.forEach(function (item) {
-                if (item.pendingMediaId !== undefined){
+                if (item.pendingMediaId !== undefined) {
                     formData.append(("media[store][" + (this$1.collectionName) + "][][pending_media_id]"), item.pendingMediaId);
-                }
-                else {
+                } else {
                     formData.append(("media[store][" + (this$1.collectionName) + "][][file]"), item.media.file);
                 }
             });
 
             this.updatedItems.forEach(function (item, index) {
                 formData.set(("media[update][" + index + "][id]"), item.media.id);
-                if (item.pendingMediaId !== undefined){
+                if (item.pendingMediaId !== undefined) {
                     formData.set(("media[update][" + index + "][pending_media_id]"), item.pendingMediaId);
-                }
-                else {
+                } else {
                     formData.set(("media[update][" + index + "][file]"), item.media.file);
                 }
             });
@@ -2434,15 +2433,15 @@ var script$c = {
                 formData.append('media[delete][]', item.id);
             });
         },
-        onCreated: function onCreated(item){
+        onCreated: function onCreated(item) {
             this.$emit('created', item);
             this.$emit('input', this.items);
         },
-        onUpdated: function onUpdated(item){
+        onUpdated: function onUpdated(item) {
             this.$emit('updated', item);
             this.$emit('input', this.items);
         },
-        onDeleted: function onDeleted(item){
+        onDeleted: function onDeleted(item) {
             this.$emit('deleted', item);
             this.$emit('input', this.items);
         },
@@ -2497,31 +2496,48 @@ var __vue_render__$c = function() {
         }
       }),
       _vm._v(" "),
-      !_vm.readonly
-        ? [
-            (_vm.viewMode === "single" && _vm.items.length === 0) ||
-            (_vm.viewMode !== "single" &&
-              (_vm.limit === -1 || _vm.items.length < _vm.limit))
-              ? _c("file-picker", {
-                  staticClass: "my-2 mx-1",
-                  attrs: { mode: _vm.filePickerMode, accept: _vm.accept },
-                  on: { selected: _vm.onSelected },
-                  scopedSlots: _vm._u(
-                    [
-                      {
-                        key: "help",
-                        fn: function() {
-                          return [_vm._t("help")]
-                        },
-                        proxy: true
+      !_vm.readonly &&
+      (_vm.viewMode === "single"
+        ? _vm.items.length === 0
+        : _vm.limit === -1 || _vm.items.length < _vm.limit)
+        ? _c("file-picker", {
+            staticClass: "my-2 mx-1",
+            attrs: { mode: _vm.filePickerMode, accept: _vm.accept },
+            on: {
+              selected: _vm.onSelected,
+              "error:wrong_files": function(args) {
+                return _vm.$emit("error:wrong_files", args)
+              }
+            },
+            scopedSlots: _vm._u(
+              [
+                _vm.$scopedSlots["file-picker"]
+                  ? {
+                      key: "default",
+                      fn: function(ref) {
+                        var change = ref.change;
+                        var acceptFiles = ref.accept;
+                        return [
+                          _vm._t("file-picker", null, {
+                            change: change,
+                            accept: acceptFiles
+                          })
+                        ]
                       }
-                    ],
-                    null,
-                    true
-                  )
-                })
-              : _vm._e()
-          ]
+                    }
+                  : null,
+                {
+                  key: "help",
+                  fn: function() {
+                    return [_vm._t("help")]
+                  },
+                  proxy: true
+                }
+              ],
+              null,
+              true
+            )
+          })
         : _vm._e(),
       _vm._v(" "),
       !_vm.readonly
@@ -2582,11 +2598,11 @@ __vue_render__$c._withStripped = true;
   /* style */
   var __vue_inject_styles__$c = function (inject) {
     if (!inject) { return }
-    inject("data-v-f39ec10e_0", { source: "\n[data-v-f39ec10e] .vue-lb-footer-count{\n    display: none;\n}\n", map: {"version":3,"sources":["/home/yuriy/gits/vue-media-library/src/components/MediaLibrary.vue"],"names":[],"mappings":";AAkjBA;IACA,aAAA;AACA","file":"MediaLibrary.vue","sourcesContent":["<template>\n    <div>\n        <component\n                :is=\"viewMode\"\n                :items=\"items\"\n                :readonly=\"readonly\"\n                :viewable=\"viewable\"\n                :editable=\"editable\"\n                :downloadable=\"downloadable\"\n                :columns-count=\"gridColumns\"\n                :squared-items=\"gridSquaredItems\"\n                :display-limit=\"gridDisplayLimit\"\n                :use-portal=\"usePortal\"\n                :portal-target=\"portalTarget\"\n                :uploading-media=\"uploadingMedia\"\n                @view=\"onView\"\n                @download=\"onDownload\"\n                @edit=\"onEdit\"\n                @delete=\"onDelete\"\n        />\n\n        <template v-if=\"!readonly\">\n            <file-picker\n                    v-if=\"(viewMode === 'single' && items.length === 0) || (viewMode !== 'single' && (limit === -1 || items.length < limit))\"\n                    class=\"my-2 mx-1\"\n                    :mode=\"filePickerMode\"\n                    :accept=\"accept\"\n                    @selected=\"onSelected\"\n            >\n                <template #help>\n                    <slot name=\"help\"/>\n                </template>\n            </file-picker>\n        </template>\n\n        <component\n            v-if=\"!readonly\"\n            :is=\"usePortal ? 'portal' : 'div'\"\n            :to=\"portalTarget\"\n        >\n            <modal\n                ref=\"cropperModal\"\n                size=\"xl\"\n                @ok=\"onSave\"\n                ok-title=\"Save\"\n            >\n                <image-cropper\n                    ref=\"cropper\"\n                    v-if=\"cropperMedia\"\n                    :image=\"cropperMedia.url\"\n                    :options=\"cropperOptions\"\n                >\n                    <slot\n                        name=\"cropper-tools\"\n                        slot-scope=\"scope\"\n                        v-bind=\"scope\"\n                    />\n                </image-cropper>\n            </modal>\n        </component>\n\n        <slot v-if=\"viewable\" name=\"viewer\"/>\n    </div>\n</template>\n\n<script>\n    import FilePicker from \"./FilePicker/index.vue\";\n    import Modal from \"./Modal.vue\";\n    import ImageCropper from \"./ImageCropper.vue\";\n    import Grid from \"./Views/Grid.vue\";\n    import Single from \"./Views/Single.vue\";\n    import List from \"./Views/List.vue\";\n    import Media from \"../Media.js\";\n    import {isDownloadable, isEditable, isViewable, usesPortal} from \"../mixins\";\n\n    export default {\n        name: \"MediaLibrary\",\n        components: {ImageCropper, Modal, FilePicker, Grid, Single, List},\n        mixins: [isDownloadable, isEditable, isViewable, usesPortal],\n        props: {\n            media: {\n                type: Array,\n                required: true,\n            },\n            accept: {\n                type: Array,\n                default(){\n                    return ['*']\n                }\n            },\n            limit: {\n                type: Number,\n                default: -1,\n            },\n            viewMode: {\n                type: String,\n                default: 'list',\n                validator(value) {\n                    return [\n                        'grid',\n                        'single',\n                        'list',\n                    ].indexOf(value) !== -1\n                }\n            },\n            filePickerMode: {\n                type: String,\n                default: 'button',\n                validator(value) {\n                    return [\n                        'button',\n                        'drag' // fixme: make it more graceful\n                    ].indexOf(value) !== -1\n                }\n            },\n            collectionName: {\n                type: String,\n                default: 'default',\n            },\n            readonly: {\n                type: Boolean,\n                default: false,\n            },\n            cropperOptions: {\n                type: Object,\n            },\n            mimeType: {\n                type: String,\n            },\n            gridColumns: {\n                type: Object,\n            },\n            gridSquaredItems: {\n                type: Boolean,\n                default: false,\n            },\n            gridDisplayLimit: {\n                type: Number,\n                default: -1\n            },\n            uploadBaseUrl: {\n                type: String\n            },\n            uploadModelClass: {\n                type: String\n            },\n        },\n        model: {\n            prop: 'media',\n        },\n        data(){\n            return {\n                /**\n                 * @var {Media|null} cropperMedia\n                 */\n                cropperMedia: null,\n\n                /**\n                 * @var {boolean} creating\n                 */\n                creating: false,\n\n                /**\n                 * @var {boolean} updating\n                 */\n                updating: false,\n\n                /**\n                 * @var {Media[]} items\n                 */\n                items: [],\n                /**\n                 * @param {Array<Object>} addedItems where each item is an Object which has media property and optional\n                 * pendingMediaId property\n                 */\n                addedItems: [],\n                /**\n                 * @param {Array<Object>} updatedItems where each item is an Object which has media property and optional\n                 * pendingMediaId property\n                 */\n                updatedItems: [],\n                /**\n                 * @var {Media[]} deletedItems\n                 */\n                deletedItems: [],\n                /**\n                 * @param {Object} uploadingMedia\n                 */\n                uploadingMedia: [],\n            }\n        },\n        watch: {\n            media(new_){\n                this.items = this.filterMedia(this.mapObjectsToMedia(new_));\n            }\n        },\n        mounted(){\n            this.items = this.filterMedia(this.mapObjectsToMedia(this.media));\n        },\n        methods: {\n            onSelected(file){\n                let img = URL.createObjectURL(file); // fixme: do only for images\n\n                if (this.editable){\n                    this.creating = true;\n\n                    let image = new Image();\n                    image.onload = () => {\n                        if (this.cropperMinWidth && image.width < this.cropperMinWidth){\n                            alert('Invalid image width!');\n                        }\n                        else if (this.cropperMinHeight && image.height < this.cropperMinHeight){\n                            alert('Invalid image height!');\n                        }\n                        else {\n                            this.cropperMedia = new Media(null, this.collectionName, file.name, file.type, file, img, img);\n\n                            this.$nextTick(() => {\n                                this.$nextTick(() => {\n                                    this.$refs.cropperModal.show()\n                                })\n                            })\n                        }\n                    }\n                    image.src = img;\n                }\n                else {\n                    let media = new Media(null, this.collectionName, file.name, file.type, file, img, img);\n                    this.onAdded(media);\n                }\n            },\n\n            onSave(){\n                this.$refs.cropperModal.hide();\n\n                this.$refs.cropper.getResult(blob => {\n                        let item = this.blobToMedia(blob, this.cropperMedia);\n\n                        if (this.creating){\n                            this.onAdded(item);\n                        }\n                        else if (this.updating){\n                            this.onEdited(item);\n                        }\n                    }, this.mimeType || this.cropperMedia.mime_type);\n            },\n\n            /**\n             * @param {Media} media\n             */\n            onAdded(media){\n                this.items.push(media);\n\n                this.onCreated(media);\n\n                if (this.shouldAutoUpload){\n                    this.storePendingMedia(media)\n                        .then(({pendingMediaId}) => {\n                            this.addedItems.push({media, pendingMediaId});\n                        })\n                        .catch(error => {\n                            // todo: manage properly\n                            console.error(error)\n                        });\n                }\n                else {\n                    this.addedItems.push({media});\n                }\n\n                this.creating = false;\n            },\n\n            /**\n             * @param {Media} media\n             */\n            onEdited(media){\n                this.items = this.items.map(item => {\n                    if (item.id === media.id){\n                        item.url = media.url;\n                        item.thumbnail = media.thumbnail;\n                        item.file = media.file;\n                    }\n                    return item;\n                });\n\n                this.onUpdated(media);\n\n                let previous = this.updatedItems.find(item => item.media.id === media.id);\n                if (previous){\n                    this.updatedItems = this.updatedItems.map(item => {\n                        if (item.media.id === media.id){\n                            item.media = media;\n                        }\n                        return item;\n                    });\n\n                    if (this.shouldAutoUpload){\n                        let updatedItem = this.updatedItems.find(item => item.media.id === media.id);\n\n                        this.updatePendingMedia(updatedItem.media, updatedItem.pendingMediaId)\n                            .then(() => {\n                                this.updatedItems = this.updatedItems.map(item => {\n                                    if (item.media.id === media.id){\n                                        item.pendingMediaId = updatedItem.pendingMediaId;\n                                    }\n                                    return item;\n                                });\n                            })\n                            .catch(error => {\n                                // todo: manage properly\n                                console.error(error)\n                            });\n                    }\n                }\n                else if (this.shouldAutoUpload) {\n                    this.storePendingMedia(media)\n                        .then(({pendingMediaId}) => {\n                            this.updatedItems.push({media: media, pendingMediaId});\n                        })\n                        .catch(error => {\n                            // todo: manage properly\n                            console.error(error)\n                        });\n                }\n                else {\n                    this.updatedItems.push({media: media});\n                }\n\n                this.updating = false;\n            },\n\n            /**\n             * @param {Blob} blob\n             * @param {Media} item\n             */\n            blobToMedia(blob, item){\n                let newItem = item.clone();\n\n                let file = new File([blob], newItem.file_name,{ type: blob.type });\n                let url = URL.createObjectURL(blob);\n                newItem.url = newItem.thumbnail = url;\n                newItem.file = file;\n\n                return newItem;\n            },\n\n            /**\n             * @param {Media} item\n             */\n            onView(item){\n                let i = this.items.map(v => v.v_id).indexOf(item.v_id);\n                this.$emit('view', {media: item, index: i});\n            },\n            onDownload(item){\n                console.log('onDownload', item);\n            },\n            onEdit(media){\n                this.updating = true;\n                this.cropperMedia = media;\n                this.$refs.cropperModal.show();\n            },\n            onDelete(item){\n                if (confirm('Sure?')){ // fixme: use tailwind dialog\n                    this.delete(item);\n                }\n            },\n            delete(item){\n                this.items = this.items.filter(mediaItem => {\n                    return mediaItem.v_id !== item.v_id;\n                });\n\n                let previous;\n                if (item.id){\n                    this.deletedItems.push({...item});\n                    previous = this.updatedItems.find(mediaItem => mediaItem.media.v_id === item.v_id);\n                    this.updatedItems = this.updatedItems.filter(mediaItem => mediaItem.media.v_id !== item.v_id);\n                }\n                else {\n                    previous = this.addedItems.find(mediaItem => mediaItem.media.v_id === item.v_id);\n                    this.addedItems = this.addedItems.filter(mediaItem => mediaItem.media.v_id !== item.v_id);\n                }\n\n                if (previous && this.shouldAutoUpload){\n                    this.deletePendingMedia(previous.pendingMediaId);\n                }\n\n                this.onDeleted(item);\n            },\n\n            /**\n             * @param {Object[]} items\n             * @return {Media[]}\n             */\n            mapObjectsToMedia(items){\n                return items.map(item => Media.fromObject(item))\n            },\n\n            /**\n             * Filters \"mediaItems\" param based on collectionName\n             * @param {Media[]} mediaItems\n             * @return {Media[]}\n             */\n            filterMedia(mediaItems){\n                return mediaItems.filter(item => item.collection_name === this.collectionName)\n            },\n\n            /**\n             * @param {Media} media\n             */\n            storePendingMedia(media){\n                return new Promise((resolve, reject) => {\n                    this.uploadingMedia.push({media, progress: 0});\n\n                    let data = new FormData();\n                    data.set('collection_name', this.collectionName);\n                    data.set('model_class', this.uploadModelClass);\n                    data.set('media[file]', media.file);\n\n                    let config = {\n                        onUploadProgress: (progressEvent) => this.onUploadProgress(media, progressEvent),\n                    };\n\n                    this.axios\n                        .post(this.pendingStoreUrl, data, config)\n                        .then(({data}) => {\n                            this.removeUploadingMedia(media);\n                            resolve({pendingMediaId: data.id});\n                        })\n                        .catch(error => {\n                            console.error(error);\n                            reject(error);\n                        });\n                })\n            },\n\n            /**\n             * @param {Media} media\n             * @param {Number} pendingMediaId\n             */\n            updatePendingMedia(media, pendingMediaId){\n                return new Promise((resolve, reject) => {\n                    this.uploadingMedia.push({media, progress: 0});\n\n                    let data = new FormData();\n                    data.set('_method', 'PUT'); // we cannot send 'multipart/form-data' wit PUT request method\n                    data.set('collection_name', this.collectionName);\n                    data.set('model_class', this.uploadModelClass);\n                    data.set('media[file]', media.file);\n\n                    let config = {\n                        onUploadProgress: (progressEvent) => this.onUploadProgress(media, progressEvent),\n                    };\n\n                    this.axios\n                        .post(this.pendingUpdateUrl.replace('{id}', `${pendingMediaId}`), data, config)\n                        .then(({data}) => {\n                            resolve(data);\n                        })\n                        .catch(error => {\n                            console.error(error);\n                            reject(error);\n                        });\n                })\n            },\n\n            /**\n             * @param {Number} pendingMediaId\n             */\n            deletePendingMedia(pendingMediaId){\n                return new Promise((resolve, reject) => {\n                    this.axios\n                        .delete(this.pendingDeleteUrl.replace('{id}', `${pendingMediaId}`))\n                        .then(({data}) => {\n                            resolve(data);\n                        })\n                        .catch(error => {\n                            console.error(error);\n                            reject(error);\n                        });\n                })\n            },\n\n            onUploadProgress(media, progressEvent){\n                const totalLength = progressEvent.lengthComputable ? progressEvent.total : progressEvent.target.getResponseHeader('content-length') || progressEvent.target.getResponseHeader('x-decompressed-content-length');\n\n                if (totalLength !== null) {\n                    this.updateProgressValue(media, Math.round( (progressEvent.loaded * 100) / totalLength ));\n                }\n            },\n\n            updateProgressValue(media, value){\n                this.uploadingMedia = this.uploadingMedia.map(item => {\n                    if (item.media.v_id === media.v_id){\n                        item.progress = value;\n                    }\n                    return item;\n                })\n            },\n\n            removeUploadingMedia(media){\n                this.uploadingMedia = this.uploadingMedia.filter(item => item.media.v_id !== media.v_id)\n            },\n\n            /**\n             *\n             * @param {FormData} formData\n             */\n            fillFormData(formData){\n                this.addedItems.forEach(item => {\n                    if (item.pendingMediaId !== undefined){\n                        formData.append(`media[store][${this.collectionName}][][pending_media_id]`, item.pendingMediaId);\n                    }\n                    else {\n                        formData.append(`media[store][${this.collectionName}][][file]`, item.media.file);\n                    }\n                });\n\n                this.updatedItems.forEach((item, index) => {\n                    formData.set(`media[update][${index}][id]`, item.media.id);\n                    if (item.pendingMediaId !== undefined){\n                        formData.set(`media[update][${index}][pending_media_id]`, item.pendingMediaId);\n                    }\n                    else {\n                        formData.set(`media[update][${index}][file]`, item.media.file);\n                    }\n                });\n\n                this.deletedItems.forEach(item => {\n                    formData.append('media[delete][]', item.id);\n                });\n            },\n            onCreated(item){\n                this.$emit('created', item);\n                this.$emit('input', this.items);\n            },\n            onUpdated(item){\n                this.$emit('updated', item);\n                this.$emit('input', this.items);\n            },\n            onDeleted(item){\n                this.$emit('deleted', item);\n                this.$emit('input', this.items);\n            },\n        },\n        computed: {\n            pendingStoreUrl() {\n                return `${this.uploadBaseUrl}/laravel-media-library/pending`;\n            },\n            pendingUpdateUrl() {\n                return `${this.uploadBaseUrl}/laravel-media-library/pending/{id}`;\n            },\n            pendingDeleteUrl() {\n                return `${this.uploadBaseUrl}/laravel-media-library/pending/{id}`;\n            },\n            shouldAutoUpload() {\n                return this.uploadBaseUrl !== undefined && this.uploadModelClass !== undefined;\n            },\n        }\n    }\n</script>\n\n<style scoped>\n    >>> .vue-lb-footer-count{\n        display: none;\n    }\n</style>\n"]}, media: undefined });
+    inject("data-v-06705e11_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"MediaLibrary.vue"}, media: undefined });
 
   };
   /* scoped */
-  var __vue_scope_id__$c = "data-v-f39ec10e";
+  var __vue_scope_id__$c = "data-v-06705e11";
   /* module identifier */
   var __vue_module_identifier__$c = undefined;
   /* functional template */
