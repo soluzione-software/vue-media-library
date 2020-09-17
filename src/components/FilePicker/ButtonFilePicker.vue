@@ -6,19 +6,19 @@
 </template>
 
 <script>
-    export default {
-        name: "ButtonFilePicker",
-        props: {
-            accept: {
-                type: String,
-                required: true,
-            }
-        },
-    }
+export default {
+    name: "ButtonFilePicker",
+    props: {
+        accept: {
+            type: String,
+            required: true,
+        }
+    },
+}
 </script>
 
 <style scoped>
-    input{
-        display: none;
-    }
+input {
+    display: none;
+}
 </style>
