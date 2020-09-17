@@ -25,9 +25,10 @@
             :mode="filePickerMode"
             :accept="accept"
             @selected="onSelected"
+            @error:wrong_files="args => $emit('error:wrong_files', args)"
         >
-            <template v-if="$scopedSlots['file-picker']" #default="{change}">
-                <slot name="file-picker" :change="change"/>
+            <template v-if="$scopedSlots['file-picker']" #default="{change, accept: acceptFiles}">
+                <slot name="file-picker" :change="change" :accept="acceptFiles"/>
             </template>
 
             <template #help>
@@ -209,9 +210,9 @@ export default {
                 let image = new Image();
                 image.onload = () => {
                     if (this.cropperMinWidth && image.width < this.cropperMinWidth) {
-                        alert('Invalid image width!');
+                        this.$emit('error:wrong_width', {image});
                     } else if (this.cropperMinHeight && image.height < this.cropperMinHeight) {
-                        alert('Invalid image height!');
+                        this.$emit('error:wrong_height', {image});
                     } else {
                         this.cropperMedia = new Media(null, this.collectionName, file.name, file.type, file, img, img);
 
@@ -355,9 +356,7 @@ export default {
             this.$refs.cropperModal.show();
         },
         onDelete(item) {
-            if (confirm('Sure?')) { // fixme: use tailwind dialog
-                this.delete(item);
-            }
+            this.$emit('delete', {item, delete: this.delete});
         },
         delete(item) {
             this.items = this.items.filter(mediaItem => {

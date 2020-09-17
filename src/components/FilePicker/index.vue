@@ -1,6 +1,6 @@
 <template>
     <div>
-        <slot :change="onChange"/>
+        <slot :change="onChange" :accept="acceptFiles"/>
 
         <component
             v-if="!$scopedSlots['default']"
@@ -33,17 +33,21 @@ export default {
         },
     },
     methods: {
+        /**
+         * @param {FileList} files
+         * @returns void
+         */
         onChange(files) {
-            let file = files[0];
+            let file = this.filter(files[0]);
             if (!file) {
-                console.error('File type not accepted', file);
+                this.$emit('error:wrong_files', {files});
                 return;
             }
 
             this.$emit('selected', file);
         },
+
         /**
-         *
          * @param {File} file
          * @returns {File|null}
          */
