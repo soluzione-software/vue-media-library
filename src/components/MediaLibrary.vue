@@ -256,6 +256,7 @@ export default {
                 this.storePendingMedia(media)
                     .then(({pendingMediaId}) => {
                         this.addedItems.push({media, pendingMediaId});
+                        this.$emit('uploaded', {media, pendingMediaId});
                     })
                     .catch(error => {
                         // todo: manage properly
