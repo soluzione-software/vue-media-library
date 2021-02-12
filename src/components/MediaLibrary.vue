@@ -77,7 +77,7 @@ import Media from "../Media.js";
 import {isDownloadable, isEditable, isViewable, usesPortal} from "../mixins";
 
 export default {
-    name: "MediaLibrary",
+    name: "VueMediaLibrary",
     components: {ImageCropper, Modal, FilePicker, Grid, Single, List},
     mixins: [isDownloadable, isEditable, isViewable, usesPortal],
     props: {
