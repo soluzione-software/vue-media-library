@@ -1,48 +1,26 @@
 <template>
     <div>
         <ul class="list-unstyled">
-            <li
+            <ListItem
                 v-for="item in items"
                 :key="item.v_id"
-            >
-                <template v-if="!readonly">
-                    <b-button variant="outline-light" class="mx-1" @click="$emit('delete', item)">
-                        <DeleteIcon/>
-                    </b-button>
-                </template>
-                {{ item.file_name }}
-            </li>
+                :item="item"
+                :show-progress="shouldShowProgress(uploadingMedia, item)"
+                :progress-value="getProgressValue(uploadingMedia, item)"
+                @delete="args => $emit('delete', args)"
+            />
         </ul>
     </div>
 </template>
 
 <script>
-import DeleteIcon from "../Icons/Delete.vue";
+import ListItem from "./ListItem.vue";
+import View from "./View";
+import {usesProgress} from "../../mixins";
 
 export default {
-    name: "ListView",
-    components: {DeleteIcon},
-    props: {
-        items: {
-            type: Array,
-            default() {
-                return []
-            },
-        },
-        readonly: {
-            type: Boolean,
-            default: false
-        },
-        uploadingMedia: {
-            type: Array,
-            default() {
-                return [];
-            }
-        },
-    }
+    extends: View,
+    components: {ListItem},
+    mixins: [usesProgress],
 }
 </script>
-
-<style scoped>
-
-</style>

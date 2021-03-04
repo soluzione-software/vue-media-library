@@ -386,7 +386,11 @@ export default {
          * @return {Media[]}
          */
         mapObjectsToMedia(items) {
-            return items.map(item => Media.fromObject(item))
+            return items.map(item => {
+                let m = Media.fromObject(item);
+                m.v_id = item.v_id || m.v_id;
+                return m;
+            })
         },
 
         /**

@@ -12,8 +12,8 @@
                 :squared="squaredItems"
                 :more-count="moreCount"
                 :more-item="moreItem"
-                :show-progress="progress[item.v_id] !== undefined"
-                :progress-value="progress[item.v_id]"
+                :show-progress="shouldShowProgress(uploadingMedia, item)"
+                :progress-value="getProgressValue(uploadingMedia, item)"
                 @view="(args) => {$emit('view', args)}"
                 @download="(args) => {$emit('download', args)}"
                 @edit="(args) => {$emit('edit', args)}"
@@ -25,13 +25,23 @@
 
 <script>
     import ImageItem from "./ImageItem.vue";
-    import {isDownloadable, isEditable, isViewable} from "../../mixins";
+    import {
+        isDownloadable,
+        isEditable,
+        isViewable,
+        usesProgress,
+    } from "../../mixins";
     import Media from "../../Media";
 
     export default {
         name: "Column",
         components: {ImageItem},
-        mixins: [isDownloadable, isEditable, isViewable],
+        mixins: [
+            isDownloadable,
+            isEditable,
+            isViewable,
+            usesProgress,
+        ],
         props: {
             items: {
                 type: Array,
@@ -60,20 +70,5 @@
                 }
             },
         },
-        computed: {
-            progress(){
-                let obj = {};
-
-                this.uploadingMedia.every(item => {
-                    obj[item.media.v_id] = item.progress;
-                });
-
-                return obj;
-            }
-        },
     }
 </script>
-
-<style scoped>
-
-</style>
