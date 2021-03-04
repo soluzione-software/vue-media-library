@@ -808,78 +808,6 @@
         undefined
       );
 
-    //
-    //
-    //
-    //
-    //
-    //
-
-    var script$5 = {
-        name: "Icon",
-        props: {
-            d: {
-                type: String,
-                required: true
-            }
-        }
-    };
-
-    /* script */
-    var __vue_script__$5 = script$5;
-
-    /* template */
-    var __vue_render__$5 = function() {
-      var _vm = this;
-      var _h = _vm.$createElement;
-      var _c = _vm._self._c || _h;
-      return _c(
-        "svg",
-        {
-          attrs: {
-            xmlns: "http://www.w3.org/2000/svg",
-            viewBox: "0 0 24 24",
-            width: "24",
-            height: "24"
-          }
-        },
-        [_c("path", { staticClass: "heroicon-ui", attrs: { d: _vm.d } })]
-      )
-    };
-    var __vue_staticRenderFns__$5 = [];
-    __vue_render__$5._withStripped = true;
-
-      /* style */
-      var __vue_inject_styles__$5 = function (inject) {
-        if (!inject) { return }
-        inject("data-v-33d21d2e_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Icon.vue"}, media: undefined });
-
-      };
-      /* scoped */
-      var __vue_scope_id__$5 = "data-v-33d21d2e";
-      /* module identifier */
-      var __vue_module_identifier__$5 = undefined;
-      /* functional template */
-      var __vue_is_functional_template__$5 = false;
-      /* style inject SSR */
-      
-      /* style inject shadow dom */
-      
-
-      
-      var __vue_component__$5 = /*#__PURE__*/normalizeComponent(
-        { render: __vue_render__$5, staticRenderFns: __vue_staticRenderFns__$5 },
-        __vue_inject_styles__$5,
-        __vue_script__$5,
-        __vue_scope_id__$5,
-        __vue_is_functional_template__$5,
-        __vue_module_identifier__$5,
-        false,
-        createInjector,
-        undefined,
-        undefined
-      );
-
     var isDownloadable = {
         props: {
             downloadable: {
@@ -920,6 +848,250 @@
         }
     };
 
+    var usesProgress = {
+        methods: {
+            shouldShowProgress: function shouldShowProgress(uploadingMedia, item) {
+                return this.getUploadingItem(uploadingMedia, item) !== undefined;
+            },
+            getProgressValue: function getProgressValue(uploadingMedia, item) {
+                var uploadingItem = this.getUploadingItem(uploadingMedia, item);
+                return uploadingItem ? uploadingItem.progress : null;
+            },
+            getUploadingItem: function getUploadingItem(uploadingMedia, item) {
+                return uploadingMedia.filter(function (i) { return i.media.v_id === item.v_id; })[0];
+            },
+        },
+    };
+
+    //
+    //
+    //
+    //
+    //
+    //
+
+    var script$5 = {};
+
+    /* script */
+    var __vue_script__$5 = script$5;
+
+    /* template */
+    var __vue_render__$5 = function() {
+      var _vm = this;
+      var _h = _vm.$createElement;
+      var _c = _vm._self._c || _h;
+      return _c(
+        "svg",
+        {
+          staticClass: "fill-current",
+          attrs: {
+            xmlns: "http://www.w3.org/2000/svg",
+            viewBox: "0 0 24 24",
+            width: "24",
+            height: "24"
+          }
+        },
+        [_vm._t("default")],
+        2
+      )
+    };
+    var __vue_staticRenderFns__$5 = [];
+    __vue_render__$5._withStripped = true;
+
+      /* style */
+      var __vue_inject_styles__$5 = undefined;
+      /* scoped */
+      var __vue_scope_id__$5 = undefined;
+      /* module identifier */
+      var __vue_module_identifier__$5 = undefined;
+      /* functional template */
+      var __vue_is_functional_template__$5 = false;
+      /* style inject */
+      
+      /* style inject SSR */
+      
+      /* style inject shadow dom */
+      
+
+      
+      var __vue_component__$5 = /*#__PURE__*/normalizeComponent(
+        { render: __vue_render__$5, staticRenderFns: __vue_staticRenderFns__$5 },
+        __vue_inject_styles__$5,
+        __vue_script__$5,
+        __vue_scope_id__$5,
+        __vue_is_functional_template__$5,
+        __vue_module_identifier__$5,
+        false,
+        undefined,
+        undefined,
+        undefined
+      );
+
+    //
+
+    var script$6 = {
+        components: {Icon: __vue_component__$5}
+    };
+
+    /* script */
+    var __vue_script__$6 = script$6;
+
+    /* template */
+    var __vue_render__$6 = function() {
+      var _vm = this;
+      var _h = _vm.$createElement;
+      var _c = _vm._self._c || _h;
+      return _c("Icon", [
+        _c("path", {
+          attrs: {
+            d:
+              "M8 6V4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8H3a1 1 0 1 1 0-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1z"
+          }
+        })
+      ])
+    };
+    var __vue_staticRenderFns__$6 = [];
+    __vue_render__$6._withStripped = true;
+
+      /* style */
+      var __vue_inject_styles__$6 = undefined;
+      /* scoped */
+      var __vue_scope_id__$6 = undefined;
+      /* module identifier */
+      var __vue_module_identifier__$6 = undefined;
+      /* functional template */
+      var __vue_is_functional_template__$6 = false;
+      /* style inject */
+      
+      /* style inject SSR */
+      
+      /* style inject shadow dom */
+      
+
+      
+      var __vue_component__$6 = /*#__PURE__*/normalizeComponent(
+        { render: __vue_render__$6, staticRenderFns: __vue_staticRenderFns__$6 },
+        __vue_inject_styles__$6,
+        __vue_script__$6,
+        __vue_scope_id__$6,
+        __vue_is_functional_template__$6,
+        __vue_module_identifier__$6,
+        false,
+        undefined,
+        undefined,
+        undefined
+      );
+
+    //
+
+    var script$7 = {
+        components: {Icon: __vue_component__$5}
+    };
+
+    /* script */
+    var __vue_script__$7 = script$7;
+
+    /* template */
+    var __vue_render__$7 = function() {
+      var _vm = this;
+      var _h = _vm.$createElement;
+      var _c = _vm._self._c || _h;
+      return _c("Icon", [
+        _c("path", {
+          attrs: {
+            d:
+              "M11 14.59V3a1 1 0 0 1 2 0v11.59l3.3-3.3a1 1 0 0 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 0 1 1.4-1.42l3.3 3.3zM3 17a1 1 0 0 1 2 0v3h14v-3a1 1 0 0 1 2 0v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3z"
+          }
+        })
+      ])
+    };
+    var __vue_staticRenderFns__$7 = [];
+    __vue_render__$7._withStripped = true;
+
+      /* style */
+      var __vue_inject_styles__$7 = undefined;
+      /* scoped */
+      var __vue_scope_id__$7 = undefined;
+      /* module identifier */
+      var __vue_module_identifier__$7 = undefined;
+      /* functional template */
+      var __vue_is_functional_template__$7 = false;
+      /* style inject */
+      
+      /* style inject SSR */
+      
+      /* style inject shadow dom */
+      
+
+      
+      var __vue_component__$7 = /*#__PURE__*/normalizeComponent(
+        { render: __vue_render__$7, staticRenderFns: __vue_staticRenderFns__$7 },
+        __vue_inject_styles__$7,
+        __vue_script__$7,
+        __vue_scope_id__$7,
+        __vue_is_functional_template__$7,
+        __vue_module_identifier__$7,
+        false,
+        undefined,
+        undefined,
+        undefined
+      );
+
+    //
+
+    var script$8 = {
+        components: {Icon: __vue_component__$5}
+    };
+
+    /* script */
+    var __vue_script__$8 = script$8;
+
+    /* template */
+    var __vue_render__$8 = function() {
+      var _vm = this;
+      var _h = _vm.$createElement;
+      var _c = _vm._self._c || _h;
+      return _c("Icon", [
+        _c("path", {
+          attrs: {
+            d:
+              "M6.3 12.3l10-10a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1 0 1.4l-10 10a1 1 0 0 1-.7.3H7a1 1 0 0 1-1-1v-4a1 1 0 0 1 .3-.7zM8 16h2.59l9-9L17 4.41l-9 9V16zm10-2a1 1 0 0 1 2 0v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h6a1 1 0 0 1 0 2H4v14h14v-6z"
+          }
+        })
+      ])
+    };
+    var __vue_staticRenderFns__$8 = [];
+    __vue_render__$8._withStripped = true;
+
+      /* style */
+      var __vue_inject_styles__$8 = undefined;
+      /* scoped */
+      var __vue_scope_id__$8 = undefined;
+      /* module identifier */
+      var __vue_module_identifier__$8 = undefined;
+      /* functional template */
+      var __vue_is_functional_template__$8 = false;
+      /* style inject */
+      
+      /* style inject SSR */
+      
+      /* style inject shadow dom */
+      
+
+      
+      var __vue_component__$8 = /*#__PURE__*/normalizeComponent(
+        { render: __vue_render__$8, staticRenderFns: __vue_staticRenderFns__$8 },
+        __vue_inject_styles__$8,
+        __vue_script__$8,
+        __vue_scope_id__$8,
+        __vue_is_functional_template__$8,
+        __vue_module_identifier__$8,
+        false,
+        undefined,
+        undefined,
+        undefined
+      );
+
     /**
      * Class which represents each library item
      *
@@ -952,10 +1124,74 @@
     };
 
     //
-    var script$6 = {
+
+    var script$9 = {
+        components: {Icon: __vue_component__$5}
+    };
+
+    /* script */
+    var __vue_script__$9 = script$9;
+
+    /* template */
+    var __vue_render__$9 = function() {
+      var _vm = this;
+      var _h = _vm.$createElement;
+      var _c = _vm._self._c || _h;
+      return _c("Icon", [
+        _c("path", {
+          attrs: {
+            d:
+              "M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
+          }
+        })
+      ])
+    };
+    var __vue_staticRenderFns__$9 = [];
+    __vue_render__$9._withStripped = true;
+
+      /* style */
+      var __vue_inject_styles__$9 = undefined;
+      /* scoped */
+      var __vue_scope_id__$9 = undefined;
+      /* module identifier */
+      var __vue_module_identifier__$9 = undefined;
+      /* functional template */
+      var __vue_is_functional_template__$9 = false;
+      /* style inject */
+      
+      /* style inject SSR */
+      
+      /* style inject shadow dom */
+      
+
+      
+      var __vue_component__$9 = /*#__PURE__*/normalizeComponent(
+        { render: __vue_render__$9, staticRenderFns: __vue_staticRenderFns__$9 },
+        __vue_inject_styles__$9,
+        __vue_script__$9,
+        __vue_scope_id__$9,
+        __vue_is_functional_template__$9,
+        __vue_module_identifier__$9,
+        false,
+        undefined,
+        undefined,
+        undefined
+      );
+
+    //
+
+    var script$a = {
         name: "ImageItem",
-        components: {Icon: __vue_component__$5},
-        mixins: [isDownloadable, isEditable, isViewable],
+        components: {
+            DeleteIcon: __vue_component__$6,
+            DownloadIcon: __vue_component__$7,
+            EditIcon: __vue_component__$8,
+            ViewIcon: __vue_component__$9,
+        },
+        mixins: [
+            isDownloadable,
+            isEditable,
+            isViewable ],
         props: {
             item: {
                 type: Object,
@@ -985,20 +1221,20 @@
             }
         },
         computed: {
-            isMoreItem: function isMoreItem(){
+            isMoreItem: function isMoreItem() {
                 return this.moreCount !== undefined && this.moreItem !== undefined && this.moreItem.v_id === this.item.v_id;
             },
-            overlayVisible: function overlayVisible(){
+            overlayVisible: function overlayVisible() {
                 return this.isMoreItem || this.viewable || this.downloadable || !this.readonly;
             }
         }
     };
 
     /* script */
-    var __vue_script__$6 = script$6;
+    var __vue_script__$a = script$a;
 
     /* template */
-    var __vue_render__$6 = function() {
+    var __vue_render__$a = function() {
       var _vm = this;
       var _h = _vm.$createElement;
       var _c = _vm._self._c || _h;
@@ -1069,7 +1305,13 @@
                                 }
                               }
                             },
-                            [_vm._v("+" + _vm._s(_vm.moreCount))]
+                            [
+                              _vm._v(
+                                "\n                +" +
+                                  _vm._s(_vm.moreCount) +
+                                  "\n            "
+                              )
+                            ]
                           )
                         : [
                             _vm.viewable
@@ -1084,15 +1326,7 @@
                                       }
                                     }
                                   },
-                                  [
-                                    _c("Icon", {
-                                      staticClass: "fill-current",
-                                      attrs: {
-                                        d:
-                                          "M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
-                                      }
-                                    })
-                                  ],
+                                  [_c("ViewIcon")],
                                   1
                                 )
                               : _vm._e(),
@@ -1109,15 +1343,7 @@
                                       }
                                     }
                                   },
-                                  [
-                                    _c("Icon", {
-                                      staticClass: "fill-current",
-                                      attrs: {
-                                        d:
-                                          "M11 14.59V3a1 1 0 0 1 2 0v11.59l3.3-3.3a1 1 0 0 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 0 1 1.4-1.42l3.3 3.3zM3 17a1 1 0 0 1 2 0v3h14v-3a1 1 0 0 1 2 0v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3z"
-                                      }
-                                    })
-                                  ],
+                                  [_c("DownloadIcon")],
                                   1
                                 )
                               : _vm._e(),
@@ -1136,15 +1362,7 @@
                                             }
                                           }
                                         },
-                                        [
-                                          _c("Icon", {
-                                            staticClass: "fill-current",
-                                            attrs: {
-                                              d:
-                                                "M6.3 12.3l10-10a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1 0 1.4l-10 10a1 1 0 0 1-.7.3H7a1 1 0 0 1-1-1v-4a1 1 0 0 1 .3-.7zM8 16h2.59l9-9L17 4.41l-9 9V16zm10-2a1 1 0 0 1 2 0v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h6a1 1 0 0 1 0 2H4v14h14v-6z"
-                                            }
-                                          })
-                                        ],
+                                        [_c("EditIcon")],
                                         1
                                       )
                                     : _vm._e(),
@@ -1160,15 +1378,7 @@
                                         }
                                       }
                                     },
-                                    [
-                                      _c("Icon", {
-                                        staticClass: "fill-current",
-                                        attrs: {
-                                          d:
-                                            "M8 6V4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8H3a1 1 0 1 1 0-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1z"
-                                        }
-                                      })
-                                    ],
+                                    [_c("DeleteIcon")],
                                     1
                                   )
                                 ]
@@ -1182,34 +1392,34 @@
         ]
       )
     };
-    var __vue_staticRenderFns__$6 = [];
-    __vue_render__$6._withStripped = true;
+    var __vue_staticRenderFns__$a = [];
+    __vue_render__$a._withStripped = true;
 
       /* style */
-      var __vue_inject_styles__$6 = function (inject) {
+      var __vue_inject_styles__$a = function (inject) {
         if (!inject) { return }
-        inject("data-v-c6a79ff8_0", { source: "\n.image[data-v-c6a79ff8] {\n    vertical-align: middle;\n    width: 100%;\n    backface-visibility: hidden;\n}\n.image-container:hover .overlay[data-v-c6a79ff8] {\n    opacity: 1;\n}\n.spacer[data-v-c6a79ff8]{\n    padding-top: 100%;\n}\n.t-0[data-v-c6a79ff8] {\n    top: 0;\n}\n.fill-current[data-v-c6a79ff8] {\n    fill: currentColor;\n}\n.object-cover[data-v-c6a79ff8] {\n    object-fit: cover;\n}\n.image-container[data-v-c6a79ff8] {\n     overflow:hidden;\n}\n.overlay[data-v-c6a79ff8],\n.visible-overlay[data-v-c6a79ff8] {\n    width:100%;\n    height:100%;\n    position:absolute;\n    overflow:hidden;\n    top:0;\n    left:0;\n    background-color:rgba(0,0,0,0.5);\n    -webkit-transition:all .4s ease-in-out;\n    transition:all .4s ease-in-out\n}\n.overlay[data-v-c6a79ff8] {\n    opacity:0;\n}\n.image-container img[data-v-c6a79ff8] {\n    -webkit-transition:all .4s linear;\n    transition:all .4s linear;\n}\n.image-container:hover img[data-v-c6a79ff8] {\n    -ms-transform:scale(1.2);\n    -webkit-transform:scale(1.2);\n    transform:scale(1.2);\n}\n.image-container:hover .overlay[data-v-c6a79ff8] {\n    opacity:1;\n    filter:alpha(opacity=100);\n}\n.more-link[data-v-c6a79ff8]{\n    text-decoration: none;\n}\n\n", map: {"version":3,"sources":["/home/yuriy/gits/vue-media-library/src/components/Views/ImageItem.vue"],"names":[],"mappings":";AA6FA;IACA,sBAAA;IACA,WAAA;IACA,2BAAA;AACA;AAEA;IACA,UAAA;AACA;AAEA;IACA,iBAAA;AACA;AACA;IACA,MAAA;AACA;AACA;IACA,kBAAA;AACA;AACA;IACA,iBAAA;AACA;AAEA;KACA,eAAA;AACA;AAEA;;IAEA,UAAA;IACA,WAAA;IACA,iBAAA;IACA,eAAA;IACA,KAAA;IACA,MAAA;IACA,gCAAA;IACA,sCAAA;IACA;AACA;AAEA;IACA,SAAA;AACA;AAEA;IACA,iCAAA;IACA,yBAAA;AACA;AAEA;IACA,wBAAA;IACA,4BAAA;IACA,oBAAA;AACA;AAEA;IACA,SAAA;IACA,yBAAA;AACA;AAEA;IACA,qBAAA;AACA","file":"ImageItem.vue","sourcesContent":["<template>\n    <div class=\"position-relative image-container d-flex align-items-center\">\n        <div v-if=\"squared\" class=\"spacer\"></div>\n        <img\n                class=\"image\"\n                :class=\"{'h-100': squared, 'position-absolute': squared, 't-0': squared, 'object-cover': squared}\"\n                :src=\"item.thumbnail\"\n                alt=\"\"\n        />\n\n        <div v-if=\"showProgress\" class=\"visible-overlay d-flex flex-column justify-content-center align-items-center\">\n            <div class=\"w-100 px-3\">\n                <b-progress :value=\"progressValue\" variant=\"info\" striped animated/>\n            </div>\n        </div>\n\n        <div v-else class=\"d-flex flex-column justify-content-center align-items-center\" :class=\"isMoreItem ? 'visible-overlay' : 'overlay'\">\n            <div>\n                <b-link v-if=\"isMoreItem\" class=\"more-link text-white display-4\" @click.prevent=\"$emit('more', item)\">+{{ moreCount }}</b-link>\n                <template v-else>\n                    <b-button v-if=\"viewable\" variant=\"outline-light\" class=\"mx-1\" @click=\"$emit('view', item)\">\n                        <Icon class=\"fill-current\" d=\"M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z\"/>\n                    </b-button>\n\n                    <b-button v-if=\"downloadable\" variant=\"outline-light\" class=\"mx-1\" @click=\"$emit('download', item)\">\n                        <Icon class=\"fill-current\" d=\"M11 14.59V3a1 1 0 0 1 2 0v11.59l3.3-3.3a1 1 0 0 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 0 1 1.4-1.42l3.3 3.3zM3 17a1 1 0 0 1 2 0v3h14v-3a1 1 0 0 1 2 0v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3z\"/>\n                    </b-button>\n\n                    <template v-if=\"!readonly\">\n\n                        <b-button v-if=\"editable && item.id\" variant=\"outline-light\" class=\"mx-1\" @click=\"$emit('edit', item)\">\n                            <Icon class=\"fill-current\" d=\"M6.3 12.3l10-10a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1 0 1.4l-10 10a1 1 0 0 1-.7.3H7a1 1 0 0 1-1-1v-4a1 1 0 0 1 .3-.7zM8 16h2.59l9-9L17 4.41l-9 9V16zm10-2a1 1 0 0 1 2 0v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2h6a1 1 0 0 1 0 2H4v14h14v-6z\"/>\n                        </b-button>\n\n                        <b-button variant=\"outline-light\" class=\"mx-1\" @click=\"$emit('delete', item)\">\n                            <Icon class=\"fill-current\" d=\"M8 6V4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8H3a1 1 0 1 1 0-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1z\"/>\n                        </b-button>\n\n                    </template>\n                </template>\n            </div>\n        </div>\n    </div>\n</template>\n\n<script>\n    import Icon from \"../Icon.vue\";\n    import {isDownloadable, isEditable, isViewable} from \"../../mixins\";\n    import Media from \"../../Media\";\n    export default {\n        name: \"ImageItem\",\n        components: {Icon},\n        mixins: [isDownloadable, isEditable, isViewable],\n        props: {\n            item: {\n                type: Object,\n                required: true\n            },\n            readonly: {\n                type: Boolean,\n                default: false,\n            },\n            squared: {\n                type: Boolean,\n                default: false,\n            },\n            moreCount: {\n                type: Number\n            },\n            moreItem: {\n                type: Media,\n            },\n            showProgress: {\n                type: Boolean,\n                default: false\n            },\n            progressValue: {\n                type: Number,\n                default: 0\n            }\n        },\n        computed: {\n            isMoreItem(){\n                return this.moreCount !== undefined && this.moreItem !== undefined && this.moreItem.v_id === this.item.v_id;\n            },\n            overlayVisible(){\n                return this.isMoreItem || this.viewable || this.downloadable || !this.readonly;\n            }\n        }\n    }\n</script>\n\n<style scoped>\n    .image {\n        vertical-align: middle;\n        width: 100%;\n        backface-visibility: hidden;\n    }\n\n    .image-container:hover .overlay {\n        opacity: 1;\n    }\n\n    .spacer{\n        padding-top: 100%;\n    }\n    .t-0 {\n        top: 0;\n    }\n    .fill-current {\n        fill: currentColor;\n    }\n    .object-cover {\n        object-fit: cover;\n    }\n\n    .image-container {\n         overflow:hidden;\n     }\n\n    .overlay,\n    .visible-overlay {\n        width:100%;\n        height:100%;\n        position:absolute;\n        overflow:hidden;\n        top:0;\n        left:0;\n        background-color:rgba(0,0,0,0.5);\n        -webkit-transition:all .4s ease-in-out;\n        transition:all .4s ease-in-out\n    }\n\n    .overlay {\n        opacity:0;\n    }\n\n    .image-container img {\n        -webkit-transition:all .4s linear;\n        transition:all .4s linear;\n    }\n\n    .image-container:hover img {\n        -ms-transform:scale(1.2);\n        -webkit-transform:scale(1.2);\n        transform:scale(1.2);\n    }\n\n    .image-container:hover .overlay {\n        opacity:1;\n        filter:alpha(opacity=100);\n    }\n\n    .more-link{\n        text-decoration: none;\n    }\n\n</style>\n"]}, media: undefined });
+        inject("data-v-1728fd91_0", { source: "\n.image[data-v-1728fd91] {\n    vertical-align: middle;\n    width: 100%;\n    backface-visibility: hidden;\n}\n.image-container:hover .overlay[data-v-1728fd91] {\n    opacity: 1;\n}\n.spacer[data-v-1728fd91] {\n    padding-top: 100%;\n}\n.t-0[data-v-1728fd91] {\n    top: 0;\n}\n.fill-current[data-v-1728fd91] {\n    fill: currentColor;\n}\n.object-cover[data-v-1728fd91] {\n    object-fit: cover;\n}\n.image-container[data-v-1728fd91] {\n    overflow: hidden;\n}\n.overlay[data-v-1728fd91],\n.visible-overlay[data-v-1728fd91] {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    overflow: hidden;\n    top: 0;\n    left: 0;\n    background-color: rgba(0, 0, 0, 0.5);\n    -webkit-transition: all .4s ease-in-out;\n    transition: all .4s ease-in-out\n}\n.overlay[data-v-1728fd91] {\n    opacity: 0;\n}\n.image-container img[data-v-1728fd91] {\n    -webkit-transition: all .4s linear;\n    transition: all .4s linear;\n}\n.image-container:hover img[data-v-1728fd91] {\n    -ms-transform: scale(1.2);\n    -webkit-transform: scale(1.2);\n    transform: scale(1.2);\n}\n.image-container:hover .overlay[data-v-1728fd91] {\n    opacity: 1;\n    filter: alpha(opacity=100);\n}\n.more-link[data-v-1728fd91] {\n    text-decoration: none;\n}\n\n", map: {"version":3,"sources":["/home/yuriy/gits/vue-media-library/src/components/Views/ImageItem.vue"],"names":[],"mappings":";AAkHA;IACA,sBAAA;IACA,WAAA;IACA,2BAAA;AACA;AAEA;IACA,UAAA;AACA;AAEA;IACA,iBAAA;AACA;AAEA;IACA,MAAA;AACA;AAEA;IACA,kBAAA;AACA;AAEA;IACA,iBAAA;AACA;AAEA;IACA,gBAAA;AACA;AAEA;;IAEA,WAAA;IACA,YAAA;IACA,kBAAA;IACA,gBAAA;IACA,MAAA;IACA,OAAA;IACA,oCAAA;IACA,uCAAA;IACA;AACA;AAEA;IACA,UAAA;AACA;AAEA;IACA,kCAAA;IACA,0BAAA;AACA;AAEA;IACA,yBAAA;IACA,6BAAA;IACA,qBAAA;AACA;AAEA;IACA,UAAA;IACA,0BAAA;AACA;AAEA;IACA,qBAAA;AACA","file":"ImageItem.vue","sourcesContent":["<template>\n    <div class=\"position-relative image-container d-flex align-items-center\">\n        <div v-if=\"squared\" class=\"spacer\"></div>\n        <img\n            class=\"image\"\n            :class=\"{'h-100': squared, 'position-absolute': squared, 't-0': squared, 'object-cover': squared}\"\n            :src=\"item.thumbnail\"\n            alt=\"\"\n        />\n\n        <div v-if=\"showProgress\" class=\"visible-overlay d-flex flex-column justify-content-center align-items-center\">\n            <div class=\"w-100 px-3\">\n                <b-progress :value=\"progressValue\" variant=\"info\" striped animated/>\n            </div>\n        </div>\n\n        <div v-else class=\"d-flex flex-column justify-content-center align-items-center\"\n             :class=\"isMoreItem ? 'visible-overlay' : 'overlay'\">\n            <div>\n                <b-link v-if=\"isMoreItem\" class=\"more-link text-white display-4\" @click.prevent=\"$emit('more', item)\">\n                    +{{ moreCount }}\n                </b-link>\n                <template v-else>\n                    <b-button v-if=\"viewable\" variant=\"outline-light\" class=\"mx-1\" @click=\"$emit('view', item)\">\n                        <ViewIcon/>\n                    </b-button>\n\n                    <b-button v-if=\"downloadable\" variant=\"outline-light\" class=\"mx-1\" @click=\"$emit('download', item)\">\n                        <DownloadIcon/>\n                    </b-button>\n\n                    <template v-if=\"!readonly\">\n\n                        <b-button v-if=\"editable && item.id\" variant=\"outline-light\" class=\"mx-1\"\n                                  @click=\"$emit('edit', item)\">\n                            <EditIcon/>\n                        </b-button>\n\n                        <b-button variant=\"outline-light\" class=\"mx-1\" @click=\"$emit('delete', item)\">\n                            <DeleteIcon/>\n                        </b-button>\n\n                    </template>\n                </template>\n            </div>\n        </div>\n    </div>\n</template>\n\n<script>\nimport {\n    isDownloadable,\n    isEditable,\n    isViewable,\n} from \"../../mixins\";\nimport DeleteIcon from \"../Icons/Delete.vue\";\nimport DownloadIcon from \"../Icons/Download.vue\";\nimport EditIcon from \"../Icons/Edit.vue\";\nimport Media from \"../../Media\";\nimport ViewIcon from \"../Icons/View.vue\";\n\nexport default {\n    name: \"ImageItem\",\n    components: {\n        DeleteIcon,\n        DownloadIcon,\n        EditIcon,\n        ViewIcon,\n    },\n    mixins: [\n        isDownloadable,\n        isEditable,\n        isViewable,\n    ],\n    props: {\n        item: {\n            type: Object,\n            required: true\n        },\n        readonly: {\n            type: Boolean,\n            default: false,\n        },\n        squared: {\n            type: Boolean,\n            default: false,\n        },\n        moreCount: {\n            type: Number\n        },\n        moreItem: {\n            type: Media,\n        },\n        showProgress: {\n            type: Boolean,\n            default: false\n        },\n        progressValue: {\n            type: Number,\n            default: 0\n        }\n    },\n    computed: {\n        isMoreItem() {\n            return this.moreCount !== undefined && this.moreItem !== undefined && this.moreItem.v_id === this.item.v_id;\n        },\n        overlayVisible() {\n            return this.isMoreItem || this.viewable || this.downloadable || !this.readonly;\n        }\n    }\n}\n</script>\n\n<style scoped>\n.image {\n    vertical-align: middle;\n    width: 100%;\n    backface-visibility: hidden;\n}\n\n.image-container:hover .overlay {\n    opacity: 1;\n}\n\n.spacer {\n    padding-top: 100%;\n}\n\n.t-0 {\n    top: 0;\n}\n\n.fill-current {\n    fill: currentColor;\n}\n\n.object-cover {\n    object-fit: cover;\n}\n\n.image-container {\n    overflow: hidden;\n}\n\n.overlay,\n.visible-overlay {\n    width: 100%;\n    height: 100%;\n    position: absolute;\n    overflow: hidden;\n    top: 0;\n    left: 0;\n    background-color: rgba(0, 0, 0, 0.5);\n    -webkit-transition: all .4s ease-in-out;\n    transition: all .4s ease-in-out\n}\n\n.overlay {\n    opacity: 0;\n}\n\n.image-container img {\n    -webkit-transition: all .4s linear;\n    transition: all .4s linear;\n}\n\n.image-container:hover img {\n    -ms-transform: scale(1.2);\n    -webkit-transform: scale(1.2);\n    transform: scale(1.2);\n}\n\n.image-container:hover .overlay {\n    opacity: 1;\n    filter: alpha(opacity=100);\n}\n\n.more-link {\n    text-decoration: none;\n}\n\n</style>\n"]}, media: undefined });
 
       };
       /* scoped */
-      var __vue_scope_id__$6 = "data-v-c6a79ff8";
+      var __vue_scope_id__$a = "data-v-1728fd91";
       /* module identifier */
-      var __vue_module_identifier__$6 = undefined;
+      var __vue_module_identifier__$a = undefined;
       /* functional template */
-      var __vue_is_functional_template__$6 = false;
+      var __vue_is_functional_template__$a = false;
       /* style inject SSR */
       
       /* style inject shadow dom */
       
 
       
-      var __vue_component__$6 = /*#__PURE__*/normalizeComponent(
-        { render: __vue_render__$6, staticRenderFns: __vue_staticRenderFns__$6 },
-        __vue_inject_styles__$6,
-        __vue_script__$6,
-        __vue_scope_id__$6,
-        __vue_is_functional_template__$6,
-        __vue_module_identifier__$6,
+      var __vue_component__$a = /*#__PURE__*/normalizeComponent(
+        { render: __vue_render__$a, staticRenderFns: __vue_staticRenderFns__$a },
+        __vue_inject_styles__$a,
+        __vue_script__$a,
+        __vue_scope_id__$a,
+        __vue_is_functional_template__$a,
+        __vue_module_identifier__$a,
         false,
         createInjector,
         undefined,
@@ -1218,10 +1428,14 @@
 
     //
 
-    var script$7 = {
+    var script$b = {
         name: "Column",
-        components: {ImageItem: __vue_component__$6},
-        mixins: [isDownloadable, isEditable, isViewable],
+        components: {ImageItem: __vue_component__$a},
+        mixins: [
+            isDownloadable,
+            isEditable,
+            isViewable,
+            usesProgress ],
         props: {
             items: {
                 type: Array,
@@ -1250,24 +1464,13 @@
                 }
             },
         },
-        computed: {
-            progress: function progress(){
-                var obj = {};
-
-                this.uploadingMedia.every(function (item) {
-                    obj[item.media.v_id] = item.progress;
-                });
-
-                return obj;
-            }
-        },
     };
 
     /* script */
-    var __vue_script__$7 = script$7;
+    var __vue_script__$b = script$b;
 
     /* template */
-    var __vue_render__$7 = function() {
+    var __vue_render__$b = function() {
       var _vm = this;
       var _h = _vm.$createElement;
       var _c = _vm._self._c || _h;
@@ -1287,8 +1490,8 @@
               squared: _vm.squaredItems,
               "more-count": _vm.moreCount,
               "more-item": _vm.moreItem,
-              "show-progress": _vm.progress[item.v_id] !== undefined,
-              "progress-value": _vm.progress[item.v_id]
+              "show-progress": _vm.shouldShowProgress(_vm.uploadingMedia, item),
+              "progress-value": _vm.getProgressValue(_vm.uploadingMedia, item)
             },
             on: {
               view: function(args) {
@@ -1312,36 +1515,34 @@
         1
       )
     };
-    var __vue_staticRenderFns__$7 = [];
-    __vue_render__$7._withStripped = true;
+    var __vue_staticRenderFns__$b = [];
+    __vue_render__$b._withStripped = true;
 
       /* style */
-      var __vue_inject_styles__$7 = function (inject) {
-        if (!inject) { return }
-        inject("data-v-1fe9e964_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Column.vue"}, media: undefined });
-
-      };
+      var __vue_inject_styles__$b = undefined;
       /* scoped */
-      var __vue_scope_id__$7 = "data-v-1fe9e964";
+      var __vue_scope_id__$b = undefined;
       /* module identifier */
-      var __vue_module_identifier__$7 = undefined;
+      var __vue_module_identifier__$b = undefined;
       /* functional template */
-      var __vue_is_functional_template__$7 = false;
+      var __vue_is_functional_template__$b = false;
+      /* style inject */
+      
       /* style inject SSR */
       
       /* style inject shadow dom */
       
 
       
-      var __vue_component__$7 = /*#__PURE__*/normalizeComponent(
-        { render: __vue_render__$7, staticRenderFns: __vue_staticRenderFns__$7 },
-        __vue_inject_styles__$7,
-        __vue_script__$7,
-        __vue_scope_id__$7,
-        __vue_is_functional_template__$7,
-        __vue_module_identifier__$7,
+      var __vue_component__$b = /*#__PURE__*/normalizeComponent(
+        { render: __vue_render__$b, staticRenderFns: __vue_staticRenderFns__$b },
+        __vue_inject_styles__$b,
+        __vue_script__$b,
+        __vue_scope_id__$b,
+        __vue_is_functional_template__$b,
+        __vue_module_identifier__$b,
         false,
-        createInjector,
+        undefined,
         undefined,
         undefined
       );
@@ -1356,9 +1557,9 @@
         'xl': 5
     };
 
-    var script$8 = {
+    var script$c = {
         name: "Columns",
-        components: {Column: __vue_component__$7},
+        components: {Column: __vue_component__$b},
         mixins: [isDownloadable, isEditable, isViewable],
         props: {
             items: {
@@ -1475,10 +1676,10 @@
     };
 
     /* script */
-    var __vue_script__$8 = script$8;
+    var __vue_script__$c = script$c;
 
     /* template */
-    var __vue_render__$8 = function() {
+    var __vue_render__$c = function() {
       var _vm = this;
       var _h = _vm.$createElement;
       var _c = _vm._self._c || _h;
@@ -1522,50 +1723,45 @@
         1
       )
     };
-    var __vue_staticRenderFns__$8 = [];
-    __vue_render__$8._withStripped = true;
+    var __vue_staticRenderFns__$c = [];
+    __vue_render__$c._withStripped = true;
 
       /* style */
-      var __vue_inject_styles__$8 = function (inject) {
+      var __vue_inject_styles__$c = function (inject) {
         if (!inject) { return }
         inject("data-v-5f7b7fe4_0", { source: "\n.w-full[data-v-5f7b7fe4] {\n    width: 100%;\n}\n.w-1\\/2[data-v-5f7b7fe4] {\n    width: 50%;\n}\n.w-1\\/3[data-v-5f7b7fe4] {\n    width: 33.33%;\n}\n.w-1\\/4[data-v-5f7b7fe4] {\n    width: 25%;\n}\n.w-1\\/5[data-v-5f7b7fe4] {\n    width: 20%;\n}\n", map: {"version":3,"sources":["/home/yuriy/gits/vue-media-library/src/components/Views/Columns.vue"],"names":[],"mappings":";AA2JA;IACA,WAAA;AACA;AAEA;IACA,UAAA;AACA;AAEA;IACA,aAAA;AACA;AAEA;IACA,UAAA;AACA;AAEA;IACA,UAAA;AACA","file":"Columns.vue","sourcesContent":["<template>\n    <div class=\"d-flex flex-wrap\">\n        <column\n                :class=\"columnClasses\"\n                v-for=\"(column, i) in columns\"\n                :key=\"i\"\n                :items=\"column\"\n                :readonly=\"readonly\"\n                :viewable=\"viewable\"\n                :editable=\"editable\"\n                :downloadable=\"downloadable\"\n                :squared-items=\"squaredItems\"\n                :more-count=\"moreCount\"\n                :more-item=\"moreItem\"\n                :uploading-media=\"uploadingMedia\"\n                @view=\"(args) => {$emit('view', args)}\"\n                @download=\"(args) => {$emit('download', args)}\"\n                @edit=\"(args) => {$emit('edit', args)}\"\n                @delete=\"(args) => {$emit('delete', args)}\"\n                @more=\"(args) => {$emit('more', args)}\"\n        />\n    </div>\n</template>\n\n<script>\n    import Column from \"./Column.vue\";\n    import {isDownloadable, isEditable, isViewable} from \"../../mixins\";\n    import Media from \"../../Media\";\n\n    const defaultColumns = {\n        'xs': 1,\n        'sm': 2,\n        'md': 3,\n        'lg': 4,\n        'xl': 5\n    };\n\n    export default {\n        name: \"Columns\",\n        components: {Column},\n        mixins: [isDownloadable, isEditable, isViewable],\n        props: {\n            items: {\n                type: Array,\n                default(){\n                    return []\n                },\n            },\n            readonly: {\n                type: Boolean,\n                default: false\n            },\n            columnsCount: {\n                type: Object,\n                default(){\n                    return defaultColumns;\n                }\n            },\n            squaredItems: {\n                type: Boolean,\n                default: false,\n            },\n            moreCount: {\n                type: Number\n            },\n            moreItem: {\n                type: Media,\n            },\n            uploadingMedia: {\n                type: Array,\n                default() {\n                    return [];\n                }\n            },\n        },\n        data(){\n            return {\n                window: {\n                    width: 0,\n                    height: 0\n                },\n                breakpoints: {\n                    // https://getbootstrap.com/docs/4.0/layout/overview/#responsive-breakpoints\n                    'sm': 576,\n                    'md': 768,\n                    'lg': 992,\n                    'xl': 1200,\n                }\n            }\n        },\n        mounted() {\n\n        },\n        created() {\n            this.handleResize();\n            window.addEventListener('resize', this.handleResize);\n        },\n        destroyed() {\n            window.removeEventListener('resize', this.handleResize);\n        },\n        methods: {\n            chunk(array, chunks){\n                let res = [];\n\n                for (let i = 0; i < chunks; i++){\n                    res.push([]);\n                }\n\n                let current = 0;\n                array.forEach(item => {\n                    res[current].push(item);\n                    current = current + 1 < chunks ? current + 1 : 0;\n                });\n\n                return res;\n            },\n            handleResize() {\n                this.window.width = window.innerWidth;\n                this.window.height = window.innerHeight;\n            },\n            getColumnsCount(breakpoint){\n                return this.columnsCount[breakpoint] || defaultColumns[breakpoint];\n            },\n        },\n        computed: {\n            columns(){\n                let chunks = this.getColumnsCount(this.currentBreakpoint);\n\n                return this.chunk(this.items, chunks);\n            },\n            currentBreakpoint(){\n                let breakpoint = 'xs';\n\n                Object.entries(this.breakpoints).reverse().every(entry => {\n                    let br = entry[0];\n                    let size = entry[1];\n                    if (this.window.width >= size){\n                        breakpoint = br;\n                        return false;\n                    }\n                    return true;\n                });\n\n                return breakpoint;\n            },\n            columnClasses(){\n                let count = this.getColumnsCount(this.currentBreakpoint);\n                let w = count === 1 ? 'full' : `1/${count}`;\n                return `w-${w}`;\n            },\n        }\n    }\n</script>\n\n<style scoped>\n    .w-full {\n        width: 100%;\n    }\n\n    .w-1\\/2 {\n        width: 50%;\n    }\n\n    .w-1\\/3 {\n        width: 33.33%;\n    }\n\n    .w-1\\/4 {\n        width: 25%;\n    }\n\n    .w-1\\/5 {\n        width: 20%;\n    }\n</style>\n"]}, media: undefined });
 
       };
       /* scoped */
-      var __vue_scope_id__$8 = "data-v-5f7b7fe4";
+      var __vue_scope_id__$c = "data-v-5f7b7fe4";
       /* module identifier */
-      var __vue_module_identifier__$8 = undefined;
+      var __vue_module_identifier__$c = undefined;
       /* functional template */
-      var __vue_is_functional_template__$8 = false;
+      var __vue_is_functional_template__$c = false;
       /* style inject SSR */
       
       /* style inject shadow dom */
       
 
       
-      var __vue_component__$8 = /*#__PURE__*/normalizeComponent(
-        { render: __vue_render__$8, staticRenderFns: __vue_staticRenderFns__$8 },
-        __vue_inject_styles__$8,
-        __vue_script__$8,
-        __vue_scope_id__$8,
-        __vue_is_functional_template__$8,
-        __vue_module_identifier__$8,
+      var __vue_component__$c = /*#__PURE__*/normalizeComponent(
+        { render: __vue_render__$c, staticRenderFns: __vue_staticRenderFns__$c },
+        __vue_inject_styles__$c,
+        __vue_script__$c,
+        __vue_scope_id__$c,
+        __vue_is_functional_template__$c,
+        __vue_module_identifier__$c,
         false,
         createInjector,
         undefined,
         undefined
       );
 
-    //
-
-    var script$9 = {
-        name: "GridView",
-        components: {Columns: __vue_component__$8, Modal: __vue_component__$3},
-        mixins: [isDownloadable, isEditable, isViewable, usesPortal],
+    var View = {
         props: {
             items: {
                 type: Array,
-                default: function default$1(){
+                default: function default$1() {
                     return []
                 },
             },
@@ -1573,6 +1769,29 @@
                 type: Boolean,
                 default: false
             },
+            uploadingMedia: {
+                type: Array,
+                default: function default$2() {
+                    return [];
+                }
+            },
+        },
+    };
+
+    //
+
+    var script$d = {
+        extends: View,
+        components: {
+            Columns: __vue_component__$c,
+            Modal: __vue_component__$3,
+        },
+        mixins: [
+            isDownloadable,
+            isEditable,
+            isViewable,
+            usesPortal ],
+        props: {
             columnsCount: {
                 type: Object,
             },
@@ -1584,19 +1803,9 @@
                 type: Number,
                 default: -1
             },
-            uploadingMedia: {
-                type: Array,
-                default: function default$2() {
-                    return [];
-                }
-            },
-        },
-        data: function data(){
-            return {
-            }
         },
         methods: {
-            onMore: function onMore(){
+            onMore: function onMore() {
                 var this$1 = this;
 
                 this.$nextTick(function () {
@@ -1607,24 +1816,24 @@
             }
         },
         computed: {
-            visibleCount: function visibleCount(){
+            visibleCount: function visibleCount() {
                 return this.displayLimit > 0 ? Math.min(this.displayLimit, this.items.length) : this.items.length;
             },
-            moreCount: function moreCount(){
+            moreCount: function moreCount() {
                 var count = this.items.length - this.visibleCount;
                 return count > 0 ? count + 1 : undefined;
             },
-            visibleItems: function visibleItems(){
+            visibleItems: function visibleItems() {
                 return this.items.slice(0, this.visibleCount);
             }
         }
     };
 
     /* script */
-    var __vue_script__$9 = script$9;
+    var __vue_script__$d = script$d;
 
     /* template */
-    var __vue_render__$9 = function() {
+    var __vue_render__$d = function() {
       var _vm = this;
       var _h = _vm.$createElement;
       var _c = _vm._self._c || _h;
@@ -1705,45 +1914,43 @@
         1
       )
     };
-    var __vue_staticRenderFns__$9 = [];
-    __vue_render__$9._withStripped = true;
+    var __vue_staticRenderFns__$d = [];
+    __vue_render__$d._withStripped = true;
 
       /* style */
-      var __vue_inject_styles__$9 = function (inject) {
-        if (!inject) { return }
-        inject("data-v-64def040_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Grid.vue"}, media: undefined });
-
-      };
+      var __vue_inject_styles__$d = undefined;
       /* scoped */
-      var __vue_scope_id__$9 = "data-v-64def040";
+      var __vue_scope_id__$d = undefined;
       /* module identifier */
-      var __vue_module_identifier__$9 = undefined;
+      var __vue_module_identifier__$d = undefined;
       /* functional template */
-      var __vue_is_functional_template__$9 = false;
+      var __vue_is_functional_template__$d = false;
+      /* style inject */
+      
       /* style inject SSR */
       
       /* style inject shadow dom */
       
 
       
-      var __vue_component__$9 = /*#__PURE__*/normalizeComponent(
-        { render: __vue_render__$9, staticRenderFns: __vue_staticRenderFns__$9 },
-        __vue_inject_styles__$9,
-        __vue_script__$9,
-        __vue_scope_id__$9,
-        __vue_is_functional_template__$9,
-        __vue_module_identifier__$9,
+      var __vue_component__$d = /*#__PURE__*/normalizeComponent(
+        { render: __vue_render__$d, staticRenderFns: __vue_staticRenderFns__$d },
+        __vue_inject_styles__$d,
+        __vue_script__$d,
+        __vue_scope_id__$d,
+        __vue_is_functional_template__$d,
+        __vue_module_identifier__$d,
         false,
-        createInjector,
+        undefined,
         undefined,
         undefined
       );
 
     //
 
-    var script$a = {
+    var script$e = {
         name: "SingleView",
-        components: {ImageItem: __vue_component__$6},
+        components: {ImageItem: __vue_component__$a},
         mixins: [isDownloadable, isEditable, isViewable],
         props: {
             items: {
@@ -1778,10 +1985,10 @@
     };
 
     /* script */
-    var __vue_script__$a = script$a;
+    var __vue_script__$e = script$e;
 
     /* template */
-    var __vue_render__$a = function() {
+    var __vue_render__$e = function() {
       var _vm = this;
       var _h = _vm.$createElement;
       var _c = _vm._self._c || _h;
@@ -1814,70 +2021,153 @@
           })
         : _vm._e()
     };
-    var __vue_staticRenderFns__$a = [];
-    __vue_render__$a._withStripped = true;
+    var __vue_staticRenderFns__$e = [];
+    __vue_render__$e._withStripped = true;
 
       /* style */
-      var __vue_inject_styles__$a = function (inject) {
-        if (!inject) { return }
-        inject("data-v-e299d19e_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"Single.vue"}, media: undefined });
-
-      };
+      var __vue_inject_styles__$e = undefined;
       /* scoped */
-      var __vue_scope_id__$a = "data-v-e299d19e";
+      var __vue_scope_id__$e = undefined;
       /* module identifier */
-      var __vue_module_identifier__$a = undefined;
+      var __vue_module_identifier__$e = undefined;
       /* functional template */
-      var __vue_is_functional_template__$a = false;
+      var __vue_is_functional_template__$e = false;
+      /* style inject */
+      
       /* style inject SSR */
       
       /* style inject shadow dom */
       
 
       
-      var __vue_component__$a = /*#__PURE__*/normalizeComponent(
-        { render: __vue_render__$a, staticRenderFns: __vue_staticRenderFns__$a },
-        __vue_inject_styles__$a,
-        __vue_script__$a,
-        __vue_scope_id__$a,
-        __vue_is_functional_template__$a,
-        __vue_module_identifier__$a,
+      var __vue_component__$e = /*#__PURE__*/normalizeComponent(
+        { render: __vue_render__$e, staticRenderFns: __vue_staticRenderFns__$e },
+        __vue_inject_styles__$e,
+        __vue_script__$e,
+        __vue_scope_id__$e,
+        __vue_is_functional_template__$e,
+        __vue_module_identifier__$e,
         false,
-        createInjector,
+        undefined,
         undefined,
         undefined
       );
 
     //
 
-    var script$b = {
-        name: "ListView",
-        components: {Icon: __vue_component__$5},
+    var script$f = {
+        components: {
+            DeleteIcon: __vue_component__$6,
+        },
+        mixins: [
+            usesProgress ],
         props: {
-            items: {
-                type: Array,
-                default: function default$1(){
-                    return []
-                },
+            item: {
+                type: Object,
+                required: true,
             },
             readonly: {
                 type: Boolean,
                 default: false
             },
-            uploadingMedia: {
-                type: Array,
-                default: function default$2() {
-                    return [];
-                }
+            showProgress: {
+                type: Boolean,
+                default: false,
             },
-        }
+            progressValue: {
+                type: Number,
+            },
+        },
     };
 
     /* script */
-    var __vue_script__$b = script$b;
+    var __vue_script__$f = script$f;
 
     /* template */
-    var __vue_render__$b = function() {
+    var __vue_render__$f = function() {
+      var _vm = this;
+      var _h = _vm.$createElement;
+      var _c = _vm._self._c || _h;
+      return _c(
+        "li",
+        [
+          _vm.showProgress
+            ? _c("b-progress", {
+                attrs: {
+                  value: _vm.progressValue,
+                  variant: "info",
+                  striped: "",
+                  animated: ""
+                }
+              })
+            : !_vm.readonly
+            ? [
+                _c(
+                  "b-button",
+                  {
+                    staticClass: "mx-1",
+                    attrs: { variant: "outline-light" },
+                    on: {
+                      click: function($event) {
+                        return _vm.$emit("delete", _vm.item)
+                      }
+                    }
+                  },
+                  [_c("DeleteIcon")],
+                  1
+                )
+              ]
+            : _vm._e(),
+          _vm._v("\n    " + _vm._s(_vm.item.file_name) + "\n")
+        ],
+        2
+      )
+    };
+    var __vue_staticRenderFns__$f = [];
+    __vue_render__$f._withStripped = true;
+
+      /* style */
+      var __vue_inject_styles__$f = undefined;
+      /* scoped */
+      var __vue_scope_id__$f = undefined;
+      /* module identifier */
+      var __vue_module_identifier__$f = undefined;
+      /* functional template */
+      var __vue_is_functional_template__$f = false;
+      /* style inject */
+      
+      /* style inject SSR */
+      
+      /* style inject shadow dom */
+      
+
+      
+      var __vue_component__$f = /*#__PURE__*/normalizeComponent(
+        { render: __vue_render__$f, staticRenderFns: __vue_staticRenderFns__$f },
+        __vue_inject_styles__$f,
+        __vue_script__$f,
+        __vue_scope_id__$f,
+        __vue_is_functional_template__$f,
+        __vue_module_identifier__$f,
+        false,
+        undefined,
+        undefined,
+        undefined
+      );
+
+    //
+
+    var script$g = {
+        extends: View,
+        components: {ListItem: __vue_component__$f},
+        mixins: [usesProgress],
+    };
+
+    /* script */
+    var __vue_script__$g = script$g;
+
+    /* template */
+    var __vue_render__$g = function() {
       var _vm = this;
       var _h = _vm.$createElement;
       var _c = _vm._self._c || _h;
@@ -1886,84 +2176,61 @@
           "ul",
           { staticClass: "list-unstyled" },
           _vm._l(_vm.items, function(item) {
-            return _c(
-              "li",
-              { key: item.v_id },
-              [
-                !_vm.readonly
-                  ? [
-                      _c(
-                        "b-button",
-                        {
-                          staticClass: "mx-1",
-                          attrs: { variant: "outline-light" },
-                          on: {
-                            click: function($event) {
-                              return _vm.$emit("delete", item)
-                            }
-                          }
-                        },
-                        [
-                          _c("Icon", {
-                            staticClass: "fill-current",
-                            attrs: {
-                              d:
-                                "M8 6V4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8H3a1 1 0 1 1 0-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1z"
-                            }
-                          })
-                        ],
-                        1
-                      )
-                    ]
-                  : _vm._e(),
-                _vm._v("\n            " + _vm._s(item.file_name) + "\n        ")
-              ],
-              2
-            )
+            return _c("ListItem", {
+              key: item.v_id,
+              attrs: {
+                item: item,
+                "show-progress": _vm.shouldShowProgress(_vm.uploadingMedia, item),
+                "progress-value": _vm.getProgressValue(_vm.uploadingMedia, item)
+              },
+              on: {
+                delete: function(args) {
+                  return _vm.$emit("delete", args)
+                }
+              }
+            })
           }),
-          0
+          1
         )
       ])
     };
-    var __vue_staticRenderFns__$b = [];
-    __vue_render__$b._withStripped = true;
+    var __vue_staticRenderFns__$g = [];
+    __vue_render__$g._withStripped = true;
 
       /* style */
-      var __vue_inject_styles__$b = function (inject) {
-        if (!inject) { return }
-        inject("data-v-513c4474_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"List.vue"}, media: undefined });
-
-      };
+      var __vue_inject_styles__$g = undefined;
       /* scoped */
-      var __vue_scope_id__$b = "data-v-513c4474";
+      var __vue_scope_id__$g = undefined;
       /* module identifier */
-      var __vue_module_identifier__$b = undefined;
+      var __vue_module_identifier__$g = undefined;
       /* functional template */
-      var __vue_is_functional_template__$b = false;
+      var __vue_is_functional_template__$g = false;
+      /* style inject */
+      
       /* style inject SSR */
       
       /* style inject shadow dom */
       
 
       
-      var __vue_component__$b = /*#__PURE__*/normalizeComponent(
-        { render: __vue_render__$b, staticRenderFns: __vue_staticRenderFns__$b },
-        __vue_inject_styles__$b,
-        __vue_script__$b,
-        __vue_scope_id__$b,
-        __vue_is_functional_template__$b,
-        __vue_module_identifier__$b,
+      var __vue_component__$g = /*#__PURE__*/normalizeComponent(
+        { render: __vue_render__$g, staticRenderFns: __vue_staticRenderFns__$g },
+        __vue_inject_styles__$g,
+        __vue_script__$g,
+        __vue_scope_id__$g,
+        __vue_is_functional_template__$g,
+        __vue_module_identifier__$g,
         false,
-        createInjector,
+        undefined,
         undefined,
         undefined
       );
 
     //
 
-    var script$c = {
+    var script$h = {
         name: "VueMediaLibrary",
-        components: {ImageCropper: __vue_component__$4, Modal: __vue_component__$3, FilePicker: __vue_component__$2, Grid: __vue_component__$9, Single: __vue_component__$a, List: __vue_component__$b},
+        components: {ImageCropper: __vue_component__$4, Modal: __vue_component__$3, FilePicker: __vue_component__$2, Grid: __vue_component__$d, Single: __vue_component__$e, List: __vue_component__$g},
         mixins: [isDownloadable, isEditable, isViewable, usesPortal],
         props: {
             media: {
@@ -2282,7 +2549,11 @@
              * @return {Media[]}
              */
             mapObjectsToMedia: function mapObjectsToMedia(items) {
-                return items.map(function (item) { return Media.fromObject(item); })
+                return items.map(function (item) {
+                    var m = Media.fromObject(item);
+                    m.v_id = item.v_id || m.v_id;
+                    return m;
+                })
             },
 
             /**
@@ -2463,10 +2734,10 @@
     };
 
     /* script */
-    var __vue_script__$c = script$c;
+    var __vue_script__$h = script$h;
 
     /* template */
-    var __vue_render__$c = function() {
+    var __vue_render__$h = function() {
       var _vm = this;
       var _h = _vm.$createElement;
       var _c = _vm._self._c || _h;
@@ -2592,34 +2863,34 @@
         2
       )
     };
-    var __vue_staticRenderFns__$c = [];
-    __vue_render__$c._withStripped = true;
+    var __vue_staticRenderFns__$h = [];
+    __vue_render__$h._withStripped = true;
 
       /* style */
-      var __vue_inject_styles__$c = function (inject) {
+      var __vue_inject_styles__$h = function (inject) {
         if (!inject) { return }
-        inject("data-v-3cbc3d88_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"MediaLibrary.vue"}, media: undefined });
+        inject("data-v-dcd7af8e_0", { source: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", map: {"version":3,"sources":[],"names":[],"mappings":"","file":"MediaLibrary.vue"}, media: undefined });
 
       };
       /* scoped */
-      var __vue_scope_id__$c = "data-v-3cbc3d88";
+      var __vue_scope_id__$h = "data-v-dcd7af8e";
       /* module identifier */
-      var __vue_module_identifier__$c = undefined;
+      var __vue_module_identifier__$h = undefined;
       /* functional template */
-      var __vue_is_functional_template__$c = false;
+      var __vue_is_functional_template__$h = false;
       /* style inject SSR */
       
       /* style inject shadow dom */
       
 
       
-      var __vue_component__$c = /*#__PURE__*/normalizeComponent(
-        { render: __vue_render__$c, staticRenderFns: __vue_staticRenderFns__$c },
-        __vue_inject_styles__$c,
-        __vue_script__$c,
-        __vue_scope_id__$c,
-        __vue_is_functional_template__$c,
-        __vue_module_identifier__$c,
+      var __vue_component__$h = /*#__PURE__*/normalizeComponent(
+        { render: __vue_render__$h, staticRenderFns: __vue_staticRenderFns__$h },
+        __vue_inject_styles__$h,
+        __vue_script__$h,
+        __vue_scope_id__$h,
+        __vue_is_functional_template__$h,
+        __vue_module_identifier__$h,
         false,
         createInjector,
         undefined,
@@ -2632,7 +2903,7 @@
     function install(Vue) {
         if (install.installed) { return; }
         install.installed = true;
-        Vue.component('media-library', __vue_component__$c);
+        Vue.component('media-library', __vue_component__$h);
     }
 
     // Create module definition for Vue.use()
@@ -2651,7 +2922,7 @@
         GlobalVue.use(plugin);
     }
 
-    exports.default = __vue_component__$c;
+    exports.default = __vue_component__$h;
 
     Object.defineProperty(exports, '__esModule', { value: true });
 
